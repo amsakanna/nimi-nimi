@@ -1,0 +1,62 @@
+- navbar
+- search
+- product navbar
+	- categories
+	- filters
+	- grid
+		- image
+		- name
+		- price
+		- rating
+		- votes
+		- open product option
+			- name
+			- code
+			- rating
+			- brand
+			- product details
+			- delivery and returns
+			- image list
+			- image preview
+			- image zoom
+			- size
+			- size chart
+			- price
+			- offer price
+			- offer clock
+			- seller
+			- seller rating
+			- check availability				
+			- add to wishlist
+			- add to cart
+			- buy
+			- share
+			- similar items
+			- recently viewed				
+- deals
+- cart (bottom bar)
+	- list
+		- image
+		- name
+		- price
+		- quantity
+		- availability
+		- shipping cost
+		- gift options
+		- delete
+		- save for later
+	- save for later option
+	- checkout option
+
+- if not logged in
+	- advertisements (generic)
+	- recommendations (generic)
+	- log in option
+
+- if logged in	
+	- greetings
+	- advertisements (specific)
+	- recommendations (generic)
+	- profile
+		- orders			
+		- other settings

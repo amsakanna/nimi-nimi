@@ -1,0 +1,6 @@
+6:00	Add material design					done
+6:15	Create design                       done
+6:30	Create grid                         done
+7:00	Create firebase connection          progress
+7:15	Create services
+7:30	Create dummy data
