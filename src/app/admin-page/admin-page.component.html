@@ -1,0 +1,23 @@
+<div class="admin-panel-wrapper">
+	<form novalidate>	
+		<md-card>
+
+			<md-card-header>
+				<md-card-title>
+					<h1>Add Product</h1>
+				</md-card-title>
+			</md-card-header>
+
+			<md-card-content>			
+				<md-input formControlName="name" placeholder="Name"></md-input>
+				<md-input formControlName="price" placeholder="Price"></md-input>
+				<md-input formControlName="thumbnail" placeholder="Thumbnail File Name"></md-input>
+			</md-card-content>
+
+			<md-card-footer>			
+				<button md-button (click)="addProduct()">ADD</button>
+			</md-card-footer>
+
+		</md-card>
+	</form>	
+</div>

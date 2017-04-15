@@ -1,0 +1,25 @@
+.admin-panel-wrapper {
+    padding: 10px;
+}
+
+.admin-panel-wrapper md-card {
+	background: white;
+	border-radius: 2px;   
+	box-shadow: 0px 4px 8px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+
+.admin-panel-wrapper md-card-header {
+    margin: 0px;
+}
+
+.admin-panel-wrapper md-card-content {
+    height: 500px;
+    background: white;
+}
+
+.admin-panel-wrapper md-card-footer button {
+    background-color: rgb(41, 121, 255);
+    color: white;
+    font-size: 12px;
+    line-height: 24px;
+}

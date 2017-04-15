@@ -6,28 +6,46 @@ import { MaterialModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
 import 'hammerjs';
 
+import { AppRouter } from './app.router';
 import { AppComponent } from './app.component';
+import { LogService } from './services/log.service';
+import { DataService } from './services/data.service';
+import { ProductService } from './services/product.service';
+import { HomePageComponent } from './home-page/home-page.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
+import { ProductsPageComponent } from './products-page/products-page.component';
+import { ProductComponent } from './product/product.component';
 
 export const firebaseConfig = {
-    apiKey: "AIzaSyA3dca3bAlT4gR6pytsEZDOJVKFRU3ptE4",
-    authDomain: "shopping-81d9a.firebaseapp.com",
-    databaseURL: "https://shopping-81d9a.firebaseio.com",
-    storageBucket: "shopping-81d9a.appspot.com",
-    messagingSenderId: "1011127812612"
+    apiKey: "AIzaSyBV4KfPwTrqbFXzf7Sm6YAXkjSY1jSVcEk",
+    authDomain: "nimi-nimi.firebaseapp.com",
+    databaseURL: "https://nimi-nimi.firebaseio.com",
+    projectId: "nimi-nimi",
+    storageBucket: "nimi-nimi.appspot.com",
+    messagingSenderId: "1015138145277"
 };
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomePageComponent,
+    AdminPageComponent,
+    ProductsPageComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     MaterialModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    AppRouter
   ],
-  providers: [],
+  providers: [
+	  DataService,
+	  ProductService,
+    LogService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

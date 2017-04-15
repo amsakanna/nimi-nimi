@@ -1,0 +1,32 @@
+<md-grid-list class="product-grid" cols="4" rowHeight="340px">
+	<md-grid-tile *ngFor="let product of productStream | async">
+
+		<md-card>
+
+			<md-card-header>
+				<md-card-title>
+					<p>{{ product.name }}</p>
+				</md-card-title>
+			</md-card-header>
+
+			<md-card-content>
+				<div class="thumbnail-wrapper">
+					<img class="thumbnail" [src]="'../assets/img/' + product.thumbnail" />
+				</div>
+				<!--<div class="thumbnail"
+				[style.background-image]="url(' + product.thumbnail + ')"></div>-->
+			</md-card-content>
+
+			<md-card-footer>			
+				<md-card-actions>
+					<span class="price">{{ product.price }}/-</span>
+					<span class="buy">
+						<button md-button>BUY</button>
+					</span>
+				</md-card-actions>
+			</md-card-footer>
+
+		</md-card>
+
+	</md-grid-tile>
+</md-grid-list>

@@ -1,6 +1,13 @@
-6:00	Add material design					done
-6:15	Create design                       done
-6:30	Create grid                         done
-7:00	Create firebase connection          progress
-7:15	Create services
-7:30	Create dummy data
+Add material design					done
+Create design                       done
+Create grid                         done
+Create firebase connection          done
+Create services                     done
+Create dummy data                   done
+Convert to md-grid                  done
+add tile size to data               dropped
+horizontal center grid              done
+create router                       progress
+create login
+create admin form to add products
+view product
