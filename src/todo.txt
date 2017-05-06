@@ -7,7 +7,7 @@ Create dummy data                   done
 Convert to md-grid                  done
 add tile size to data               dropped
 horizontal center grid              done
-create router                       progress
+create router                       done
 create login
-create admin form to add products
+create admin form to add products   progress
 view product

@@ -1,23 +1,73 @@
-<div class="admin-panel-wrapper">
-	<form novalidate>	
-		<md-card>
-
+ <div class="admin-panel-wrapper flex-vertical-center">
+	<header>
+		<h2 class="alt-fg-color">Stock Management</h2>
+	</header>
+	<main>
+		<md-card *ngIf="false">
 			<md-card-header>
 				<md-card-title>
-					<h1>Add Product</h1>
+					<h3>Add Product</h3>
 				</md-card-title>
 			</md-card-header>
-
-			<md-card-content>			
-				<md-input formControlName="name" placeholder="Name"></md-input>
-				<md-input formControlName="price" placeholder="Price"></md-input>
-				<md-input formControlName="thumbnail" placeholder="Thumbnail File Name"></md-input>
+			<md-card-content>
+				<div class="thumbnail-wrapper flex-vertical-center">
+					<img *ngIf="false" class="thumbnail" [src]="selectedProduct.thumbnailUrl">
+				</div>
 			</md-card-content>
-
-			<md-card-footer>			
-				<button md-button (click)="addProduct()">ADD</button>
+			<md-card-footer>
 			</md-card-footer>
-
 		</md-card>
-	</form>	
+		<div class="product-table" [@toggleGrid]='state'>
+			<div class="product-header">
+				<md-checkbox (change)="selectAllProducts()" [(ngModel)]="allProductsSelected"></md-checkbox>
+				<span class="product id">ID</span>
+				<span class="product name">NAME</span>
+				<span class="product unit">UNIT</span>
+				<span class="product price">PRICE</span>
+			</div>
+			<div class="product-row" 
+				*ngFor="let product of products"
+				[@productOverState]='product.productOverState'
+				(mouseenter)="product.toggleProductOverState('active')"
+				(mouseleave)="product.toggleProductOverState('inactive')"
+				(click)="showProduct(product)">
+				<md-checkbox (change)="changeSelection(product, $event.checked)" [(ngModel)]="product.active"></md-checkbox>
+				<span class="product id">{{ product.id }}</span>
+				<span class="product name">{{ product.name }}</span>
+				<span class="product unit">{{ product.unit }}</span>
+				<span class="product price">{{ product.price }}</span>
+			</div>
+		</div>
+	</main>
+
+	<footer [@toggleFooter]='state'>
+		<button md-fab id="toggle-footer-button" (click)="toggleFooter();">
+			<img [@toggleFooterButtonImage]='state' src="https://firebasestorage.googleapis.com/v0/b/nimi-nimi.appspot.com/o/assets%2Fslide_up_button.png?alt=media&token=7ec5ccd0-d100-4930-ad66-f15660f0ddf6">
+		</button>
+		<md-card id="product-form-card" [@toggleProductFormCard]='state'>
+			<md-card-header>
+				<md-card-title>
+					<h2>Edit Product</h2>
+				</md-card-title>
+			</md-card-header>
+			<md-card-content><div>
+				<form id="product-form" [formGroup]="form">
+					<md-checkbox>Check me!</md-checkbox>
+					<input type="checkbox">					
+					<p><md-input-container><input mdInput placeholder="Name"></md-input-container></p>
+					<p><md-input-container><input mdInput placeholder="Id"></md-input-container></p>
+					<p><md-input-container><input mdInput placeholder="Price"></md-input-container></p>
+					<p><md-input-container><input mdInput placeholder="Color"></md-input-container></p>
+					<p><md-input-container><input mdInput placeholder="Size"></md-input-container></p>
+					<p><md-input-container><input mdInput placeholder="Size"></md-input-container></p>
+					<p><md-input-container><input mdInput placeholder="Size"></md-input-container></p>
+					<p><md-input-container><input mdInput placeholder="Size"></md-input-container></p>
+					<!--<input id="fileUploader" type="file" value="upload" multiple name="files[]" (change)="previewSelectedFiles($event)"/>
+					<button id="selectButton" md-button (click)="showFileDialog()">SELECT</button>
+					<button id="addButton" md-button (click)="addProducts()">ADD</button>-->
+				</form></div>
+			</md-card-content>
+		</md-card>
+	</footer>
+
 </div>

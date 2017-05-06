@@ -1,25 +1,142 @@
 .admin-panel-wrapper {
-    padding: 10px;
+    width: 100%;    
 }
 
-.admin-panel-wrapper md-card {
-	background: white;
-	border-radius: 2px;   
-	box-shadow: 0px 4px 8px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+main {
+    width: 100%;
+    height: 100%;
 }
 
-.admin-panel-wrapper md-card-header {
-    margin: 0px;
+.product-table {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1600px;
+    box-sizing: border-box;
+    padding: 0px 50px;
 }
 
-.admin-panel-wrapper md-card-content {
-    height: 500px;
-    background: white;
-}
-
-.admin-panel-wrapper md-card-footer button {
+.product-header {
+    margin-bottom: 5px;
+    padding: 20px 50px;    
     background-color: rgb(41, 121, 255);
     color: white;
-    font-size: 12px;
-    line-height: 24px;
+    border-radius: 3px;
+    box-shadow: 0px 2px 0px -1px rgba(0,0,0,0.75);
 }
+
+.product-row {
+    margin-top: 1px;
+    padding: 20px 50px;    
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 0px 2px 0px -1px rgba(0,0,0,0.75);
+}
+
+.product {
+    display: inline-block;
+    vertical-align: text-bottom;
+}
+
+
+.product-table md-checkbox {
+    padding-right: 20px;
+}
+
+.product-table .id {    
+    width: 20%;
+}
+
+.product-table .name {    
+    width: 50%;
+}
+
+.product-table .unit {    
+    width: 10%;
+}
+
+.product-table .price {    
+    width: 10%;
+}
+
+.product-grid md-card {
+    float: left;
+    margin-left: 1px;
+    margin-top: 1px;
+	border-radius: 0px !important;
+}
+
+.product-grid md-card-content {
+    width: 140px;
+    height: 180px;
+    display: block;
+}
+
+.thumbnail {
+    height: 160px;
+    object-fit: cover;
+}
+
+.new-product > .price {
+    flex: 2 0 0;
+    padding-left: 30px;
+    margin-top: -2px;
+    color: rgb(100, 100, 100);
+    font-size: 16px;
+}
+
+
+footer {
+    position: absolute;    
+    bottom: 0px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100px;
+    box-sizing: border-box;
+    padding: 50px 20px;
+}
+
+#toggle-footer-button {
+    position: absolute;
+    top: -30px;   
+}
+
+#toggle-footer-button img {
+    position: absolute;
+    left: 13px;
+    bottom: 12px;
+    height: 30px;
+}
+
+#product-form-card {
+    width: 600px;
+    background-color: rgb(41, 121, 255);
+    color: white;
+    box-shadow: 0px 10px 39px -3px rgba(0,0,0,0.75) !important;
+    /*border: 4px solid rgb(100, 100, 100);*/    
+}
+
+#product-form-card md-card-content {
+    height: 250px;
+    overflow-y: scroll;
+}
+
+#fileUploader {
+    display: none;
+}
+
+/*
+md-grid-list md-card-content textarea {    
+    width: 95%;
+    min-height: 200px;
+    padding: 20px;
+    background-color: rgb(100, 100, 255);
+    border: 2px solid;
+    color: white;
+}
+
+md-grid-list md-card-content textarea::-webkit-input-placeholder {
+    color: rgb(200, 200, 200);
+    font-style: italic;
+}
+*/

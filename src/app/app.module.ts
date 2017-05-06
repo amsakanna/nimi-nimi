@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
@@ -9,7 +10,6 @@ import 'hammerjs';
 import { AppRouter } from './app.router';
 import { AppComponent } from './app.component';
 import { LogService } from './services/log.service';
-import { DataService } from './services/data.service';
 import { ProductService } from './services/product.service';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
@@ -36,15 +36,15 @@ export const firebaseConfig = {
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     MaterialModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AppRouter
   ],
-  providers: [
-	  DataService,
-	  ProductService,
-    LogService
+  providers: [	  
+    LogService,
+	  ProductService
   ],
   bootstrap: [AppComponent]
 })
