@@ -1,0 +1,87 @@
+ <div class="admin-panel-wrapper flex-vertical-center">
+	<header>
+		<md-toolbar color="primary">			
+			<h4 class="alt-fg-color">Stock Management</h4>
+			<span class="toolbar-spacer"></span>
+			<button md-mini-fab (click)="switchMode()">
+				<md-icon class="alt-fg-color">compare_arrows</md-icon>
+			</button>
+		</md-toolbar>		
+	</header>
+	<main>
+		<md-tab-group [(selectedIndex)]="mode">			
+			<md-tab label="List">
+				<div class="product-list">
+					<input class="searchBox" placeholder="Search">
+					<div class="product-header">
+						<md-checkbox (change)="selectAllProducts()"></md-checkbox>
+						<span class="product id">ID</span>
+						<span class="product date">DATE ADDED</span>
+						<span class="product name">NAME</span>
+						<span class="product unit">UNIT</span>
+						<span class="product price">PRICE</span>
+					</div>
+					<div class="product-row" 
+						*ngFor="let product of products"
+						[@productOverState]='product.productOverState'
+						(mouseenter)="product.toggleProductOverState('active')"
+						(mouseleave)="product.toggleProductOverState('inactive')"
+						(click)="switchMode()">
+						<md-checkbox [(ngModel)]="product.active"></md-checkbox>
+						<span class="product id">{{ product.id }}</span>
+						<span class="product date">28 Jun 2017</span>
+						<span class="product name">{{ product.name }}</span>
+						<span class="product unit">{{ product.unit }}</span>
+						<span class="product price">{{ product.price }}</span>
+					</div>
+				</div>
+			</md-tab>
+			<md-tab label="Edit">
+				<div class="product-edit">
+					<md-card>
+						<md-card-header>
+							<md-card-title>
+								<h4>Edit Product</h4>
+							</md-card-title>
+							<h2 class="product-id">{{ activeProduct.id }}</h2>
+						</md-card-header>
+						<md-card-content>							
+							<md-tab-group>
+								<md-tab>
+									<form class="product-form" [formGroup]="productForm">
+										<div>
+											<p><md-input-container><input mdInput placeholder="Name" formControlName="name"></md-input-container></p>
+											<p><md-input-container><input mdInput placeholder="Price" formControlName="price" type="number"></md-input-container></p>											
+											<p><md-input-container><input mdInput placeholder="Units" formControlName="units" type="number"></md-input-container></p>
+											<p><md-select class="product-size" placeholder="Size" formControlName="size" selected="M">
+												<md-option *ngFor="let size of sizes" [value]="size">{{ size }}</md-option>
+											</md-select></p>
+										</div>										
+										<div>
+											<div class="product-image">
+												<div class="thumbnail-wrapper">
+													<md-icon class="alt-fg-color">file_upload</md-icon>
+													<img class="thumbnail" *ngIf="activeProduct.thumbnailUrl" [src]="activeProduct.thumbnailUrl">
+												</div>
+											<div class="product-color">												
+												<button md-mini-fab [(colorPicker)]="activeProduct.color" [style.backgroundColor]="activeProduct.color"></button>												
+											</div>
+											</div>
+										</div>
+										<!--<i class="material-icons">cloud_upload</i>-->
+										<!--<input id="fileUploader" type="file" value="upload" multiple name="files[]" (change)="previewSelectedFiles($event)"/>
+										<button id="selectButton" md-button (click)="showFileDialog()">SELECT</button>-->
+									</form>									
+								</md-tab>
+							</md-tab-group>
+						</md-card-content>
+						<md-card-actions align="end">
+							<button class="update-button" md-raised-button (click)="updateProducts()">UPDATE</button>
+						</md-card-actions>
+					</md-card>
+				</div>
+			</md-tab>
+		</md-tab-group>
+	</main>
+
+</div>

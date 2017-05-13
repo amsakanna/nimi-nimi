@@ -6,6 +6,7 @@ export class Product {
     id: string;
     name: string;
     price: number;
+    color: string = '#1ec8c8';
     thumbnailFile: File;
     thumbnailFileName: string;
     thumbnailPath: string;

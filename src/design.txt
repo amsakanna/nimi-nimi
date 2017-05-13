@@ -10,29 +10,30 @@
 		- rating
 		- votes
 		- open product option
-			- name
-			- code
-			- rating
-			- brand
-			- product details
-			- delivery and returns
-			- image list
-			- image preview
-			- image zoom
-			- size
-			- size chart
-			- price
-			- offer price
-			- offer clock
-			- seller
-			- seller rating
-			- check availability				
-			- add to wishlist
-			- add to cart
-			- buy
-			- share
-			- similar items
-			- recently viewed				
+			- name						done
+			- code						done
+			- rating					abandoned
+			- brand						pending
+			- department				pending
+			- product details			pending
+			- delivery and returns		pending
+			- image list				progress
+			- image preview				pending
+			- image zoom				pending
+			- size						done
+			- size chart				abandoned
+			- price						done
+			- offer price				abandoned
+			- offer clock				abandoned
+			- seller					pending
+			- seller rating				abandoned
+			- check availability		done	
+			- add to wishlist			abandoned
+			- add to cart				abandoned
+			- buy						abandoned
+			- share						abandoned
+			- similar items				abandoned
+			- recently viewed			abandoned
 - deals
 - cart (bottom bar)
 	- list
