@@ -1,3 +1,64 @@
-<p>
-  journal-page works!
-</p>
+<header>
+	<h3>Journal</h3>
+</header>
+<main>
+	<div class="giver-container">
+		<div class="account-list">
+			<header>
+				<h3 md-subheader>Giver List</h3>
+			</header>
+			<md-divider></md-divider>			
+			<md-nav-list>
+				<md-list-item *ngFor="let account of accountStream | async" draggable="true"
+					(dragstart)="dragStart($event, account, transactionPlayer.GIVER)">					
+					<h4 md-line>{{account.name}}</h4>					
+				</md-list-item>
+			</md-nav-list>
+		</div>
+	</div>
+	<div class="drop-area-container">
+		<div class="drop-area" 
+			(dragover)="dragOver($event)" 
+			(drop)="drop($event)">
+			<div class="dropped-accounts">				
+				<p>{{ giverAccount.name }}
+					<span *ngIf="giverAccount.name != '' || receiverAccount.name != '' ">&nbsp;&nbsp;&nbsp;&nbsp;--------</span>
+					<span class="transaction-amount">{{ transactionAmount }}</span>
+					<span *ngIf="giverAccount.name != '' || receiverAccount.name != '' ">--------&gt;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					{{ receiverAccount.name }}
+				</p>
+			</div>
+			<div class="transaction-amount-input-container">
+				<md-grid-list rows="4" cols="3">
+					<md-grid-tile><button md-button>1</button></md-grid-tile>
+					<md-grid-tile><button md-button>2</button></md-grid-tile>
+					<md-grid-tile><button md-button>3</button></md-grid-tile>
+					<md-grid-tile><button md-button>4</button></md-grid-tile>
+					<md-grid-tile><button md-button>5</button></md-grid-tile>
+					<md-grid-tile><button md-button>6</button></md-grid-tile>
+					<md-grid-tile><button md-button>7</button></md-grid-tile>
+					<md-grid-tile><button md-button>8</button></md-grid-tile>
+					<md-grid-tile><button md-button>9</button></md-grid-tile>
+					<md-grid-tile><button md-button>C</button></md-grid-tile>
+					<md-grid-tile><button md-button>0</button></md-grid-tile>
+					<md-grid-tile><button md-button>D</button></md-grid-tile>
+				</md-grid-list>
+			</div>
+		</div>
+	</div>
+	<div class="receiver-container">
+		<div class="account-list">
+			<header>
+				<h3 md-subheader>Receiver List</h3>
+			</header>
+			<md-divider></md-divider>			
+			<md-nav-list>
+				<md-list-item *ngFor="let account of accountStream | async"
+				draggable="true"
+				(dragstart)="dragStart($event, account, transactionPlayer.RECEIVER)">					
+					<h4 md-line>{{account.name}}</h4>
+				</md-list-item>
+			</md-nav-list>
+		</div>
+	</div>
+</main>

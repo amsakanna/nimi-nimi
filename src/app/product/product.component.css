@@ -1,0 +1,77 @@
+md-input-container.ng-invalid.ng-touched /deep/ .mat-input-underline {
+    border-color: red;
+}
+
+.update-product-button {
+    background-color: rgb(41, 121, 255);
+    color: white !important;
+}
+
+.product-form > md-card > md-card-header {
+    padding-right: 30px;    
+}
+
+.product-form > md-card > md-card-header /deep/ .mat-card-header-text {
+    flex-grow: 1;
+}
+
+.product-form > md-card > md-card-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 30px;
+}
+
+.thumbnail-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 200px;
+    min-height: 200px;
+    background-color: orange;
+}
+
+.thumbnail {
+    height: 160px;
+    object-fit: cover;
+}
+
+.product-id {
+    color: rgb(200, 200, 200);
+}
+
+.product-size {
+    width: 100%;
+}
+
+.product-size /deep/ .mat-select-placeholder.mat-floating-placeholder {
+    top: -16px;
+}
+
+.product-size /deep/ .mat-select-trigger {
+    font-size: 14px;
+}
+
+.product-size /deep/ .mat-select-arrow {
+    display: none;
+}
+
+md-input-container.ng-invalid.ng-touched /deep/ .mat-input-underline {
+    border-color: red;
+}
+
+.update-button {
+    background-color: rgb(41, 121, 255);
+    color: white !important;
+}
+
+#fileUploader {
+    display: none;
+}
+
+.department-list {
+    padding-top: 20px;
+}
+
+.brand-list {
+    padding-top: 20px;
+}

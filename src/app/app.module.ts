@@ -13,15 +13,20 @@ import { AppRouter } from './app.router';
 import { AppComponent } from './app.component';
 import { LogService } from './services/log.service';
 import { ProductService } from './services/product.service';
+import { BrandService } from './services/brand.service';
+import { DepartmentService } from './services/department.service';
+import { AccountService } from './services/account.service';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
-import { ProductsPageComponent } from './products-page/products-page.component';
-import { ProductComponent } from './product/product.component';
-import { InventoryPageComponent } from './inventory-page/inventory-page.component';
 import { JournalPageComponent } from './journal-page/journal-page.component';
+import { InventoryPageComponent } from './inventory-page/inventory-page.component';
 import { BrandPageComponent } from './brand-page/brand-page.component';
+import { BrandComponent } from './brand/brand.component';
 import { DepartmentPageComponent } from './department-page/department-page.component';
+import { DepartmentComponent } from './department/department.component';
+import { ProductComponent } from './product/product.component';
 import { ProductPageComponent } from './product-page/product-page.component';
+import { ProductsPageComponent } from './products-page/products-page.component';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyBV4KfPwTrqbFXzf7Sm6YAXkjSY1jSVcEk",
@@ -43,7 +48,9 @@ export const firebaseConfig = {
     JournalPageComponent,
     BrandPageComponent,
     DepartmentPageComponent,
-    ProductPageComponent
+    ProductPageComponent,
+    BrandComponent,
+    DepartmentComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +64,10 @@ export const firebaseConfig = {
   ],
   providers: [	  
     LogService,
-	  ProductService
+	  ProductService,
+    BrandService,
+    DepartmentService,
+    AccountService
   ],
   bootstrap: [AppComponent]
 })

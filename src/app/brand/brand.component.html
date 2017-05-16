@@ -1,0 +1,17 @@
+<form class="brand-form" [formGroup]="brandForm" novalidate (ngSubmit)="submitForm()">
+	<md-card>
+		<md-card-header>
+			<md-card-title><h4>Edit Brand</h4></md-card-title>		
+		</md-card-header>
+		<md-card-content>
+				<div>
+					<p><md-input-container><input mdInput placeholder="Name" formControlName="name"></md-input-container></p>				
+					<p><md-slider class="brand-rating" min="0" max="5" step="1" thumb-label="true" formControlName="rating"></md-slider></p>
+				</div>
+		</md-card-content>
+		<md-card-actions align="end">
+			<button class="remove-brand-button" type="button" md-button color="warn" (click)="removeBrand()" [disabled]="routeId == 'null'"><md-icon>delete</md-icon></button>
+			<button class="update-brand-button" type="submit" md-raised-button>{{ routeId == 'null' ? 'CREATE' : 'UPDATE' }}</button>
+		</md-card-actions>
+	</md-card>
+</form>

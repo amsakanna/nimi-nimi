@@ -14,8 +14,7 @@ export abstract class DataService {
 	protected abstract foreignKeyName: string;
 	protected abstract searchKeyName: string;
 	protected abstract createModel;
-	protected query: Query;
-	private dataStream: FirebaseListObservable<any[]>;
+	private table: FirebaseListObservable<any[]>;
 	private readonly tableName: string;
 
 	/*-----------------------------------------------------------------------
@@ -25,33 +24,70 @@ export abstract class DataService {
 	constructor(protected db: AngularFireDatabase, tableName: string)
 	{
 		this.tableName = tableName;
-		this.dataStream = this.db.list(this.tableName);		
+		this.table = this.db.list(this.tableName);
+	}
+
+	add(object: any) : any 
+	{
+		console.log('Added');
+		delete object.$key;
+		const key = this.table.push(object).key;
+		return key;
+	}
+
+	remove(object: any)
+	{
+		if(object.$key !== '' && object.$key !== null && object.$key !== undefined)
+			this.table.remove(object.$key);
+	}
+
+	update(object: any) : any
+	{
+		console.log('Updated');
+		var key = object.$key;
+		delete object.$key;
+		if(key == '')
+			key = this.table.push(object).key;
+		else
+			this.table.update(key, object);		
+		return key;
 	}
 
 	getObject(key: string): Observable<any> 
 	{
-		const dataStream = this.db.object(this.tableName + '/' + key);
+		const dataStream = this.db.object(this.tableName + "/" + key);
 		return this.mapObjectToModel(dataStream);
 	}
 
-	getList(filterBy: FILTER, sortBy: SORT, filterValue?: string) : Observable<any[]>
+	getList(sortBy: SORT, filterBy: FILTER, filterValue?: string) : Observable<any[]>
+	{
+		var query = this.prepareQuery(filterBy, sortBy, filterValue);
+		const dataStream = this.db.list(this.tableName, { query });
+		return this.mapListToModel(dataStream);
+	}
+
+	/*-----------------------------------------------------------------------
+		CRUD HELPERS
+	-----------------------------------------------------------------------*/
+
+	prepareQuery(filterBy: FILTER, sortBy: SORT, filterValue?: string) : Query
 	{
 
-		this.query = {};
+		var query: Query = {};
 
 		switch (sortBy)
 		{
 			case SORT.KEY:
-				this.query.orderByKey = true;
+				query.orderByKey = true;
 				break;
 			case SORT.VALUE:
-				this.query.orderByValue = true;
+				query.orderByValue = true;
 				break;
 			case SORT.FOREIGN_KEY:
-				this.query.orderByChild = this.foreignKeyName;				
+				query.orderByChild = this.foreignKeyName;				
 				break; 
 			case SORT.SEARCH_KEY:
-				this.query.orderByChild = this.searchKeyName;
+				query.orderByChild = this.searchKeyName;
 				break;
 			default: 
 				break;
@@ -59,44 +95,20 @@ export abstract class DataService {
 
 		switch (filterBy) 
 		{
-			case FILTER.FOREIGN_KEY: 
-				this.query.equalTo = filterValue;
+			case FILTER.EQUAL_TO: 
+				query.equalTo = filterValue;
 				break; 
 			case FILTER.BEGINS_WITH:
-				this.query.startAt = filterValue;
+				query.startAt = filterValue;
 				var firstPart = (filterValue.length == 1) ? "" : filterValue.substr(0, filterValue.length - 1);	
 				var lastPart = String.fromCharCode(filterValue.charCodeAt(filterValue.length-1) + 1);
-				this.query.endAt = firstPart + lastPart;
+				query.endAt = firstPart + lastPart;
 				break;
 			default: 
 				break;
 		}
-		
-		const dataStream = this.db.list(this.tableName, { query: this.query });
-		return this.mapListToModel(dataStream);
 
-	}
-
-	add(object: any) : any 
-	{
-		delete object.$key;
-		const key = this.dataStream.push(object).key;
-		return key;
-	}
-
-	remove(object: any)
-	{
-		this.dataStream.remove(object.$key);
-	}
-
-	addIndices(object: any) : any
-	{
-		const BeginsWithWordIndexStream = this.db.list('indices/beginsWith');
-		return BeginsWithWordIndexStream;
-	}
-
-	removeIndices() : any
-	{
+		return query;
 
 	}
 
@@ -112,8 +124,8 @@ export abstract class DataService {
 	}
 
 	mapObjectToModel(dataStream : Observable<any>) 
-	{			
-		return dataStream.map(object => this.createModel(object) );
+	{
+		return dataStream.map(object => this.createModel(object));
 	}
 
 

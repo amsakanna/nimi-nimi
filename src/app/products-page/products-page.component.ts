@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2';
+import { AngularFireDatabase } from 'angularfire2';
 import { Query } from 'angularfire2/interfaces';
 import { Observable } from 'rxjs';
 

@@ -6,7 +6,6 @@
 body {
     
     margin: 0px;
-    width: 100%;
     padding: 20px 50px;
 
     background: -webkit-linear-gradient(-45deg, rgba(252,234,187,1) 0%, rgba(252,205,77,1) 50%, rgba(248,181,0,1) 51%, rgba(251,223,147,1) 100%);
@@ -44,7 +43,8 @@ md-card-header {
 }
 
 md-card-content {
-    margin-bottom: 0px !important;    
+    margin-bottom: 0px !important;
+    padding-left: 20px;   
 }
 
 /*
@@ -55,9 +55,18 @@ md-card-footer {
 */
 
 md-card-actions {
-    display: flex;
-    margin: 0px;
+    /*display: flex;
+    margin: 0px;*/
 }
+
+.mat-input-placeholder-wrapper {
+    /*left: 5px !important;*/
+}
+
+.mat-input-infix {
+    /*padding-left: 5px !important;*/
+}
+
 
 /* Generic Layout Styles */
 
@@ -65,4 +74,8 @@ md-card-actions {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.long-input-box {
+    width: 300px !important;
 }

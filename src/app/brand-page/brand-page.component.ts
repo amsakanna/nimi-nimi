@@ -1,15 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { BrandService } from '../services/brand.service';
+import { FILTER, SORT } from '../models/constants';
 
 @Component({
-  selector: 'app-brand-page',
-  templateUrl: './brand-page.component.html',
-  styleUrls: ['./brand-page.component.css']
+	selector: 'app-brand-page',
+	templateUrl: './brand-page.component.html',
+	styleUrls: ['./brand-page.component.css']
 })
 export class BrandPageComponent implements OnInit {
 
-  constructor() { }
+	private brandStream: Observable<any[]>;
 
-  ngOnInit() {
-  }
+	constructor(private brandService: BrandService) {
+		this.brandStream = this.brandService.getList(SORT.NONE, FILTER.NONE, undefined);
+	}
+
+	ngOnInit() {
+	}
 
 }

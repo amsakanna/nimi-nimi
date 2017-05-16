@@ -1,3 +1,24 @@
-<p>
-  department-page works!
-</p>
+<header>
+	<h3>Department</h3>
+</header>
+<main>
+	<div class="department-list">
+		<header>
+			<h3 md-subheader>Department List</h3>
+			<a [routerLink]="['/admin/inventory/department/null']" md-mini-fab color="accent">
+				<md-icon>add</md-icon>
+			</a>
+		</header>
+		<md-divider></md-divider>			
+		<md-nav-list>
+			<md-list-item *ngFor="let department of departmentStream | async" [routerLink]="['/admin/inventory/department/' + department.id]">
+				<!--<md-icon md-list-icon>dashboard</md-icon>-->
+				<h4 md-line>{{department.name}}</h4>
+				<p md-line>{{department.path}}</p>
+			</md-list-item>
+		</md-nav-list>
+	</div>
+	<div class="department-edit">
+		<router-outlet></router-outlet>
+	</div>
+</main>

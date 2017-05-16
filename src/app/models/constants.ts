@@ -1,6 +1,6 @@
 export const enum FILTER {
 	NONE,
-	FOREIGN_KEY,
+	EQUAL_TO,
 	BEGINS_WITH
 }
 

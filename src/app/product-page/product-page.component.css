@@ -1,212 +1,53 @@
-.admin-panel-wrapper {
-    width: 100%;    
-}
-
-.admin-panel-wrapper header {
-    z-index: 99;
-    position: fixed;
-    box-sizing: border-box;
-    width: 100%;
-}
-
-.admin-panel-wrapper header md-toolbar {
-    background-color: rgb(41, 121, 255);
-    padding: 20px 50px 20px 50px;
-    box-shadow: 0px 2px 15px -1px black;
-}
-
-.toolbar-spacer {
-    flex: 1 1 auto;
-}
-
-.searchBox {
-    flex-grow: 1;
-    height: 50px;
-    padding-left: 20px;
-    background: rgba(255, 255, 255, 0.5);
-    box-shadow: 0px 2px 0px -1px rgba(0, 0, 0, 0.5);
-    border: 0.5px solid rgba(255, 255, 255, 0.3);
-    border-radius: 2px;
-    font-size: 1em;
-}
-
 main {
-    z-index: 98;
-    margin-top: 200px;
-    width: 100%;
-    height: 100%;
+    display: flex;
 }
 
 .product-list {
-    margin: 0px auto;
-    width: 100%;
-    max-width: 1000px;
-    box-sizing: border-box;
-    font-size: 0.7em;
+    min-width: 200px;
+    background-color: white;
+    box-shadow: 0px 4px 8px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    border-radius: 3px;
 }
 
-.product-header {
-    margin-bottom: 5px;
-    padding: 20px 50px;
-    background-color: rgb(41, 121, 255);
-    box-shadow: 0px 2px 0px -1px black;
-    border-radius: 3px;
+.product-list > header {
+    position: relative;
+    padding: 5px 20px;
+}
+
+.product-list > header > h3 {
+    font-size: 0.9em;
+    color: gray;
+}
+
+.product-list > header > a {
+    position: absolute;
+    right: 16px;
+    bottom: -16px;
     color: white;
 }
 
-.product-header .mat-checkbox-frame {
-    border: 1px solid white !important;
+.product-list md-nav-list {
+    height: 300px;
+    overflow-y: scroll;
 }
 
- .mat-checkbox-frame {
-    border: 1px solid white !important;
+.product-list /deep/ .mat-list-item-content {
+    height: 62px;
 }
 
-.product-row {
-    margin-top: 1px;
-    padding: 20px 50px;    
-    background-color: white;
-    border-radius: 3px;
-    box-shadow: 0px 2px 0px -1px black;
+.product-list md-list-item h4 {
+    padding-bottom: 5px;
+    font-size: 0.9em;
+    color: lightseagreen;
 }
 
-.product {
-    display: inline-block;
-    vertical-align: text-bottom;
-}
-
-
-.product-list md-checkbox {
-    padding-right: 20px;
-}
-
-
-.product-list .id {    
-    width: 10%;
-}
-
-.product-list .date {
-    width: 20%;
-}
-
-.product-list .name {    
-    width: 40%;
-    font-weight: bold;
-}
-
-.product-list .unit {    
-    width: 10%;
-}
-
-.product-list .price {    
-    width: 10%;
-}
-
-main > md-tab-group {
-    box-sizing: border-box;
-    margin: 0 auto;
-    padding: 0px 10% 100px 10%;
-}
-
-main > md-tab-group /deep/ .mat-tab-header {
-    display: none !important;
-    background-color: black !important;
-}
-
-main > md-tab-group /deep/ .mat-tab-body {
-    padding-bottom: 10px;
+.product-list md-list-item p {
+    font-size: 0.7em;
+    font-style: italic;
+    color: gray;
 }
 
 .product-edit {
-    width: 100%;
-}
-
-.product-edit > md-card {
-    margin: 0px auto;
-    max-width: 1000px;
-    box-shadow: 5px 5px 20px -5px rgba(0, 0, 0, 0.5) !important;
-}
-
-.product-edit > md-card > md-card-header {
-    padding-right: 30px;    
-}
-
-.product-edit > md-card > md-card-header /deep/ .mat-card-header-text {
     flex-grow: 1;
+    margin-left: 20px;
 }
-
-.product-edit > md-card > md-card-content {
-    padding: 20px 30px;
-}
-
-.product-form {
-    display: flex;
-    justify-content: space-between;
-}
-
-.product-units /deep/ .mat-input-underline {
-    display: none;
-}
-
-.thumbnail-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 200px;
-    min-height: 200px;
-    background-color: orange;
-}
-
-.thumbnail {
-    height: 160px;
-    object-fit: cover;
-}
-
-.product-id {
-    color: rgb(200, 200, 200);
-}
-
-.product-size {
-    width: 100%;
-}
-
-.product-size /deep/ .mat-select-placeholder.mat-floating-placeholder {
-    top: -16px;
-}
-
-.product-size /deep/ .mat-select-trigger {
-    font-size: 14px;
-}
-
-.product-size /deep/ .mat-select-arrow {
-    display: none;
-}
-
-md-input-container.ng-invalid.ng-touched /deep/ .mat-input-underline {
-    border-color: red;
-}
-
-.update-button {
-    background-color: rgb(41, 121, 255);
-    color: white !important;
-}
-
-#fileUploader {
-    display: none;
-}
-
-/*
-md-grid-list md-card-content textarea {    
-    width: 95%;
-    min-height: 200px;
-    padding: 20px;
-    background-color: rgb(100, 100, 255);
-    border: 2px solid;
-    color: white;
-}
-
-md-grid-list md-card-content textarea::-webkit-input-placeholder {
-    color: rgb(200, 200, 200);
-    font-style: italic;
-}
-*/

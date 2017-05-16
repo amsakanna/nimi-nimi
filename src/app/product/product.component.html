@@ -1,3 +1,42 @@
-<p>
-  product works!
-</p>
+<form class="product-form" [formGroup]="productForm" novalidate (ngSubmit)="submitForm()">
+	<md-card>
+		<md-card-header>
+			<md-card-title><h4>Edit Product</h4></md-card-title>
+			<h2 class="product-id">{{ product.id }}</h2>
+		</md-card-header>
+		<md-card-content>
+			<div>
+				<p><md-input-container><input mdInput placeholder="Name" formControlName="name"></md-input-container></p>
+				<p><md-input-container><input mdInput placeholder="Price" formControlName="price" type="number" step="50"></md-input-container></p>											
+				<p><md-input-container><input mdInput placeholder="Units" formControlName="units" type="number"></md-input-container></p>
+				<p><md-select class="department-list long-input-box" placeholder="Department" formControlName="department">
+					<md-option *ngFor="let department of departmentStream | async" [value]="department.id">{{ department.path }}</md-option>
+				</md-select></p>
+				<p><md-select class="brand-list" placeholder="Brand" formControlName="brand">
+					<md-option *ngFor="let brand of brandStream | async" [value]="brand.id">{{ brand.name }}</md-option>
+				</md-select></p>
+				<!--<p><md-select class="product-size" placeholder="Size" formControlName="size" selected="M">
+					<md-option *ngFor="let size of sizes" [value]="size">{{ size }}</md-option>
+				</md-select></p>-->
+			</div>										
+			<div>
+				<div class="product-image">
+					<div class="thumbnail-wrapper">
+						<md-icon class="alt-fg-color">file_upload</md-icon>
+						<img class="thumbnail" *ngIf="product.thumbnailUrl" [src]="product.thumbnailUrl">
+					</div>
+				<div class="product-color">												
+					<button md-mini-fab [(colorPicker)]="product.color" [style.backgroundColor]="product.color"></button>												
+				</div>
+				</div>
+			</div>
+			<!--<i class="material-icons">cloud_upload</i>-->
+			<!--<input id="fileUploader" type="file" value="upload" multiple name="files[]" (change)="previewSelectedFiles($event)"/>
+			<button id="selectButton" md-button (click)="showFileDialog()">SELECT</button>-->
+		</md-card-content>
+		<md-card-actions align="end">
+			<button class="remove-product-button" type="button" md-button color="warn" (click)="removeProduct()" [disabled]="routeId == 'null'"><md-icon>delete</md-icon></button>
+			<button class="update-product-button" type="submit" md-raised-button>{{ routeId == 'null' ? 'CREATE' : 'UPDATE' }}</button>
+		</md-card-actions>
+	</md-card>
+</form>
