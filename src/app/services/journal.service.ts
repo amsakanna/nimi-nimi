@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2';
 import { DataService } from '../services/data.service';
-import { Account } from '../models/account.model';
+import { Journal } from '../models/journal.model';
 
 @Injectable()
-export class AccountService extends DataService {
+export class JournalService extends DataService {
 
-	protected createModel = (json) => new Account(json);
+	protected createModel = (json) => new Journal(json);
 	protected foreignKeyName = null;
-	protected searchKeyName = "name";
+	protected searchKeyName = "transactionAmount";
 	protected tableName: string;
 
 	constructor(db: AngularFireDatabase) {
-		super(db, "accounts");
+		super(db, "journals");
 	}
 
 }

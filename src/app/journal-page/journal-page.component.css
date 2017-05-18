@@ -1,81 +1,63 @@
 main {
     display: flex;
+    justify-content: space-around;
     min-height: 300px;
-}
-
-main > div {
-    flex-grow: 1;
-}
-
-.account-list {
-    min-width: 100px;
-    background-color: white;
-    box-shadow: 0px 4px 8px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-    border-radius: 3px;
-    text-align: center;
-}
-
-.account-list > header {
-    position: relative;
-    padding: 5px 20px;
-}
-
-.account-list > header > h3 {
-    font-size: 0.9em;
-    color: gray;
-}
-
-.account-list md-nav-list {
-    height: 300px;
-    overflow-y: scroll;
-}
-
-.account-list /deep/ .mat-list-item-content {
-    height: 62px;
-}
-
-.account-list md-list-item h4 {
-    padding-bottom: 5px;
-    font-size: 0.9em;
-    color: lightseagreen;
+    width: 1000px;
+    margin: 0 auto;
 }
 
 .drop-area-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
 .drop-area {
+    position: relative;
     display: flex;
-    justify-content: center;
-    min-width: 300px;
-    min-height: 300px;
+    flex-direction: column;
+    align-items: center;    
+    margin-top: 50px;
+    width: 280px;
+    height: 280px;
     border-radius: 50%;
     background-color: rgb(100, 150, 200);
 }
 
 .dropped-accounts {
-    padding-top: 100px;
+    padding-top: 60px;
     color: lightcyan;
     font-size: 0.8em;    
 }
 
-.dropped-accounts p {
-    margin: 0px;
-}
-
 .transaction-amount-input-container {
     color: rgb(100, 150, 200);
-    margin-top: 150px;
+    margin-top: 10px;
 }
 
 .transaction-amount-input-container md-grid-list {
-    width: 100px;
-    font-size: 0.8em;
+    width: 80px;
 }
 
 .transaction-amount-input-container md-grid-tile {
-    background-color: lightblue;
+    background-color: lightskyblue;
     border: 1px solid rgb(100, 150, 200);
+}
+
+.transaction-amount-input-container md-grid-list button {
+    font-size: 0.6em;
+}
+
+.add-journal-button {
+    /*position: absolute;
+    right: 20px;
+    bottom: 20px;*/
+    margin-top: 20px;
+    color: white;
+}
+
+.account-container .md-nav-list-container > md-nav-list {
+    min-width: 200px;
+    height: 300px;
 }

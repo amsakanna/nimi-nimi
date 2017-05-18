@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2';
+import { AngularFireModule, AngularFireDatabase, FirebaseListObservable } from 'angularfire2';
 import { Query } from 'angularfire2/interfaces';
 import { Observable } from 'rxjs';
 import { FILTER, SORT } from '../models/constants';
@@ -11,11 +11,11 @@ export abstract class DataService {
 	VARIABLE-SECTION
 	-----------------------------------------------------------------------*/
 
+	private table: FirebaseListObservable<any[]>;
+	protected abstract tableName: string;
 	protected abstract foreignKeyName: string;
 	protected abstract searchKeyName: string;
 	protected abstract createModel;
-	private table: FirebaseListObservable<any[]>;
-	private readonly tableName: string;
 
 	/*-----------------------------------------------------------------------
 		CRUD
@@ -27,9 +27,13 @@ export abstract class DataService {
 		this.table = this.db.list(this.tableName);
 	}
 
+	setTable(tableName: string)	{
+		this.tableName = tableName;
+		this.table = this.db.list(this.tableName);
+	}
+
 	add(object: any) : any 
 	{
-		console.log('Added');
 		delete object.$key;
 		const key = this.table.push(object).key;
 		return key;
@@ -43,7 +47,6 @@ export abstract class DataService {
 
 	update(object: any) : any
 	{
-		console.log('Updated');
 		var key = object.$key;
 		delete object.$key;
 		if(key == '')
@@ -70,7 +73,7 @@ export abstract class DataService {
 		CRUD HELPERS
 	-----------------------------------------------------------------------*/
 
-	prepareQuery(filterBy: FILTER, sortBy: SORT, filterValue?: string) : Query
+	private prepareQuery(filterBy: FILTER, sortBy: SORT, filterValue?: string) : Query
 	{
 
 		var query: Query = {};
@@ -116,14 +119,14 @@ export abstract class DataService {
 		MAP TO MODEL
 	-----------------------------------------------------------------------*/
 
-	mapListToModel(dataStream : Observable<any[]>) 
+	private mapListToModel(dataStream : Observable<any[]>) 
 	{
 		return dataStream.map(list => {			
-			return list.map(object => this.createModel(object) );
+			return list.map(object => this.createModel(object));
 		});
 	}
 
-	mapObjectToModel(dataStream : Observable<any>) 
+	private mapObjectToModel(dataStream : Observable<any>) 
 	{
 		return dataStream.map(object => this.createModel(object));
 	}

@@ -9,6 +9,7 @@ export class BrandService extends DataService {
 	protected createModel = (json) => new Brand(json);
 	protected foreignKeyName = null;
 	protected searchKeyName = "name";
+	protected tableName: string;
 
 	constructor(db: AngularFireDatabase) {
 		super(db, "brands");

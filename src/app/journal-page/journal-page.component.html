@@ -1,62 +1,64 @@
 <header>
 	<h3>Journal</h3>
 </header>
-<main>
-	<div class="giver-container">
-		<div class="account-list">
-			<header>
-				<h3 md-subheader>Giver List</h3>
-			</header>
-			<md-divider></md-divider>			
-			<md-nav-list>
-				<md-list-item *ngFor="let account of accountStream | async" draggable="true"
-					(dragstart)="dragStart($event, account, transactionPlayer.GIVER)">					
-					<h4 md-line>{{account.name}}</h4>					
+<main>	
+	<div class="drop-area-container">
+		<div class="md-nav-list-container center transaction-type-list">
+			<md-nav-list class="horizontal">
+				<md-list-item *ngFor="let transactionType of transactionTypesStream | async"
+				draggable="true"
+				(dragstart)="dragStart($event, account, transactionPlayer.RECEIVER)">
+					<h4 md-line>{{ transactionType.$value }}</h4>
 				</md-list-item>
 			</md-nav-list>
 		</div>
-	</div>
-	<div class="drop-area-container">
-		<div class="drop-area" 
+		<div class="drop-area box-shadow-2" 
 			(dragover)="dragOver($event)" 
 			(drop)="drop($event)">
 			<div class="dropped-accounts">				
-				<p>{{ giverAccount.name }}
-					<span *ngIf="giverAccount.name != '' || receiverAccount.name != '' ">&nbsp;&nbsp;&nbsp;&nbsp;--------</span>
-					<span class="transaction-amount">{{ transactionAmount }}</span>
-					<span *ngIf="giverAccount.name != '' || receiverAccount.name != '' ">--------&gt;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-					{{ receiverAccount.name }}
-				</p>
+				<!--<p>{{ journal.debitAccount.name }}
+					<span *ngIf="journal.giverAccount.name != '' || journal.receiverAccount.name != '' ">&nbsp;&nbsp;&nbsp;&nbsp;----</span>
+					<span class="transaction-amount">{{ journal.transactionAmount }}</span>
+					<span *ngIf="journal.giverAccount.name != '' || journal.receiverAccount.name != '' ">----&gt;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					{{ journal.creditAccount.name }}
+				</p>-->
 			</div>
 			<div class="transaction-amount-input-container">
 				<md-grid-list rows="4" cols="3">
-					<md-grid-tile><button md-button>1</button></md-grid-tile>
-					<md-grid-tile><button md-button>2</button></md-grid-tile>
-					<md-grid-tile><button md-button>3</button></md-grid-tile>
-					<md-grid-tile><button md-button>4</button></md-grid-tile>
-					<md-grid-tile><button md-button>5</button></md-grid-tile>
-					<md-grid-tile><button md-button>6</button></md-grid-tile>
-					<md-grid-tile><button md-button>7</button></md-grid-tile>
-					<md-grid-tile><button md-button>8</button></md-grid-tile>
-					<md-grid-tile><button md-button>9</button></md-grid-tile>
-					<md-grid-tile><button md-button>C</button></md-grid-tile>
-					<md-grid-tile><button md-button>0</button></md-grid-tile>
-					<md-grid-tile><button md-button>D</button></md-grid-tile>
+					<md-grid-tile><button md-button (click)="updateTransactionAmount('1')">1</button></md-grid-tile>
+					<md-grid-tile><button md-button (click)="updateTransactionAmount('2')">2</button></md-grid-tile>
+					<md-grid-tile><button md-button (click)="updateTransactionAmount('3')">3</button></md-grid-tile>
+					<md-grid-tile><button md-button (click)="updateTransactionAmount('4')">4</button></md-grid-tile>
+					<md-grid-tile><button md-button (click)="updateTransactionAmount('5')">5</button></md-grid-tile>
+					<md-grid-tile><button md-button (click)="updateTransactionAmount('6')">6</button></md-grid-tile>
+					<md-grid-tile><button md-button (click)="updateTransactionAmount('7')">7</button></md-grid-tile>
+					<md-grid-tile><button md-button (click)="updateTransactionAmount('8')">8</button></md-grid-tile>
+					<md-grid-tile><button md-button (click)="updateTransactionAmount('9')">9</button></md-grid-tile>
+					<md-grid-tile><button md-button (click)="updateTransactionAmount('C')">C</button></md-grid-tile>
+					<md-grid-tile><button md-button (click)="updateTransactionAmount('0')">0</button></md-grid-tile>
+					<md-grid-tile><button md-button (click)="updateTransactionAmount('D')">&lt;-</button></md-grid-tile>
 				</md-grid-list>
 			</div>
+			<button class="add-journal-button" md-fab (click)="addJournal()"><md-icon>add</md-icon></button>
 		</div>
 	</div>
-	<div class="receiver-container">
-		<div class="account-list">
-			<header>
-				<h3 md-subheader>Receiver List</h3>
+	<div class="account-container">
+		<div class="md-nav-list-container">
+			<header>				
+				<div class="search-box">
+					<md-icon md-prefix>search</md-icon>
+					<input placeholder="Account">
+				</div>
 			</header>
-			<md-divider></md-divider>			
-			<md-nav-list>
+			<!--<md-divider></md-divider>-->
+			<md-nav-list class="scrollable">
 				<md-list-item *ngFor="let account of accountStream | async"
 				draggable="true"
 				(dragstart)="dragStart($event, account, transactionPlayer.RECEIVER)">					
-					<h4 md-line>{{account.name}}</h4>
+					<md-icon md-list-icon>assignment</md-icon>
+					<h4 md-line class="title">{{account.name}}</h4>
+					<i md-line class="description">{{account.name}} account</i>
+					<md-divider></md-divider>
 				</md-list-item>
 			</md-nav-list>
 		</div>
