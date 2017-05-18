@@ -64,8 +64,8 @@ export abstract class DataService {
 
 	getList(sortBy: SORT, filterBy: FILTER, filterValue?: string) : Observable<any[]>
 	{
-		var query = this.prepareQuery(filterBy, sortBy, filterValue);
-		const dataStream = this.db.list(this.tableName, { query });
+		var query = this.prepareQuery(sortBy, filterBy, filterValue);
+		const dataStream = this.db.list(this.tableName, { query: query });
 		return this.mapListToModel(dataStream);
 	}
 
@@ -73,7 +73,7 @@ export abstract class DataService {
 		CRUD HELPERS
 	-----------------------------------------------------------------------*/
 
-	private prepareQuery(filterBy: FILTER, sortBy: SORT, filterValue?: string) : Query
+	private prepareQuery(sortBy: SORT, filterBy: FILTER, filterValue?: string) : Query
 	{
 
 		var query: Query = {};

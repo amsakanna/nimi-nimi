@@ -23,7 +23,7 @@
 					</div>
 					<div class="product-row" 
 						*ngFor="let product of products"
-						[@productOverState]='product.productOverState'
+						[@productOverState]="product.productOverState"
 						(mouseenter)="product.toggleProductOverState('active')"
 						(mouseleave)="product.toggleProductOverState('inactive')"
 						(click)="switchMode()">
@@ -34,7 +34,7 @@
 						<span class="product unit">{{ product.unit }}</span>
 						<span class="product price">{{ product.price }}</span>
 					</div>
-				</div>
+				</div> d 6
 			</md-tab>
 			<md-tab label="Edit">
 				<div class="product-edit">

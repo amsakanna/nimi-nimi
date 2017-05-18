@@ -47,14 +47,15 @@
 			<header>				
 				<div class="search-box">
 					<md-icon md-prefix>search</md-icon>
-					<input placeholder="Account">
+					<input placeholder="Account" (input)="searchAccounts($event.target.value)">
 				</div>
 			</header>
 			<!--<md-divider></md-divider>-->
 			<md-nav-list class="scrollable">
-				<md-list-item *ngFor="let account of accountStream | async"
+				<md-list-item *ngFor="let account of accounts"
 				draggable="true"
-				(dragstart)="dragStart($event, account, transactionPlayer.RECEIVER)">					
+				(dragstart)="dragStart($event, account, transactionPlayer.RECEIVER)"
+				[@listItemAnimation]="listItemState">
 					<md-icon md-list-icon>assignment</md-icon>
 					<h4 md-line class="title">{{account.name}}</h4>
 					<i md-line class="description">{{account.name}} account</i>
