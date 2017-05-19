@@ -55,11 +55,11 @@ export class BrandComponent implements OnInit {
 			name: this.brandForm.get('name').value,
 			rating: this.brandForm.get('rating').value
 		});
-		this.brandService.update(brand);
+		this.brandService.upsert(brand);
 	}
 
 	removeBrand() {
-		this.brandService.remove(this.brand);
+		this.brandService.delete(this.brand);
 	}
 
 }

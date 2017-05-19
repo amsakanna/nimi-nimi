@@ -32,28 +32,46 @@ export abstract class DataService {
 		this.table = this.db.list(this.tableName);
 	}
 
-	add(object: any) : any 
+	insert(object: any) : any 
 	{
 		delete object.$key;
 		const key = this.table.push(object).key;
 		return key;
 	}
 
-	remove(object: any)
+	delete(object: any)
 	{
-		if(object.$key !== '' && object.$key !== null && object.$key !== undefined)
-			this.table.remove(object.$key);
+		const key = object.$key;
+		if(this.isValidKey(key))
+			this.table.remove(key);
 	}
 
 	update(object: any) : any
 	{
+		const key = object.$key;
+		if(this.isValidKey(key))
+			this.table.update(key, object);
+		return key;
+	}
+
+	upsert(object: any) : any
+	{
 		var key = object.$key;
 		delete object.$key;
-		if(key == '')
-			key = this.table.push(object).key;
-		else
+		if(this.isValidKey(key))
 			this.table.update(key, object);		
+		else
+			key = this.table.push(object).key;
 		return key;
+	}
+
+	exists(key: string) : Observable<boolean> 
+	{
+		if(this.isValidKey(key)) 
+		{
+			const dataStream = this.db.object(this.tableName + "/" + key);
+			return dataStream.count().map(count => count > 0);
+		}
 	}
 
 	getObject(key: string): Observable<any> 
@@ -72,6 +90,11 @@ export abstract class DataService {
 	/*-----------------------------------------------------------------------
 		CRUD HELPERS
 	-----------------------------------------------------------------------*/
+
+	private isValidKey(key: string) 
+	{
+		return (key !== undefined && key !== null && key !== '');
+	}
 
 	private prepareQuery(sortBy: SORT, filterBy: FILTER, filterValue?: string) : Query
 	{

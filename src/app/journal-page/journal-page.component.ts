@@ -33,29 +33,25 @@ import '../library/extension-methods';
 })
 export class JournalPageComponent implements OnInit {	
 
-	private accountStream: Observable<any[]>;
-	private accountStreamFiltered: Observable<any[]>;
+	private account: Account;	
 	private accounts: Account[];
 	private accountsBackup: Account[];
 	private transactionTypesStream: Observable<any[]>;
+	private transactionType: any;
+	private journal: Journal;
 	private dragState: DRAG_STATE;
 	private trigger: TRIGGER;
 	private animationState: ANIMATION_STATE;
-	private journal: Journal;
-	private transactionType: any;
-	private account: Account;	
 
 	constructor(private accountService: AccountService,
 				private journalService: JournalService,
 				private keyValService: KeyValService) {
 
-		this.accountStream = this.accountService.getList(SORT.NONE, FILTER.NONE, undefined).take(1);
-		this.accountStream.subscribe(data => {
+		this.accountService.getList(SORT.NONE, FILTER.NONE, undefined).take(1).subscribe(data => {
 			this.accounts = data.slice();
 			this.accountsBackup = data.slice();
 		});
-		
-		this.accountStreamFiltered = this.accountStream;
+				
 		this.keyValService.setTable('transactionType');
 		this.transactionTypesStream = this.keyValService.getList(SORT.NONE, FILTER.NONE, undefined);		
 
@@ -108,7 +104,7 @@ export class JournalPageComponent implements OnInit {
 	}
 
 	addJournal() {
-		this.journalService.add(this.journal);
+		this.journalService.insert(this.journal);
 	}
 
 	searchAccounts(key: string) {		
@@ -116,20 +112,15 @@ export class JournalPageComponent implements OnInit {
 			this.accounts = this.accountsBackup.slice();
 		}
 		else {
-			console.log('key', key);
-			console.log('this.accountsBackup', this.accountsBackup);
 			this.accountsBackup.forEach(account => 
 			{				
-				console.log('account', account);
-				var accountMatchesInBackup = account.name.doesExist(key);
-				console.log('accountMatchesInBackup', accountMatchesInBackup);
+				var accountMatchesInBackup = account.name.doesExist(key, true);
 				var i = this.accounts.indexOf(account);
 				var accountMatches = (i >= 0);
-				console.log('accountMatches', accountMatches);
 				if(accountMatchesInBackup && ! accountMatches)
 					this.accounts.push(account);
 				else if(!accountMatchesInBackup && accountMatches)
-					this.accounts.splice(i, 1);
+					this.accounts.splice(i, 1);				
 			})
 		}
 	}

@@ -56,8 +56,3 @@ main {
     margin-top: 20px;
     color: white;
 }
-
-.account-container .md-nav-list-container > md-nav-list {
-    min-width: 200px;
-    height: 300px;
-}

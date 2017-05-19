@@ -91,11 +91,11 @@ export class ProductComponent implements OnInit {
 			thumbnailFileName: ''			
 		});
 		console.log(product);
-		this.productService.update(product);
+		this.productService.upsert(product);
 	}
 
 	removeproduct() {
-		this.productService.remove(this.product);
+		this.productService.delete(this.product);
 	}
 
 	showFileDialog() {

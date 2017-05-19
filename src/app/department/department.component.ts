@@ -63,11 +63,11 @@ export class DepartmentComponent implements OnInit {
 			path: this.departmentForm.get('path').value,
 			parent: this.departmentForm.get('parent').value
 		});
-		this.departmentService.update(department);
+		this.departmentService.upsert(department);
 	}
 
 	removeDepartment() {
-		this.departmentService.remove(this.department);
+		this.departmentService.delete(this.department);
 	}
 
 }
