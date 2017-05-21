@@ -6,7 +6,7 @@ export class Journal {
     debitAccount: Account;
     creditAccount: Account;
     transactionAmount: number;    
-    transactionDate: '';
+    transactionDate: string;
 
     constructor({$key, debitAccount, creditAccount, transactionAmount, transactionDate}) {
         this.$key = $key;

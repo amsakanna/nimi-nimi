@@ -1,8 +1,35 @@
-<h2>Inventory</h2>
-<nav>
-	<a md-raised-button [routerLink]="['/admin/inventory/brand']">Brand</a>
-	<a md-raised-button [routerLink]="['/admin/inventory/department']">Department</a>
-	<a md-raised-button [routerLink]="['/admin/inventory/product']">Product</a>
-</nav>
-<router-outlet></router-outlet>
-
+<div class="wrapper">
+	<header></header>
+	<main>
+		<div class="item-list md-nav-list-container">
+			<header>				
+				<div class="search-box">
+					<md-icon md-prefix>search</md-icon>
+					<input placeholder="Inventory" (input)="searchInventory($event.target.value)">
+				</div>
+			</header>
+			<md-nav-list class="scrollable">
+				<md-list-item *ngFor="let item of itemsStream | async"
+				[@listItemAnimation]="listItemState">
+					<md-icon md-list-icon>assignment</md-icon>
+					<div class="item flex-space-around">
+						<div class="item-cell id"><div class="key">Id</div><div class="value">{{item.id}}</div></div>
+						<div class="item-cell name"><div class="key">Name</div><div class="value">{{item.name}}</div></div>
+						<div class="item-cell units"><div class="key">Units</div><div class="value">{{item.units}} {{item.unitOfMeasure}}</div></div>
+						<div class="item-cell price"><div class="key">Price</div><div class="value">{{item.price}}</div></div>
+					</div>
+				</md-list-item>
+			</md-nav-list>
+		</div>
+	</main>
+	<footer class="flex-vertical flex-space-around-center">
+		<form class="inventory-form floating-box flex-space-around-center" [formGroup]="inventoryForm" novalidate (ngSubmit)="submitForm()">
+			<div><md-input-container><input mdInput placeholder="Id" formControlName="id"></md-input-container></div>
+			<div><md-input-container><input mdInput placeholder="Units" formControlName="units"></md-input-container></div>
+			<div><md-input-container><input mdInput placeholder="Price" type="number" formControlName="price"></md-input-container></div>
+			<button md-fab class="create-button">
+				<md-icon>keyboard_arrow_up</md-icon>
+			</button>
+		</form>
+	</footer>
+</div>

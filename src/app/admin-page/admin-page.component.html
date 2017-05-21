@@ -1,6 +1,50 @@
-<h2>Admin Panel</h2>
-<nav>
-    <a md-raised-button [routerLink]="['/admin/journal']">Journal</a>
-    <a md-raised-button [routerLink]="['/admin/inventory']">Inventory</a>
-</nav>
-<router-outlet></router-outlet>
+<div class="wrapper">
+    <header>    
+        <md-toolbar class="floating-box" color="primary">
+            <button md-button (click)="sidenav.toggle()">
+                <md-icon>menu</md-icon>
+            </button>
+            <span class="title">Admin Panel</span>
+            <nav>
+            </nav>
+        </md-toolbar>    
+    </header>
+    <main>
+        <md-sidenav-container>
+            <md-sidenav class="floating-box" #sidenav mode="side" opened="true">
+                <md-nav-list class="scrollable">
+                    <md-list-item [routerLink]="['/admin/journal']">
+                        <md-icon md-list-icon>assignment</md-icon>
+                        <span md-line class="title">Journal</span>
+                        <span md-line class="description">add journal here</span>
+                    </md-list-item>
+                    <md-list-item [routerLink]="['/admin/inventory']">
+                        <md-icon md-list-icon>dns</md-icon>
+                        <span md-line class="title">Inventory</span>
+                        <span md-line class="description">add inventory here</span>
+                    </md-list-item>
+                    <md-list-item [routerLink]="['/admin/inventory/brand']">
+                        <md-icon md-list-icon>aspect_ratio</md-icon>
+                        <span md-line class="title">Brand</span>
+                        <span md-line class="description">add brand here</span>
+                    </md-list-item>
+                    <md-list-item [routerLink]="['/admin/inventory/department']">
+                        <md-icon md-list-icon>group_work</md-icon>
+                        <span md-line class="title">Department</span>
+                        <span md-line class="description">add department here</span>
+                    </md-list-item>
+                    <md-list-item [routerLink]="['/admin/inventory/product']">
+                        <md-icon md-list-icon>card_giftcard</md-icon>
+                        <span md-line class="title">Product</span>
+                        <span md-line class="description">add product here</span>
+                    </md-list-item>
+                </md-nav-list>
+            </md-sidenav>
+            <div class="sidenav-content">
+                <router-outlet></router-outlet>
+            </div>
+        </md-sidenav-container>
+    </main>
+    <footer>
+    </footer>
+</div>

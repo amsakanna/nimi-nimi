@@ -1,9 +1,36 @@
+.wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 main {
+    flex-grow: 1;
     display: flex;
     justify-content: space-around;
-    min-height: 300px;
-    width: 1000px;
-    margin: 0 auto;
+}
+
+.journal-list {
+    min-width: 400px;
+}
+
+.journal-list .journal {
+    width: 100%;
+}
+
+.journal-list .journal .date {
+    display: inline-block;
+    width: 120px;
+}
+
+.journal-list .journal .account {
+    display: inline-block;
+    width: 180px;
+}
+
+.journal-list .journal .amount {
+    display: inline-block;
+    width: 80px;
 }
 
 .drop-area-container {
@@ -49,10 +76,45 @@ main {
     font-size: 0.6em;
 }
 
-.add-journal-button {
-    /*position: absolute;
-    right: 20px;
-    bottom: 20px;*/
-    margin-top: 20px;
+footer {
+    width: 100%;    
+}
+
+.journal-preview-box {
+    min-width: 450px; width: 75%; max-width: 750px;
+    height: 60px;
+}
+
+.journal {
+    width: 100%;
+}
+
+.journal .key {
+    color: lightgrey;
+    font-size: 0.6em;
+    font-style: italic;
+}
+
+.journal .value {
+    font-size: 0.8em;
+}
+
+footer form {
+    position: relative;
+    margin-top: 50px;
+    padding-top: 10px;
+    min-width: 700px; width: 100%; max-width: 1000px;
+    min-height: 80px; height: 80px;
+    background-color: #67b0d1 !important;
     color: white;
 }
+
+footer form /deep/ .mat-input-placeholder {
+    color: rgb(240, 240, 240);
+}
+
+footer form /deep/ .mat-input-underline {
+    border-color: white;
+}
+
+

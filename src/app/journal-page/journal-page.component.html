@@ -1,13 +1,31 @@
+<div class="wrapper">
 <header>
-	<h3>Journal</h3>
 </header>
-<main>	
-	<div class="drop-area-container">
+<main>
+	<div class="journal-list md-nav-list-container">
+		<header>				
+			<div class="search-box">
+				<md-icon md-prefix>search</md-icon>
+				<input placeholder="Journal" (input)="searchJournal($event.target.value)">
+			</div>
+		</header>
+		<md-nav-list class="scrollable">
+			<md-list-item *ngFor="let journal of journalsStream | async"
+			[@listItemAnimation]="listItemState">
+				<md-icon md-list-icon>assignment</md-icon>
+				<div class="journal flex-space-around">
+					<div class="date"><div class="key">Date</div><div class="value">{{journal.transactionDate}}</div></div>
+					<div class="account"><div class="key">Debit</div><div class="value">{{journal.debitAccount.name}}</div></div>
+					<div class="account"><div class="key">Credit</div><div class="value">{{journal.creditAccount.name}}</div></div>
+					<div class="amount"><div class="key">Amount</div><div class="value">{{journal.transactionAmount}}</div></div>
+				</div>
+			</md-list-item>
+		</md-nav-list>
+	</div>
+	<!--<div class="drop-area-container">
 		<div class="md-nav-list-container center transaction-type-list">
 			<md-nav-list class="horizontal">
-				<md-list-item *ngFor="let transactionType of transactionTypesStream | async"
-				draggable="true"
-				(dragstart)="dragStart($event, account, transactionPlayer.RECEIVER)">
+				<md-list-item *ngFor="let transactionType of transactionTypesStream | async">
 					<h4 md-line>{{ transactionType.$value }}</h4>
 				</md-list-item>
 			</md-nav-list>
@@ -16,12 +34,12 @@
 			(dragover)="dragOver($event)" 
 			(drop)="drop($event)">
 			<div class="dropped-accounts">				
-				<!--<p>{{ journal.debitAccount.name }}
+				<p>{{ journal.debitAccount.name }}
 					<span *ngIf="journal.giverAccount.name != '' || journal.receiverAccount.name != '' ">&nbsp;&nbsp;&nbsp;&nbsp;----</span>
 					<span class="transaction-amount">{{ journal.transactionAmount }}</span>
 					<span *ngIf="journal.giverAccount.name != '' || journal.receiverAccount.name != '' ">----&gt;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 					{{ journal.creditAccount.name }}
-				</p>-->
+				</p>
 			</div>
 			<div class="transaction-amount-input-container">
 				<md-grid-list rows="4" cols="3">
@@ -41,27 +59,66 @@
 			</div>
 			<button class="add-journal-button" md-fab (click)="addJournal()"><md-icon>add</md-icon></button>
 		</div>
-	</div>
-	<div class="account-container">
+	</div>-->
+	<!--<div class="account-container">
 		<div class="md-nav-list-container">
 			<header>				
 				<div class="search-box">
 					<md-icon md-prefix>search</md-icon>
-					<input placeholder="Account" (input)="searchAccounts($event.target.value)">
+					<input placeholder="Account" (input)="searchAccount($event.target.value)">
 				</div>
 			</header>
-			<!--<md-divider></md-divider>-->
 			<md-nav-list class="scrollable">
 				<md-list-item *ngFor="let account of accounts"
-				draggable="true"
-				(dragstart)="dragStart($event, account, transactionPlayer.RECEIVER)"
 				[@listItemAnimation]="listItemState">
 					<md-icon md-list-icon>assignment</md-icon>
 					<h4 md-line class="title">{{account.name}}</h4>
 					<i md-line class="description">{{account.name}} account</i>
-					<md-divider></md-divider>
 				</md-list-item>
 			</md-nav-list>
 		</div>
-	</div>
+	</div>-->
 </main>
+<footer class="flex-vertical flex-space-around-center">	
+	<!--<div class="journal-preview-box floating-box flex-center-center">
+		<div class="journal flex-space-around">
+			<div><div class="key">Date</div><div class="value">{{journal.transactionDate}}</div></div>
+			<div><div class="key">Debit</div><div class="value">{{journal.debitAccount.name}}</div></div>
+			<div><div class="key">Credit</div><div class="value">{{journal.creditAccount.name}}</div></div>
+			<div><div class="key">Amount</div><div class="value">{{journal.transactionAmount}}</div></div>
+		</div>
+	</div>-->
+	<form class="journal-form floating-box flex-space-around-center" [formGroup]="journalForm" novalidate (ngSubmit)="submitForm()">
+		<div>
+			<md-input-container>
+				<input mdInput placeholder="Transaction Type" formControlName="transactionType" (input)="updateJournalPreview('transactionType')">
+			</md-input-container>
+			<md-autocomplete #transactionTypeList="mdAutocomplete" (change)="updateJournalPreview('transactionType')">
+				<md-option *ngFor="let transactionType of transactionTypes" [value]="transactionType.$value">
+					<!--<md-icon md-list-icon>assignment</md-icon>-->
+					{{transactionType.$value}}
+				</md-option>
+			</md-autocomplete>
+		</div>
+		<div>
+			<md-input-container>
+				<input mdInput placeholder="Account" formControlName="account" (input)="updateJournalPreview('account')">
+			</md-input-container>
+			<md-autocomplete #accountList="mdAutocomplete">
+				<md-option *ngFor="let account of accounts" [value]="account.name">
+					<!--<md-icon md-list-icon>assignment</md-icon>-->
+					{{account.name}}
+				</md-option>
+			</md-autocomplete>
+		</div>
+		<div>
+			<md-input-container>
+				<input mdInput placeholder="Amount" type="number" formControlName="transactionAmount" (input)="updateJournalPreview('transactionAmount')">
+			</md-input-container>			
+		</div>
+		<button md-fab class="create-journal-button">
+			<md-icon>keyboard_arrow_up</md-icon>
+		</button>
+	</form>
+</footer>
+</div>

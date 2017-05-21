@@ -3,10 +3,15 @@
 
 /* Generic Styles */
 
+html {
+    height: 100%;
+}
+
 body {
     
     margin: 0px;
-    padding: 20px 50px;
+    height: 100%;
+    /*padding: 20px 50px;*/
 
     /*background: -webkit-linear-gradient(-45deg, rgba(76,76,76,1) 0%, rgba(89,89,89,1) 12%, rgba(102,102,102,1) 25%, rgba(71,71,71,1) 39%, rgba(44,44,44,1) 50%, rgba(0,0,0,1) 51%, rgba(17,17,17,1) 60%, rgba(43,43,43,1) 76%, rgba(28,28,28,1) 91%, rgba(19,19,19,1) 100%);
     background: -webkit-linear-gradient(-45deg, rgba(252,236,252,1) 0%, rgba(251,166,225,1) 50%, rgba(253,137,215,1) 51%, rgba(255,124,216,1) 100%);
@@ -26,9 +31,9 @@ body {
 }
 
 @keyframes example {
-    0% {transform: scale(1);}
-    50% {transform: scale(1.2);}
-    100% {transform: scale(1);}
+    0% {transform: scale(1); opacity: 0.5;}
+    50% {transform: scale(1.1); opacity: 1;}
+    100% {transform: scale(1); opacity: 0.5;}
 }
 
 .app-loading {
@@ -63,6 +68,12 @@ body {
     box-shadow: 6px 6px 80px 0px rgba(0, 0, 0, 0.2) !important;
 }
 
+.floating-box {
+    background-color: rgb(247, 250, 255);
+    border-radius: 3px;
+    box-shadow: 6px 6px 80px 0px rgba(0, 0, 0, 0.1) !important;
+}
+
 /* Generic Components Styles */
 
 md-card {
@@ -73,7 +84,7 @@ md-card {
 }
 
 md-nav-list {
-    box-shadow: 6px 6px 80px 0px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 6px 6px 80px 0px rgba(0, 0, 0, 0.1);
 }
 
 button {
@@ -89,11 +100,14 @@ md-card-content {
     padding-left: 20px;   
 }
 
+md-nav-list {
+    padding-top: 0px !important;
+}
+
 .md-nav-list-container {
-    width: 250px;
     background-color: rgb(247, 250, 255);
     border-radius: 3px;
-    box-shadow: 6px 6px 80px 0px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 6px 6px 80px 0px rgba(0, 0, 0, 0.1);
 }
 
 .md-nav-list-container.center {
@@ -123,6 +137,7 @@ md-card-content {
     width: 100%;
     border: none;
     outline: none;
+    background-color: rgb(247, 250, 255);
     color: skyblue;
     font-size: 1.2em;
 }
@@ -132,8 +147,7 @@ md-card-content {
 }
 
 .md-nav-list-container > md-nav-list {
-    padding-top: 0px !important;
-    height: 300px;
+    height: calc(100% - 120px);
     box-shadow: none !important;
 }
 
@@ -149,12 +163,13 @@ md-card-content {
 
 .md-nav-list-container > md-nav-list md-list-item .mat-list-icon {    
     color: lightsteelblue;
+    padding-right: 50px;
 }
 
 .mat-line.title {
     font-size: 0.85em !important;
     font-weight: bold !important;
-    color: black !important;
+    color: #444 !important;
 }
 
 .mat-line.description {
@@ -171,14 +186,37 @@ md-card-content {
     display: inline-block;
 }
 
-/* Generic Layout Styles */
-
-.flex-vertical-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.create-button {
+    position: absolute;
+    top: -20px;
+    right: 20px;
+    color: white;
+    background-color: #6200EA;
 }
+
+/* Generic Layout Styles */
 
 .long-input-box {
     width: 300px !important;
+}
+
+.flex-space-around {
+    display: flex;
+    justify-content: space-around;
+}
+
+.flex-vertical {
+    flex-direction: column;
+}
+
+.flex-center-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-space-around-center {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }

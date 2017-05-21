@@ -1,0 +1,46 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+header {
+    padding: 40px;
+}
+
+md-toolbar {
+    background-color: black !important;
+}
+
+md-toolbar span {
+    flex-grow: 1;
+}
+
+main {
+    flex-grow: 1;
+    display: flex;
+    padding: 40px;
+    padding-top: 0px;
+}
+
+md-sidenav-container {
+    flex-grow: 1;
+    background-color: transparent;
+}
+
+md-sidenav {
+    width: 200px;
+}
+
+md-sidenav md-nav-list {
+    height: 100%;
+}
+
+md-sidenav md-icon {
+    color: lightsteelblue;
+}
+
+.sidenav-content {
+    height: 100%;
+    margin-left: 80px;
+}

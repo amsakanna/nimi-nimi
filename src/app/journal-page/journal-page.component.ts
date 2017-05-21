@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, trigger, state, style, transition, animate, keyframes } from '@angular/core';
+import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/take';
 import { AccountService } from '../services/account.service';
@@ -6,6 +7,7 @@ import { JournalService } from '../services/journal.service';
 import { KeyValService } from '../services/key-val.service';
 import { Account } from '../models/account.model';
 import { Journal } from '../models/journal.model';
+import { KeyVal } from '../models/key-val.model';
 import { FILTER, SORT, DRAG_STATE, TRIGGER, ANIMATION_STATE } from '../models/constants';
 import '../library/extension-methods';
 
@@ -36,16 +38,21 @@ export class JournalPageComponent implements OnInit {
 	private account: Account;	
 	private accounts: Account[];
 	private accountsBackup: Account[];
-	private transactionTypesStream: Observable<any[]>;
-	private transactionType: any;
+	private transactionTypes: KeyVal[];	
+	private journalsStream: Observable<Journal[]>;
 	private journal: Journal;
+	private journalForm: FormGroup;
 	private dragState: DRAG_STATE;
 	private trigger: TRIGGER;
 	private animationState: ANIMATION_STATE;
 
-	constructor(private accountService: AccountService,
+	constructor(private formBuilder: FormBuilder,
+				private accountService: AccountService,
 				private journalService: JournalService,
-				private keyValService: KeyValService) {
+				private keyValService: KeyValService) 
+	{
+
+		this.newForm();
 
 		this.accountService.getList(SORT.NONE, FILTER.NONE, undefined).take(1).subscribe(data => {
 			this.accounts = data.slice();
@@ -53,25 +60,43 @@ export class JournalPageComponent implements OnInit {
 		});
 				
 		this.keyValService.setTable('transactionType');
-		this.transactionTypesStream = this.keyValService.getList(SORT.NONE, FILTER.NONE, undefined);		
-
-		var newAccount: Account = new Account({$key: '', name: '', parent: ''});
-		this.journal = new Journal({
-			$key: '',			
-			debitAccount: newAccount,
-			creditAccount: newAccount,
-			transactionAmount: 0,
-			transactionDate: ''
+		this.keyValService.getList(SORT.NONE, FILTER.NONE, undefined).take(1).subscribe(data => {
+			this.transactionTypes = data.slice();
 		});
+
+		this.journalsStream = this.journalService.getList(SORT.SEARCH_KEY, FILTER.NONE, undefined);
+		this.journalsStream = this.journalsStream.map(journals => journals.map(journal => {
+			this.accountService.getObject(journal.debitAccount.$key).subscribe(account => journal.debitAccount = account);
+			this.accountService.getObject(journal.creditAccount.$key).subscribe(account => journal.creditAccount = account);
+			return journal;									
+		}));
+
 	}
 
 	ngOnInit() {
 	}
 
+	newForm() 
+	{
+		this.journalForm = this.formBuilder.group({
+			transactionType: ['', Validators.required],
+			account: ['', Validators.required],
+			transactionAmount: [0, Validators.required]
+		});
+		var newAccount: Account = new Account({$key: '', name: '', parent: ''});
+		this.journal = new Journal({$key: '', transactionDate: (new Date()).toLocaleDateString(), debitAccount: newAccount, creditAccount: newAccount, transactionAmount: 0});
+	}
+
+	submitForm() {
+		var newAccount: Account = new Account({$key: '', name: '', parent: ''});		
+		this.journal.transactionAmount = this.journalForm.get('transactionAmount').value;
+		this.journalService.insert(this.journal);
+	}
+
 	dragStart(event, data: any, trigger: TRIGGER) {
 		this.dragState = DRAG_STATE.START;
 		if (trigger == TRIGGER.TRANSACTION_TYPE)
-			this.transactionType = data;
+			console.log(trigger);
 		else if (trigger == TRIGGER.ACCOUNT)
 			this.account = <Account> data;
 		event.dataTransfer.setData('text', data);
@@ -89,25 +114,7 @@ export class JournalPageComponent implements OnInit {
 		event.preventDefault();
 	}
 
-	updateTransactionAmount(input: string) {
-		switch (input) {
-			case 'C':
-				this.journal.transactionAmount = 0;
-				break;
-			case 'D':
-				this.journal.transactionAmount = Math.floor(this.journal.transactionAmount / 10);
-				break;
-			default:
-				this.journal.transactionAmount = (this.journal.transactionAmount * 10) + (+input);
-				break;
-		}
-	}
-
-	addJournal() {
-		this.journalService.insert(this.journal);
-	}
-
-	searchAccounts(key: string) {		
+	searchAccount(key: string) {		
 		if(key == '') {
 			this.accounts = this.accountsBackup.slice();
 		}
@@ -123,6 +130,37 @@ export class JournalPageComponent implements OnInit {
 					this.accounts.splice(i, 1);				
 			})
 		}
+	}
+
+	updateJournalPreview(formControlName: string)
+	{
+		if(formControlName == 'transactionAmount') {
+			this.journal.transactionAmount = this.journalForm.get('transactionAmount').value;
+		}
+		var transactionType = this.journalForm.get('transactionType').value;
+		var account = this.journalForm.get('account').value;
+		switch (transactionType) {
+			case 'Purchase':
+				this.journal.debitAccount = new Account({$key: '', name: account, parent: ''});
+				this.journal.creditAccount = new Account({$key: '', name: 'Cash', parent: ''});
+				break;
+			case 'Sales':
+				this.journal.debitAccount = new Account({$key: '', name: 'Cash', parent: ''});
+				this.journal.creditAccount = new Account({$key: '', name: account, parent: ''});
+				break;
+			case 'Payment':
+				this.journal.debitAccount = new Account({$key: '', name: account, parent: ''});
+				this.journal.creditAccount = new Account({$key: '', name: 'Cash', parent: ''});					
+				break;
+			case 'Receipt':
+				this.journal.debitAccount = new Account({$key: '', name: 'Cash', parent: ''});
+				this.journal.creditAccount = new Account({$key: '', name: account, parent: ''});
+				break;
+			case 'Others':
+				break;			
+			default:
+				break;
+		}		
 	}
 
 }
