@@ -18,6 +18,7 @@ import { BrandService } from './services/brand.service';
 import { DepartmentService } from './services/department.service';
 import { AccountService } from './services/account.service';
 import { JournalService } from './services/journal.service';
+import { InventoryService } from './services/inventory.service';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { JournalPageComponent } from './journal-page/journal-page.component';
@@ -29,6 +30,7 @@ import { DepartmentComponent } from './department/department.component';
 import { ProductComponent } from './product/product.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { ProductsPageComponent } from './products-page/products-page.component';
+import { JamListContainerComponent } from './jam-list-container/jam-list-container.component';
 
 export const firebaseAppConfig : FirebaseAppConfig = {
     apiKey: "AIzaSyBV4KfPwTrqbFXzf7Sm6YAXkjSY1jSVcEk",
@@ -51,7 +53,8 @@ export const firebaseAppConfig : FirebaseAppConfig = {
     DepartmentPageComponent,
     ProductPageComponent,
     BrandComponent,
-    DepartmentComponent
+    DepartmentComponent,
+    JamListContainerComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,7 +73,8 @@ export const firebaseAppConfig : FirebaseAppConfig = {
     BrandService,
     DepartmentService,
     AccountService,
-    JournalService
+    JournalService,
+    InventoryService
   ],
   bootstrap: [AppComponent]
 })

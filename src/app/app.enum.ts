@@ -27,3 +27,24 @@ export const enum ANIMATION_STATE {
 	ITEM_ADDED,
 	ITEM_REMOVED
 }
+
+export const enum STATUS {
+	SUCCESS = 0,
+	FAILURE = -1
+}
+
+export const enum ERROR {
+	KEY_IS_EMPTY = 105,
+	KEY_NOT_VALID = 106,
+	KEY_NOT_FOUND = 101,
+	INSERT_FAILED = 102,
+	DELETE_FAILED = 103,
+	UPDATE_FAILED = 104
+}
+
+export const enum DATABASE_OPERATION {
+	INSERT,
+	DELETE,
+	UPDATE,
+	SELECT
+}

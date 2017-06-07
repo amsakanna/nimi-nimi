@@ -1,61 +1,53 @@
-.wrapper {
+#container {
     height: 100%;
-    display: flex;
-    flex-direction: column;
 }
 
-main {
-    flex-grow: 1;
-    display: flex;
-    justify-content: space-around;
+app-jam-list-container {
+    width: 350px;
 }
 
-.item-list {
-    min-width: 400px;
+app-jam-list-container md-nav-list {
+    height: 250px;
 }
 
-.item-list .item {
-    width: 100%;
+app-jam-list-container md-nav-list md-icon {
+    width: 60px;
+    font-size: 20px;
+    padding-top: 8px;
 }
 
-.item-list .item-cell {
-    display: inline-block;
+app-jam-list-container md-nav-list md-list-item div {
+    font-size: 0.7em;
 }
 
-.item-list .item .id {
-    width: 120px;
+app-jam-list-container md-nav-list /deep/ .mat-list-item-content {
+    padding: 0px 30px !important;
 }
 
-.item-list .item .name {
-    width: 180px;
-}
-
-.item-list .item .units {
-    width: 100px;
-}
-
-.item-list .item .price {
-    width: 80px;
-}
-
-footer {
-    width: 100%;    
-}
-
-footer form {
+#container form md-card {
     position: relative;
-    margin-top: 50px;
-    padding-top: 10px;
-    min-width: 700px; width: 100%; max-width: 1000px;
-    min-height: 80px; height: 80px;
-    background-color: #67b0d1 !important;
-    color: white;
+    width: 300px;
+    height: 400px;
+    background-color: lightcoral;
 }
 
-footer form /deep/ .mat-input-placeholder {
-    color: rgb(240, 240, 240);
+#container form md-card md-card-content {
+    padding: 0px 20px;
 }
 
-footer form /deep/ .mat-input-underline {
-    border-color: white;
+.create-button {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.item-key {
+    width: 75%;
+}
+
+.item-units {
+    width: 12.5%;
+}
+
+.item-price {
+    width: 12.5%;
 }

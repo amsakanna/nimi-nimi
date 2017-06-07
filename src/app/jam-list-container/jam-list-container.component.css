@@ -1,0 +1,36 @@
+header {
+    display: flex;
+    height: 70px;
+    padding: 0px 30px;
+}
+
+header > .search-box {    
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+
+header > .search-box md-icon {
+    color: lightgray;
+    padding: 4px;
+}
+
+header > .search-box input {    
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: rgb(247, 250, 255);
+    color: skyblue;
+    font-size: 1.2em;
+}
+
+header > .search-box input::-webkit-input-placeholder {
+    color: lightgray;
+}
+
+footer {
+    display: block;
+    height: 70px;
+}

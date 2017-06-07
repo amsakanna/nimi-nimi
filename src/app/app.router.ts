@@ -12,19 +12,18 @@ import { ProductComponent } from "./product/product.component";
 import { ProductsPageComponent } from "./products-page/products-page.component";
 
 const APP_ROUTES: Routes = [
-    { path: '', component: HomePageComponent},    
+    { path: '', component: HomePageComponent },
     { path: 'admin', component: AdminPageComponent , children: [
         { path: 'journal', component: JournalPageComponent },
-        { path: 'inventory', component: InventoryPageComponent, children: [
-            { path: 'brand', component: BrandPageComponent, children: [
-                { path: ':id', component: BrandComponent }
-            ] },
-            { path: 'department', component: DepartmentPageComponent, children: [
-                { path: ':id', component: DepartmentComponent }
-            ] },
-            { path: 'product', component: ProductPageComponent, children: [
-                { path: ':id', component: ProductComponent }
-            ] },
+        { path: 'inventory', component: InventoryPageComponent },
+        { path: 'brand', component: BrandPageComponent, children: [
+            { path: ':id', component: BrandComponent }
+        ]},
+        { path: 'department', component: DepartmentPageComponent, children: [
+            { path: ':id', component: DepartmentComponent }
+        ]},
+        { path: 'product', component: ProductPageComponent, children: [
+            { path: ':id', component: ProductComponent }
         ]}
     ]},
     { path: 'products', component: ProductsPageComponent }

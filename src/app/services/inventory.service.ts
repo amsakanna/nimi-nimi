@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2';
 import { DataService } from '../services/data.service';
-import { Brand } from '../models/brand.model';
+import { InventoryItem } from '../models/inventory-item.model';
 
 @Injectable()
-export class BrandService extends DataService<Brand> {
+export class InventoryService extends DataService<InventoryItem> {
 
 	protected foreignKeyName = null;
-	protected searchKeyName = "name";
+	protected searchKeyName = "units";
 	protected tableName: string;
 
 	constructor(db: AngularFireDatabase) {
-		super(db, "brands");
+		super(db, "inventory");
 	}
 
-	protected createModel(json): Brand {
-		return new Brand(json);
+	protected createModel(json): InventoryItem {
+		return new InventoryItem(json);
 	}
 
 }

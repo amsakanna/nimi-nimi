@@ -4,15 +4,18 @@ import { DataService } from '../services/data.service';
 import { Account } from '../models/account.model';
 
 @Injectable()
-export class AccountService extends DataService {
+export class AccountService extends DataService<Account> {
 
-	protected createModel = (json) => new Account(json);
 	protected foreignKeyName = null;
 	protected searchKeyName = "name";
 	protected tableName: string;
 
 	constructor(db: AngularFireDatabase) {
 		super(db, "accounts");
+	}
+
+	protected createModel(json) : Account {
+		return new Account(json);
 	}
 
 }

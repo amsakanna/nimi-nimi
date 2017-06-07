@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { FILTER, SORT } from '../models/constants';
+import { FILTER, SORT } from '../app.enum';
 import { Observable } from 'rxjs';
 import "rxjs/add/operator/first";
 import { FirebaseApp } from 'angularfire2';
@@ -58,8 +58,6 @@ export class ProductComponent implements OnInit {
 				this.product = product
 				this.productForm.setValue({
 					name: product.name,
-					price: product.price,
-					units: product.units,
 					department: product.department,
 					brand: ''
 				});
@@ -76,16 +74,13 @@ export class ProductComponent implements OnInit {
 			department: ['Clothing'],
 			brand: ['Sony']
 		});
-		this.product = new Product({$key: '', id: '', name: '', units: 0, price: 0, department: '', brand: '', thumbnailFileName: ''});
+		this.product = new Product({$key: '', name: '', department: '', brand: '', thumbnailFileName: ''});
 	}
 
 	submitForm() {
 		var product: Product = new Product ({
 			$key: this.product.$key,
-			id: this.productForm.get('id').value,
 			name: this.productForm.get('name').value,
-			units: this.productForm.get('units').value,
-			price: this.productForm.get('price').value,
 			department: this.productForm.get('department').value,
 			brand: this.productForm.get('brand').value,
 			thumbnailFileName: ''			
@@ -128,9 +123,7 @@ export class ProductComponent implements OnInit {
 			// Create product model
 			productJson = {
 				$key: id,
-				id: id,
 				name: productText[0],
-				price: productText[1],
 				thumbnailFileName: productText[2]				
 			};			
 			product = new Product(productJson);
@@ -150,7 +143,7 @@ export class ProductComponent implements OnInit {
 					idFromUrl = idFromUrl.split('.')[0];
 					for(var j=0; j<products.length; j++) {
 						var product = products[j];
-						if(product.id == idFromUrl) {
+						if(product.$key == idFromUrl) {
 							product.thumbnailUrl = url;
 							break;
 						}

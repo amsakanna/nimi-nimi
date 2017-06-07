@@ -4,15 +4,18 @@ import { DataService } from './data.service';
 import { Product } from '../models/product.model';
 
 @Injectable()
-export class ProductService extends DataService {
+export class ProductService extends DataService<Product> {
 
-	protected createModel = (json) => new Product(json);
 	protected foreignKeyName = null;
 	protected searchKeyName = "id";
 	protected tableName: string;
 
 	constructor(db: AngularFireDatabase) {
 		super(db, "products");
+	}
+
+	protected createModel(json): Product {
+		return new Product(json);
 	}
 
 }

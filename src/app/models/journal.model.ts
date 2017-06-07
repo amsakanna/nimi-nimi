@@ -10,8 +10,14 @@ export class Journal {
 
     constructor({$key, debitAccount, creditAccount, transactionAmount, transactionDate}) {
         this.$key = $key;
-        this.debitAccount = debitAccount;
-        this.creditAccount = creditAccount;        
+        this.debitAccount = new Account({
+            $key: debitAccount,
+            name: ''
+        });
+        this.creditAccount = new Account({
+            $key: creditAccount,
+            name: ''
+        });       
         this.transactionAmount = transactionAmount;
         this.transactionDate = transactionDate;
     }

@@ -4,9 +4,8 @@ import { DataService } from '../services/data.service';
 import { KeyVal } from '../models/key-val.model';
 
 @Injectable()
-export class KeyValService extends DataService {
+export class KeyValService extends DataService<KeyVal> {
 
-	protected createModel = (json) => new KeyVal(json, this.tableName);
 	protected foreignKeyName = null;
 	protected searchKeyName = "key";
 	protected tableName: string;
@@ -17,6 +16,10 @@ export class KeyValService extends DataService {
 
 	setTable(tableName: string) {
 		super.setTable(tableName);
+	}
+
+	protected createModel(json): KeyVal {
+		return new KeyVal(json, this.tableName);
 	}
 
 }

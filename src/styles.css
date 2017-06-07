@@ -70,26 +70,11 @@ body {
 
 .floating-box {
     background-color: rgb(247, 250, 255);
-    border-radius: 3px;
+    border-radius: 5px;
     box-shadow: 6px 6px 80px 0px rgba(0, 0, 0, 0.1) !important;
 }
 
 /* Generic Components Styles */
-
-md-card {
-	background-color: white;
-	border-radius: 2px !important;
-	box-shadow: 0px 4px 8px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12) !important;
-    box-shadow: 6px 6px 80px 0px rgba(0, 0, 0, 0.1);
-}
-
-md-nav-list {
-    box-shadow: 6px 6px 80px 0px rgba(0, 0, 0, 0.1);
-}
-
-button {
-    box-shadow: 6px 6px 80px 0px rgba(0, 0, 0, 0.2) !important;
-}
 
 md-card-header {
     margin: 0px;
@@ -104,64 +89,7 @@ md-nav-list {
     padding-top: 0px !important;
 }
 
-.md-nav-list-container {
-    background-color: rgb(247, 250, 255);
-    border-radius: 3px;
-    box-shadow: 6px 6px 80px 0px rgba(0, 0, 0, 0.1);
-}
-
-.md-nav-list-container.center {
-    text-align: center;
-}
-
-.md-nav-list-container > header {    
-    display: flex;
-    height: 70px;
-    padding: 0px 30px;
-}
-
-.md-nav-list-container > header > .search-box {    
-    height: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-
-.md-nav-list-container > header > .search-box md-icon {
-    color: lightgray;
-    padding: 4px;
-}
-
-.md-nav-list-container > header > .search-box input {    
-    width: 100%;
-    border: none;
-    outline: none;
-    background-color: rgb(247, 250, 255);
-    color: skyblue;
-    font-size: 1.2em;
-}
-
-.md-nav-list-container > header > .search-box input::-webkit-input-placeholder {
-    color: lightgray;
-}
-
-.md-nav-list-container > md-nav-list {
-    height: calc(100% - 120px);
-    box-shadow: none !important;
-}
-
-.md-nav-list-container > md-nav-list.scrollable {
-    overflow-y: scroll;
-}
-
-.md-nav-list-container .mat-list-item-content {
-    box-sizing: initial !important;    
-    padding: 0px 30px !important;
-    height: 50px !important;
-}
-
-.md-nav-list-container > md-nav-list md-list-item .mat-list-icon {    
+.mat-list-icon {    
     color: lightsteelblue;
     padding-right: 50px;
 }
@@ -178,20 +106,37 @@ md-nav-list {
     color: gray !important;
 }
 
-.md-nav-list-container > md-nav-list.horizontal {
-    width: auto;
-}
-
-.md-nav-list-container > md-nav-list.horizontal md-list-item {
-    display: inline-block;
-}
-
-.create-button {
-    position: absolute;
-    top: -20px;
-    right: 20px;
+.purple-accent {
     color: white;
     background-color: #6200EA;
+}
+
+.invert-color /deep/ .mat-input-placeholder {
+    color: rgb(240, 240, 240);
+}
+
+.invert-color /deep/ .mat-input-underline {
+    border-color: white;
+}
+
+.invert-color {
+    color: white !important;
+}
+
+.stretch {
+    width: 100%;
+}
+
+.stretch-with-min-max {
+    min-width: 700px; width: 100%; max-width: 1600px;
+}
+
+.stretch-with-min {
+    min-width: 700px; width: 100%;
+}
+
+.stretch-with-max {
+    width: 100%; max-width: 1600px;
 }
 
 /* Generic Layout Styles */
@@ -206,6 +151,7 @@ md-nav-list {
 }
 
 .flex-vertical {
+    display: flex;
     flex-direction: column;
 }
 
@@ -219,4 +165,8 @@ md-nav-list {
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.scrollable {
+    overflow-y: scroll;
 }

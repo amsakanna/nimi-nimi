@@ -2,29 +2,37 @@ import { Injectable } from '@angular/core';
 import { AngularFireModule, AngularFireDatabase, FirebaseListObservable } from 'angularfire2';
 import { Query } from 'angularfire2/interfaces';
 import { Observable } from 'rxjs';
-import { FILTER, SORT } from '../models/constants';
+import { FILTER, SORT, DATABASE_OPERATION, STATUS, ERROR } from '../app.enum';
+import { DataServiceObject } from '../models/data-service-object.model';
+import { Error } from '../models/error.model';
 
 @Injectable()
-export abstract class DataService {
+export abstract class DataService<T> {
 
 	/*-----------------------------------------------------------------------
 	VARIABLE-SECTION
 	-----------------------------------------------------------------------*/
 
 	private table: FirebaseListObservable<any[]>;
+	private dataServiceObject: DataServiceObject;
 	protected abstract tableName: string;
 	protected abstract foreignKeyName: string;
 	protected abstract searchKeyName: string;
-	protected abstract createModel;
+	protected abstract createModel(json: any): T;
+	protected mapModelToObject(item: T): any
+	{
+		return item;
+	}
 
 	/*-----------------------------------------------------------------------
 		CRUD
 	-----------------------------------------------------------------------*/
 
 	constructor(protected db: AngularFireDatabase, tableName: string)
-	{
+	{		
 		this.tableName = tableName;
 		this.table = this.db.list(this.tableName);
+		this.dataServiceObject = new DataServiceObject({operation: null, object: null});
 	}
 
 	setTable(tableName: string)	{
@@ -32,55 +40,84 @@ export abstract class DataService {
 		this.table = this.db.list(this.tableName);
 	}
 
-	insert(object: any) : any 
+	insert(object: any) : DataServiceObject
 	{
-		delete object.$key;
-		const key = this.table.push(object).key;
-		return key;
+		this.dataServiceObject = new DataServiceObject({operation: DATABASE_OPERATION.INSERT, object: object});
+		this.dataServiceObject.object.$key = this.table.push(this.dataServiceObject.objectWithoutKey).key;
+		return this.dataServiceObject;
 	}
 
-	delete(object: any)
+	delete(object: any) : DataServiceObject
 	{
-		const key = object.$key;
-		if(this.isValidKey(key))
-			this.table.remove(key);
+		this.dataServiceObject = new DataServiceObject({operation: DATABASE_OPERATION.DELETE, object: object});
+		if(this.isValidKey(this.dataServiceObject.object.$key))
+		{
+			this.table.remove(this.dataServiceObject.object.$key)
+				.then(data => this.dataServiceObject.status = STATUS.SUCCESS )
+				.catch(error => {
+					this.dataServiceObject.status = STATUS.FAILURE;
+					this.dataServiceObject.error = new Error({
+						code: ERROR.DELETE_FAILED,
+						message: error.message, 
+						reason: 'Server error', 
+						solution: 'Check console log',
+						details: error.stack
+					});
+				});
+		}		
+		return this.dataServiceObject;
 	}
 
-	update(object: any) : any
+	update(object: any) : DataServiceObject
 	{
-		const key = object.$key;
-		if(this.isValidKey(key))
-			this.table.update(key, object);
-		return key;
+		this.dataServiceObject = new DataServiceObject({operation: DATABASE_OPERATION.UPDATE, object: object});
+		if(this.isValidKey(this.dataServiceObject.object.$key))
+		{
+			delete this.dataServiceObject.objectWithoutKey.product;
+			console.log(this.dataServiceObject.object.$key);
+			console.log(this.dataServiceObject.objectWithoutKey);
+			this.table.update(this.dataServiceObject.object.$key, this.dataServiceObject.objectWithoutKey)
+				.then(data => this.dataServiceObject.status = STATUS.SUCCESS )
+				.catch(error => {
+					this.dataServiceObject.status = STATUS.FAILURE;
+					this.dataServiceObject.error = new Error({
+						code: ERROR.UPDATE_FAILED,
+						message: error.message, 
+						reason: 'Server error', 
+						solution: 'Check console log',
+						details: error.stack
+					});
+				});
+		}		
+		return this.dataServiceObject;
 	}
 
-	upsert(object: any) : any
+	upsert(object: any) : DataServiceObject
 	{
-		var key = object.$key;
-		delete object.$key;
-		if(this.isValidKey(key))
-			this.table.update(key, object);		
+		if(this.isValidKey(this.dataServiceObject.object.$key))
+			this.update(object);
 		else
-			key = this.table.push(object).key;
-		return key;
+			this.insert(object);
+		return this.dataServiceObject;
 	}
 
 	exists(key: string) : Observable<boolean> 
 	{
-		if(this.isValidKey(key)) 
-		{
+		if(this.isValidKey(key)) {
 			const dataStream = this.db.object(this.tableName + "/" + key);
-			return dataStream.count().map(count => count > 0);
+			return dataStream.take(1).count().map(count => count > 0);
+		} else {
+			return Observable.of(false);
 		}
 	}
 
-	getObject(key: string): Observable<any> 
+	getObject(key: string): Observable<T> 
 	{
 		const dataStream = this.db.object(this.tableName + "/" + key);
 		return this.mapObjectToModel(dataStream);
 	}
 
-	getList(sortBy: SORT, filterBy: FILTER, filterValue?: string) : Observable<any[]>
+	getList(sortBy: SORT, filterBy: FILTER, filterValue?: string) : Observable<T[]>
 	{
 		var query = this.prepareQuery(sortBy, filterBy, filterValue);
 		const dataStream = this.db.list(this.tableName, { query: query });
@@ -93,7 +130,16 @@ export abstract class DataService {
 
 	private isValidKey(key: string) 
 	{
-		return (key !== undefined && key !== null && key !== '');
+		if(key !== undefined && key !== null && key !== '') {
+			this.dataServiceObject.isValidKey = true;
+			this.dataServiceObject.status = STATUS.SUCCESS;
+			return true;
+		} else {
+			this.dataServiceObject.isValidKey = false;
+			this.dataServiceObject.status = STATUS.FAILURE;
+			this.dataServiceObject.error = new Error({code: ERROR.KEY_IS_EMPTY, message: 'Key is empty', reason: 'Key not provided', solution: 'Provide a key', details: ''});
+			return false;
+		}
 	}
 
 	private prepareQuery(sortBy: SORT, filterBy: FILTER, filterValue?: string) : Query
@@ -153,7 +199,6 @@ export abstract class DataService {
 	{
 		return dataStream.map(object => this.createModel(object));
 	}
-
 
 	/*-----------------------------------------------------------------------
 		FEATURES

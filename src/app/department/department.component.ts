@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { FILTER, SORT } from '../models/constants';
+import { FILTER, SORT } from '../app.enum';
 import { DepartmentService } from '../services/department.service';
 import { Department } from '../models/department.model';
 import { Observable } from 'rxjs';
@@ -28,7 +28,7 @@ export class DepartmentComponent implements OnInit {
 		this.departmentStream = departmentService.getList(SORT.NONE, FILTER.NONE, undefined);
 	}
 
-	ngOnInit() {		
+	ngOnInit() {
 		this.route.params.subscribe((params: Params) =>  {
 			this.routeId = params['id'];
 			if(this.routeId == "null") this.newForm();
@@ -38,8 +38,7 @@ export class DepartmentComponent implements OnInit {
 				this.departmentForm.setValue({
 					id: department.id,
 					name: department.name,
-					path: department.path,
-					parent: department.parent
+					path: department.path
 				});
 			}));
 		});
@@ -52,7 +51,7 @@ export class DepartmentComponent implements OnInit {
 			path: ['', Validators.required],
 			parent: ['']
 		});
-		this.department = new Department({$key: '', id: '', name: '', path: '', parent: {}});
+		this.department = new Department({$key: '', id: '', name: '', path: ''});
 	}
 
 	submitForm() {
@@ -60,8 +59,7 @@ export class DepartmentComponent implements OnInit {
 			$key: this.department.$key,
 			id: this.departmentForm.get('id').value,
 			name: this.departmentForm.get('name').value,
-			path: this.departmentForm.get('path').value,
-			parent: this.departmentForm.get('parent').value
+			path: this.departmentForm.get('path').value
 		});
 		this.departmentService.upsert(department);
 	}

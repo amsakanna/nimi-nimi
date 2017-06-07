@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { FILTER, SORT } from '../models/constants';
+import { FILTER, SORT } from '../app.enum';
 import { BrandService } from '../services/brand.service';
 import { Brand } from '../models/brand.model';
 import { Observable } from 'rxjs';

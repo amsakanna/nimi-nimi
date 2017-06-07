@@ -3,11 +3,11 @@ import { AngularFireDatabase } from 'angularfire2';
 import { DataService } from '../services/data.service';
 import { Journal } from '../models/journal.model';
 import { Account } from '../models/account.model';
+import { DataServiceObject } from '../models/data-service-object.model';
 
 @Injectable()
-export class JournalService extends DataService {
+export class JournalService extends DataService<Journal> {
 
-	protected createModel = (json) => this.createJournal(json);
 	protected foreignKeyName = null;
 	protected searchKeyName = "transactionDate";
 	protected tableName: string;
@@ -16,7 +16,11 @@ export class JournalService extends DataService {
 		super(db, "journals");
 	}
 
-	insert(journal: Journal) 
+	protected createModel(json): Journal {
+		return new Journal(json);
+	}
+
+	insert(journal: Journal): DataServiceObject
 	{
 		var journalObject = {
 			transactionDate: journal.transactionDate,
@@ -24,18 +28,7 @@ export class JournalService extends DataService {
 			creditAccount: journal.creditAccount.$key,
 			transactionAmount: journal.transactionAmount
 		}
-		super.insert(journalObject);
-	}
-
-	private createJournal(json) : any {		
-		var journal = new Journal({
-			$key: json.$key,
-			transactionDate: json.transactionDate,
-			debitAccount: new Account({$key: json.debitAccount, name: '', parent: ''}),
-			creditAccount: new Account({$key: json.creditAccount, name: '', parent: ''}),
-			transactionAmount: json.transactionAmount
-		});
-		return journal;
+		return super.insert(journalObject);
 	}
 
 }

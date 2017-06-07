@@ -6,6 +6,7 @@
 
 header {
     padding: 40px;
+    display: none;
 }
 
 md-toolbar {
@@ -19,13 +20,14 @@ md-toolbar span {
 main {
     flex-grow: 1;
     display: flex;
-    padding: 40px;
-    padding-top: 0px;
+    /*padding: 20px;*/
+    /*padding-top: 0px;*/
 }
 
 md-sidenav-container {
     flex-grow: 1;
     background-color: transparent;
+    /*background-color: #737B86;*/    
 }
 
 md-sidenav {
@@ -42,5 +44,5 @@ md-sidenav md-icon {
 
 .sidenav-content {
     height: 100%;
-    margin-left: 80px;
+    box-sizing: border-box;
 }

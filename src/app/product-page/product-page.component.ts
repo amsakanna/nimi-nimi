@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProductService } from '../services/product.service';
-import { FILTER, SORT } from '../models/constants';
+import { FILTER, SORT } from '../app.enum';
 
 @Component({
 	selector: 'app-product-page',

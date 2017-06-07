@@ -1,0 +1,95 @@
+.wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-around;
+    padding: 30px;
+}
+
+app-jam-list-container {
+    min-width: 400px; width: 100%; max-width: 1600px; 
+}
+
+app-jam-list-container,
+app-jam-list-container > div,
+app-jam-list-container md-nav-list {
+    width: 100%;
+}
+
+app-jam-list-container md-nav-list /deep/ .mat-list-item-content {
+    padding: 0px 30px !important;
+}
+
+app-jam-list-container md-nav-list md-icon {
+    width: 80px;
+}
+
+.journal {
+    width: 100%;
+}
+
+.journal > div {
+    width: 25%;
+}
+
+/*.drop-area-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.drop-area {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+    margin-top: 50px;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background-color: rgb(100, 150, 200);
+}
+
+.dropped-accounts {
+    padding-top: 60px;
+    color: lightcyan;
+    font-size: 0.8em;    
+}*/
+
+header {
+    width: 100%;
+}
+
+header form {
+    position: relative;
+    padding-top: 23px;
+    padding-bottom: 13px;
+    min-width: 700px; width: 100%;
+    background-color: #67b0d1 !important;
+    color: white;
+}
+
+/*.journal-preview-box {
+    min-width: 450px; width: 75%; max-width: 750px;
+    height: 60px;
+}
+
+.journal {
+    width: 100%;
+}
+
+.journal .key {
+    color: lightgrey;
+    font-size: 0.6em;
+    font-style: italic;
+}
+
+.journal .value {
+    font-size: 0.8em;
+}*/

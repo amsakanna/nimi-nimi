@@ -1,120 +1,24 @@
-.wrapper {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+header form {
+    position: relative;
+    padding-top: 23px;
+    padding-bottom: 13px;
+    min-width: 700px; width: 100%;
+    background-color: #67b0d1 !important;
 }
 
 main {
     flex-grow: 1;
-    display: flex;
-    justify-content: space-around;
+    padding: 30px;
 }
 
-.journal-list {
-    min-width: 400px;
-}
-
-.journal-list .journal {
-    width: 100%;
-}
-
-.journal-list .journal .date {
-    display: inline-block;
-    width: 120px;
-}
-
-.journal-list .journal .account {
-    display: inline-block;
-    width: 180px;
-}
-
-.journal-list .journal .amount {
-    display: inline-block;
+app-jam-list-container md-nav-list md-icon {
     width: 80px;
 }
 
-.drop-area-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+app-jam-list-container md-nav-list .table-cell {
+    width: 25%;
 }
 
-.drop-area {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;    
-    margin-top: 50px;
-    width: 280px;
-    height: 280px;
-    border-radius: 50%;
-    background-color: rgb(100, 150, 200);
+app-jam-list-container md-nav-list /deep/ .mat-list-item-content {
+    padding: 0px 30px !important;
 }
-
-.dropped-accounts {
-    padding-top: 60px;
-    color: lightcyan;
-    font-size: 0.8em;    
-}
-
-.transaction-amount-input-container {
-    color: rgb(100, 150, 200);
-    margin-top: 10px;
-}
-
-.transaction-amount-input-container md-grid-list {
-    width: 80px;
-}
-
-.transaction-amount-input-container md-grid-tile {
-    background-color: lightskyblue;
-    border: 1px solid rgb(100, 150, 200);
-}
-
-.transaction-amount-input-container md-grid-list button {
-    font-size: 0.6em;
-}
-
-footer {
-    width: 100%;    
-}
-
-.journal-preview-box {
-    min-width: 450px; width: 75%; max-width: 750px;
-    height: 60px;
-}
-
-.journal {
-    width: 100%;
-}
-
-.journal .key {
-    color: lightgrey;
-    font-size: 0.6em;
-    font-style: italic;
-}
-
-.journal .value {
-    font-size: 0.8em;
-}
-
-footer form {
-    position: relative;
-    margin-top: 50px;
-    padding-top: 10px;
-    min-width: 700px; width: 100%; max-width: 1000px;
-    min-height: 80px; height: 80px;
-    background-color: #67b0d1 !important;
-    color: white;
-}
-
-footer form /deep/ .mat-input-placeholder {
-    color: rgb(240, 240, 240);
-}
-
-footer form /deep/ .mat-input-underline {
-    border-color: white;
-}
-
-
