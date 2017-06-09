@@ -9,14 +9,19 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 export class JamListContainerComponent implements OnInit {
 
 	public search = new EventEmitter();
+	public add = new EventEmitter();
 
 	constructor() { }
 	ngOnInit() { }
 
-	searchText(text) {
+	searchFn(text) {
 		this.search.emit({
 			value: text
 		});
+	}
+
+	addFn() {
+		this.add.emit();
 	}
 
 }

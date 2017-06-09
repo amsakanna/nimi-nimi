@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import 'hammerjs';
 import { AppRouter } from './app.router';
 import { AppComponent } from './app.component';
+import { RouterService } from './services/router.service';
 import { LogService } from './services/log.service';
 import { KeyValService } from './services/key-val.service';
 import { ProductService } from './services/product.service';
@@ -66,7 +67,8 @@ export const firebaseAppConfig : FirebaseAppConfig = {
     AppRouter,
     ColorPickerModule
   ],
-  providers: [	  
+  providers: [
+    RouterService,
     LogService,
     KeyValService,
 	  ProductService,

@@ -12,17 +12,17 @@ import 'rxjs/add/operator/take';
   styleUrls: ['./inventory-page.component.css'],
 	animations: [
 		trigger('listItemAnimation', [
-			state('listItemState', style({				
+			state('listItemState', style({
 				transform: 'translateY(0px)'			  
 			})),			
 			transition('void => *', animate('200ms ease-in', keyframes([
-				style({opacity: 0, transform: 'translateY(100%)', offset: 0}),
-				style({opacity: 1, transform: 'translateY(0px)',     offset: 1.0})
+				style({transform: 'translateY(100%)'}),
+				style({transform: 'translateY(0px)'})
 			]))),		
 			transition('* => void', animate('200ms ease-out', keyframes([
-				style({opacity: 1, transform: 'translateY(0px)',     offset: 0}),
-				style({opacity: 0, transform: 'translateY(-100%)',  offset: 1.0})
-			]))),
+				style({transform: 'translateY(0px)'}),
+				style({transform: 'translateY(-100%)'})
+			])))
 		])
 	]
 })
@@ -32,17 +32,24 @@ export class InventoryPageComponent implements OnInit {
 	private inventoryStream: Observable<InventoryItem[]>;
 	private selectedItem: InventoryItem;
 	private selectedIndex: number;
+	private formVisible: boolean;
+
+	ngOnInit() {}
 
 	constructor(private formBuilder: FormBuilder,
 				private inventoryService: InventoryService)
-	{		
+	{
 		this.buildForm();
-		this.inventoryStream = this.inventoryService.getList(SORT.SEARCH_KEY, FILTER.NONE, undefined);
+		this.inventoryStream = this.inventoryService.getList(SORT.KEY, FILTER.NONE, undefined).map(list => {
+			var i = 0;
+			return list.map(item => {
+				this.selectedIndex = ( item.$key == this.selectedItem.$key ) ? i : this.selectedIndex;
+				i = i + 1;
+				return item;
+			});			
+		});
 		this.selectedItem = new InventoryItem({$key: '', units: 0, price: 0});
 		this.selectedIndex = 0;
-	}
-
-	ngOnInit() {
 	}
 
 	buildForm(item?: InventoryItem) : FormGroup
@@ -80,7 +87,6 @@ export class InventoryPageComponent implements OnInit {
 	submitForm()
 	{
 		const item = this.buildModelFromForm();
-		console.log(item);
 		this.inventoryService.update(item);
 		this.selectedItem = item;
 	}
@@ -90,17 +96,32 @@ export class InventoryPageComponent implements OnInit {
 		this.selectedIndex = i;
 		this.selectedItem = item;
 		this.buildForm(item);
+		this.formVisible = true;
 	}
 
-	delete() {
-		if(this.selectedItem != undefined && this.selectedItem != null) {
+	deselect(event)
+	{
+		this.formVisible = (event.target.id != 'container');
+	}
+
+	delete()
+	{
+		if(this.selectedItem != undefined && this.selectedItem != null)
+		{
 			this.inventoryService.delete(this.selectedItem);
 			this.selectedIndex -= 1;
 		}
 	}
 
-	updatePreview(input: string) {
+	newItem()
+	{
+		this.buildForm();
+		this.formVisible = true;
+	}
 
+	toggleMode()
+	{
+		
 	}
 
 }

@@ -1,14 +1,56 @@
-<div id="container" class="flex-center-center">
-	<app-jam-list-container class="floating-box stretch-with-max" (search)="search($event.value)">
+<div id="container" class="flex-center-center" (click)="deselect($event)">
+	<form [formGroup]="form" novalidate
+		[style.transform]="formVisible ? 'translateX(-5px)' : 'translateX(175px)'"
+		[style.visibility]="formVisible ? 'visible' : 'hidden'"
+		class="floating-box"
+		(ngSubmit)="submitForm()">
+		<md-card class="invert-color">
+			<md-card-header>
+				<md-card-title> {{ selectedItem.$key }} </md-card-title>
+				<md-card-subtitle> {{ selectedItem.price }} </md-card-subtitle>				
+				<button md-button type="button" (click)="toggleMode()">
+					<md-icon> edit </md-icon>
+				</button>
+			</md-card-header>
+			<md-card-content>
+				<div class="selected-item-thumbnail-wrapper">
+					<img src="https://firebasestorage.googleapis.com/v0/b/nimi-nimi.appspot.com/o/thumbnails%2Fproducts%2FBLIV235.jpeg?alt=media&token=7f7bbd07-7f71-4006-88a3-e8058d08d47f">
+				</div>
+				<div class="selected-item-price-units">
+					<div class="selected-item-price"> {{ selectedItem.price }} </div>
+					<div class="selected-item-units"> {{ selectedItem.units }} </div>
+				</div>
+				<!--<p><md-input-container>
+					<input mdInput placeholder="Id" formControlName="key">
+				</md-input-container></p>
+				<p><md-input-container>
+					<input mdInput placeholder="Units" type="number" formControlName="units">
+				</md-input-container></p>
+				<p><md-input-container>
+					<input mdInput placeholder="Price" type="number" formControlName="price">
+				</md-input-container></p>			-->
+			</md-card-content>
+			<md-card-footer>
+				<button md-button type="button" (click)="delete()">
+					<md-icon> delete </md-icon>
+				</button>
+				<button md-button type="submit" class="save-button"> SAVE </button>
+			</md-card-footer>
+		</md-card>
+	</form>
+	<app-jam-list-container class="floating-box stretch-with-max" 
+		(search)="search($event.value)"
+		(add)="newItem()"
+		[style.transform]="formVisible ? 'translateX(5px)' : 'translateX(-175px)'">
 		<div list>
-			<md-nav-list class="scrollable">
+			<md-nav-list>
 				<md-list-item *ngFor="let item of inventoryStream | async; let i = index"
 				(click)="select(item, i)"
 				(add)="console.log('hi')"
 				[@listItemAnimation]="listItemState"
-				[style.backgroundColor]="i == selectedIndex ? 'lightcoral' : 'transparent'"
+				[style.backgroundColor]="i == selectedIndex ? 'cornflowerblue' : 'transparent'"
 				[style.color]="i == selectedIndex ? 'white' : 'black'">
-					<md-icon md-list-icon>assignment</md-icon>
+					<md-icon md-list-icon> assignment </md-icon>
 					<div class="item-key"> {{ item.$key }} </div>
 					<div class="item-units"> {{ item.units }} </div>
 					<div class="item-price"> {{ item.price }} </div>
@@ -16,28 +58,4 @@
 			</md-nav-list>
 		</div>
 	</app-jam-list-container>
-	<form [formGroup]="form" novalidate (ngSubmit)="submitForm()">
-		<md-card class="floating-box invert-color">
-			<md-card-header>
-				<md-card-title> Edit Item </md-card-title>
-				<button md-button type="button" (click)="delete()">
-					<md-icon> delete </md-icon>
-				</button>
-			</md-card-header>
-			<md-card-content>
-				<p><md-input-container>
-					<input mdInput placeholder="Id" formControlName="key" (input)="updatePreview('key')">
-				</md-input-container></p>
-				<p><md-input-container>
-					<input mdInput placeholder="Units" type="number" formControlName="units" (input)="updatePreview('units')">
-				</md-input-container></p>
-				<p><md-input-container>
-					<input mdInput placeholder="Price" type="number" formControlName="price" (input)="updatePreview('price')">
-				</md-input-container></p>			
-			</md-card-content>
-			<md-card-footer>
-				<button md-button type="submit" class="create-button"> ADD </button>
-			</md-card-footer>
-		</md-card>
-	</form>
 </div>

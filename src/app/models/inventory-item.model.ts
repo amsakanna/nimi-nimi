@@ -5,6 +5,7 @@ export class InventoryItem {
     $key: string;
     units: string;
     price: number;
+    selected: boolean;
 
     constructor({$key, units, price}) {
         this.$key = $key;

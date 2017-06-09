@@ -1,13 +1,14 @@
 #container {
+    box-sizing: border-box;
+    padding: 3% 0px;
     height: 100%;
+    position: relative;
 }
 
 app-jam-list-container {
     width: 350px;
-}
-
-app-jam-list-container md-nav-list {
-    height: 250px;
+    height: 100%;
+    transition: all 0.5s ease-in-out;
 }
 
 app-jam-list-container md-nav-list md-icon {
@@ -24,19 +25,36 @@ app-jam-list-container md-nav-list /deep/ .mat-list-item-content {
     padding: 0px 30px !important;
 }
 
+#container form {
+    /*margin-left: -350px;*/
+    transition: all 0.5s ease-in-out;
+}
+
 #container form md-card {
     position: relative;
     width: 300px;
-    height: 400px;
-    background-color: lightcoral;
+    min-height: 350px; max-height: 400px;
+    background-color: cornflowerblue;
+    box-shadow: none;
+}
+
+#container form md-card md-card-header {
+    justify-content: space-between;
 }
 
 #container form md-card md-card-content {
     padding: 0px 20px;
 }
 
-.create-button {
-    width: 100%;
+#container form md-card md-card-footer {
+    display: flex;
+}
+
+#container form md-card md-card-footer .save-button {
+    flex-grow: 1;
+}
+
+#container form md-card md-card-footer button {    
     background-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -50,4 +68,32 @@ app-jam-list-container md-nav-list /deep/ .mat-list-item-content {
 
 .item-price {
     width: 12.5%;
+}
+
+.selected-item-thumbnail-wrapper {    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 200px;
+    min-height: 200px;
+}
+
+.selected-item-thumbnail-wrapper img {
+    height: 160px;
+    object-fit: cover;
+}
+
+.selected-item-price-units {
+    display: flex;
+    justify-content: space-between;
+}
+
+.selected-item-price {
+    font-size: 1.5em;
+}
+
+.selected-item-units {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    font-size: 3em;
 }

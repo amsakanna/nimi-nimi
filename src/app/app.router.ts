@@ -16,15 +16,17 @@ const APP_ROUTES: Routes = [
     { path: 'admin', component: AdminPageComponent , children: [
         { path: 'journal', component: JournalPageComponent },
         { path: 'inventory', component: InventoryPageComponent },
-        { path: 'brand', component: BrandPageComponent, children: [
-            { path: ':id', component: BrandComponent }
+        { path: 'definition', children: [
+            { path: 'brand', component: BrandPageComponent, children: [
+                { path: ':id', component: BrandComponent }
+            ]},
+            { path: 'department', component: DepartmentPageComponent, children: [
+                { path: ':id', component: DepartmentComponent }
+            ]},
+            { path: 'product', component: ProductPageComponent, children: [
+                { path: ':id', component: ProductComponent }
+            ]}
         ]},
-        { path: 'department', component: DepartmentPageComponent, children: [
-            { path: ':id', component: DepartmentComponent }
-        ]},
-        { path: 'product', component: ProductPageComponent, children: [
-            { path: ':id', component: ProductComponent }
-        ]}
     ]},
     { path: 'products', component: ProductsPageComponent }
 ];

@@ -56,6 +56,10 @@ body {
 
 /* Generic Visual Styles */
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 .alt-fg-color {
     color: white;
 }
@@ -169,4 +173,6 @@ md-nav-list {
 
 .scrollable {
     overflow-y: scroll;
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
 }
