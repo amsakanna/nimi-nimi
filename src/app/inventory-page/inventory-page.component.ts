@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/take';
 
 @Component({
-  selector: 'app-inventory-page',
-  templateUrl: './inventory-page.component.html',
-  styleUrls: ['./inventory-page.component.css'],
+	selector: 'app-inventory-page',
+	templateUrl: './inventory-page.component.html',
+	styleUrls: ['./inventory-page.component.css'],
 	animations: [
 		trigger('listItemAnimation', [
 			state('listItemState', style({
@@ -91,12 +91,15 @@ export class InventoryPageComponent implements OnInit {
 		this.selectedItem = item;
 	}
 
-	select(item: InventoryItem, i: number)
+	select(item: InventoryItem, index: number)
 	{
-		this.selectedIndex = i;
+		this.formVisible = false;
+		this.selectedIndex = index;
 		this.selectedItem = item;
 		this.buildForm(item);
-		this.formVisible = true;
+		setTimeout(() => {
+			this.formVisible = true;
+		}, 100);
 	}
 
 	deselect(event)
@@ -104,13 +107,11 @@ export class InventoryPageComponent implements OnInit {
 		this.formVisible = (event.target.id != 'container');
 	}
 
-	delete()
+	delete(item: InventoryItem)
 	{
-		if(this.selectedItem != undefined && this.selectedItem != null)
-		{
-			this.inventoryService.delete(this.selectedItem);
+		if(item == this.selectedItem)
 			this.selectedIndex -= 1;
-		}
+		this.inventoryService.delete(item);		
 	}
 
 	newItem()

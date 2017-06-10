@@ -9,7 +9,7 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 export class JamListContainerComponent implements OnInit {
 
 	public search = new EventEmitter();
-	public add = new EventEmitter();
+	public newItem = new EventEmitter();
 
 	constructor() { }
 	ngOnInit() { }
@@ -20,8 +20,8 @@ export class JamListContainerComponent implements OnInit {
 		});
 	}
 
-	addFn() {
-		this.add.emit();
+	newItemFn() {
+		this.newItem.emit();
 	}
 
 }

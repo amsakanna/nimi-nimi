@@ -26,5 +26,4 @@ export class AdminPageComponent implements OnInit
 		]);
 	}
 
-
 }

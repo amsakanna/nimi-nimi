@@ -32,6 +32,7 @@ import { ProductComponent } from './product/product.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { ProductsPageComponent } from './products-page/products-page.component';
 import { JamListContainerComponent } from './jam-list-container/jam-list-container.component';
+import { JamListComponent } from './jam-list/jam-list.component';
 
 export const firebaseAppConfig : FirebaseAppConfig = {
     apiKey: "AIzaSyBV4KfPwTrqbFXzf7Sm6YAXkjSY1jSVcEk",
@@ -56,6 +57,7 @@ export const firebaseAppConfig : FirebaseAppConfig = {
     BrandComponent,
     DepartmentComponent,
     JamListContainerComponent,
+    JamListComponent,
   ],
   imports: [
     BrowserModule,

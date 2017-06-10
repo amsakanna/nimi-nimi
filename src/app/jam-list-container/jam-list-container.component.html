@@ -6,10 +6,9 @@
 		</div>
 	</header>
 	<main class="scrollable">
-		<ng-content select="[list]">
-		</ng-content>
+		<ng-content select="[list]"></ng-content>
 	</main>
 	<footer>
-		<button md-button (click)="addFn()"> ADD </button>
+		<button md-button disableRipple (click)="newItemFn()"> NEW </button>
 	</footer>
 </div>
