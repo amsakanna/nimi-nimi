@@ -32,7 +32,7 @@ export class BrandComponent implements OnInit {
 			if(this.routeId == "null") this.newForm();
 			this.brandService.getList(SORT.SEARCH_KEY, FILTER.EQUAL_TO, this.routeId)
 			.first().subscribe(brands => brands.forEach(brand => {
-				this.brand = brand
+				this.brand = brand;
 				this.brandForm.setValue({
 					name: brand.name,
 					rating: brand.rating

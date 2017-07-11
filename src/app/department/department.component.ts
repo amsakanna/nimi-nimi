@@ -17,7 +17,7 @@ export class DepartmentComponent implements OnInit {
 	department: Department;
   	departmentForm: FormGroup;
 	routeId: string;
-	departmentStream: Observable<Department[]>
+	departmentStream: Observable<Department[]>;
 
 	constructor(private route: ActivatedRoute, 
 				private router: Router,

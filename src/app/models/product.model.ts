@@ -1,7 +1,8 @@
 import { Department } from './department.model';
 import { Brand } from './brand.model';
 
-export class Product {
+export class Product
+{
 
     $key: string;
     name: string;
@@ -17,7 +18,8 @@ export class Product {
     productOverState: string = 'inactive';
     active: boolean = false;
 
-    constructor({$key, name, department, brand, thumbnailFileName}) {
+    constructor({$key, name, department, brand, thumbnailFileName})
+    {
         this.$key = $key;
         this.name = name;
         this.department = department;

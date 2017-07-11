@@ -1,0 +1,39 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+aside {
+    position: fixed;
+    top: 30%;
+    left: 100px;
+    /*margin-left: -200px;
+    padding-right: 200px;*/
+}
+
+nav a {
+    display: block;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: lightslategray;
+}
+
+nav a /deep/ .mat-button-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+nav a md-icon {
+    color: white !important;
+}
+
+nav a span {
+    color: white !important;
+    font-size: 0.7em;
+    margin-top: 5px;
+    line-height: normal;
+}

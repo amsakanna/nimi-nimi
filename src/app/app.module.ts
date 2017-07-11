@@ -13,6 +13,7 @@ import { AppRouter } from './app.router';
 import { AppComponent } from './app.component';
 import { RouterService } from './services/router.service';
 import { LogService } from './services/log.service';
+import { AuthService } from './services/auth.service';
 import { KeyValService } from './services/key-val.service';
 import { ProductService } from './services/product.service';
 import { BrandService } from './services/brand.service';
@@ -20,6 +21,8 @@ import { DepartmentService } from './services/department.service';
 import { AccountService } from './services/account.service';
 import { JournalService } from './services/journal.service';
 import { InventoryService } from './services/inventory.service';
+import { AddressService } from './services/address.service';
+
 import { HomePageComponent } from './home-page/home-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { JournalPageComponent } from './journal-page/journal-page.component';
@@ -33,6 +36,14 @@ import { ProductPageComponent } from './product-page/product-page.component';
 import { ProductsPageComponent } from './products-page/products-page.component';
 import { JamListContainerComponent } from './jam-list-container/jam-list-container.component';
 import { JamListComponent } from './jam-list/jam-list.component';
+import { UserPageComponent } from './user-page/user-page.component';
+import { CartPageComponent } from './cart-page/cart-page.component';
+import { AuthComponent } from './auth/auth.component';
+import { ProfileComponent } from './profile/profile.component';
+import { AddressesComponent } from './addresses/addresses.component';
+import { CardsComponent } from './cards/cards.component';
+import { WishListsComponent } from './wish-lists/wish-lists.component';
+import { OrdersComponent } from './orders/orders.component';
 
 export const firebaseAppConfig : FirebaseAppConfig = {
     apiKey: "AIzaSyBV4KfPwTrqbFXzf7Sm6YAXkjSY1jSVcEk",
@@ -58,6 +69,14 @@ export const firebaseAppConfig : FirebaseAppConfig = {
     DepartmentComponent,
     JamListContainerComponent,
     JamListComponent,
+    UserPageComponent,
+    CartPageComponent,
+    AuthComponent,
+    ProfileComponent,
+    AddressesComponent,
+    CardsComponent,
+    WishListsComponent,
+    OrdersComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,13 +91,15 @@ export const firebaseAppConfig : FirebaseAppConfig = {
   providers: [
     RouterService,
     LogService,
+    AuthService,
     KeyValService,
 	  ProductService,
     BrandService,
     DepartmentService,
     AccountService,
     JournalService,
-    InventoryService
+    InventoryService,
+    AddressService
   ],
   bootstrap: [AppComponent]
 })

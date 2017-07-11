@@ -1,0 +1,27 @@
+header {
+    padding: 20px;
+    display: flex;
+}
+
+.home {
+    flex-grow: 1;
+}
+
+main {
+    width: 100%;
+    height: calc(100% - 192px);
+    box-sizing: border-box;
+}
+
+footer {
+    padding: 20px;
+    display: flex;
+}
+
+.placeholder {
+    flex-grow: 1;
+}
+
+md-icon {
+    color: white;
+}

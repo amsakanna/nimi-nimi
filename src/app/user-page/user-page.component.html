@@ -1,0 +1,17 @@
+<div class="wrapper">
+    <aside>
+        <nav>
+            <a  md-button
+                *ngFor="let navigationItem of navigationList"
+                [routerLink]="[navigationItem.link]"
+                [style.backgroundColor]="navigationItem.selected ? 'black' : 'lightslategray'"
+            >
+                <md-icon> {{ navigationItem.iconName }} </md-icon>
+                <span> {{ navigationItem.title }} </span>
+            </a>
+        </nav>    
+    </aside>
+	<main>
+		<router-outlet></router-outlet>
+	</main>
+</div>

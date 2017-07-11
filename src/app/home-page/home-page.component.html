@@ -1,5 +1,12 @@
-<nav>
-    <a md-raised-button [routerLink]="['/admin']">Admin Panel</a>
-    <a md-raised-button [routerLink]="['/products']">Products</a>
-</nav>
-<router-outlet></router-outlet>
+<main>
+    <nav>	
+		<ul class="scrollable">
+			<li *ngFor="let department of departmentStream | async">
+                <a md-button>
+                    <div class="department"> {{ department.name }} </div>
+                </a>
+            </li>
+		</ul>
+    </nav>
+    <router-outlet></router-outlet>
+</main>

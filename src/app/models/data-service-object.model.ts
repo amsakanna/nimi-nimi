@@ -1,7 +1,8 @@
 import { Error } from './error.model';
 import { STATUS, DATABASE_OPERATION } from '../app.enum';
 
-export class DataServiceObject {
+export class DataServiceObject
+{
 
     operation: DATABASE_OPERATION;
     status: STATUS;

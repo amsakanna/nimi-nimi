@@ -1,0 +1,14 @@
+<main class="container floating-box">	
+	<jam-list class="stretch-with-max"
+		[stream]="addressStream"
+		[iconName]="'location_on'">
+		<template let-item="item">
+			<div class="list-item-container">
+				<div class="item-door-no"> {{ item.doorNo }} </div>
+				<div class="item-street"> {{ item.street }} </div>
+				<div class="item-area"> {{ item.area }} </div>
+				<div class="item-city"> {{ item.city }} </div>
+			</div>
+		</template>
+	</jam-list>
+</main>

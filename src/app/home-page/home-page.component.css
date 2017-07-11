@@ -1,0 +1,11 @@
+nav {
+    height: 100%;
+}
+
+nav ul li {
+    list-style: none;
+}
+
+.department {
+    text-align: left !important;
+}

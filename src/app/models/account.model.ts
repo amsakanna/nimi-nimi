@@ -1,9 +1,11 @@
-export class Account {
+export class Account
+{
 
     $key: string;
     name: string;
 
-    constructor({$key, name}) {
+    constructor({$key, name})
+    {
         this.$key = $key;
         this.name = name;
     }

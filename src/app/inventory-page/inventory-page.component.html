@@ -1,5 +1,5 @@
 <div id="container" class="flex-center-center" (click)="deselect($event); $event.stopImmediatePropagation();">
-	<form [formGroup]="form" novalidate
+	<form [formGroup]="form" novalidate style="display: none"
 		[style.transform]="formVisible1 ? 'translateX(-5px)' : 'translateX(175px)'"
 		[style.visibility]="formVisible1 ? 'visible' : 'hidden'"
 		[style.opacity]="formVisible1 ? '1' : '0'"
@@ -47,7 +47,7 @@
 			</div>
 		</template>
 	</jam-list>
-	<app-jam-list-container class="floating-box stretch-with-max" style="display: none"
+	<app-jam-list-container class="floating-box stretch-with-max"
 		(search)="search($event.value)"
 		(newItem)="newItem(); $event.stopImmediatePropagation();"
 		[style.transform]="formVisible1 ? 'translateX(5px)' : 'translateX(-175px)'">

@@ -1,1 +1,20 @@
-<router-outlet></router-outlet>
+<header>
+    <section class="home">
+        <a md-fab [routerLink]="['/home']"><md-icon> device_hub </md-icon></a>
+    </section>
+    <section class="user">
+        <a md-fab [routerLink]="['/user']"><md-icon> account_circle </md-icon></a>
+    </section>
+</header>
+
+<main>
+    <router-outlet></router-outlet>
+</main>
+
+<footer>
+    <section class="placeholder">
+    </section>
+    <section class="cart">
+        <a md-fab [routerLink]="['/cart']"><md-icon> shopping_cart </md-icon></a>
+    </section>
+</footer>

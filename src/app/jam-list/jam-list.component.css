@@ -41,15 +41,34 @@ main {
     min-height: 100px; height: calc(100% - 120px);
 }
 
+ul {
+    margin: 0px;
+    padding: 0px;
+    cursor: pointer;
+}
+
 li {
     list-style: none;
+    transition: background-color 0.3s ease-in-out;
+}
+
+li:hover {
+    background-color: rgba(100, 100, 100, 0.1) !important;
+}
+
+.jam-list-item-container {
+    display: flex;
 }
 
 .jam-list-item-icon {
     padding: 8px 30px 4px 30px;
-    background-color: lightsteelblue;
+    color: lightsteelblue;
     font-size: 20px;
     transition: all 0.5s ease-in-out;
+}
+
+.jam-list-item-data-container {
+    flex-grow: 1;
 }
 
 footer {

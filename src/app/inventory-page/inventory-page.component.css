@@ -12,11 +12,11 @@ jam-list {
 }
 
 app-jam-list-container {
+    margin-left: 200px;
     width: 350px;
     height: 100%;
     transition: all 0.5s ease-in-out;
 }
-
 
 app-jam-list-container md-nav-list md-list-item div {
     font-size: 0.7em;
@@ -84,10 +84,12 @@ app-jam-list-container /deep/ .mat-list-item-content:hover #item-data-container 
 }*/
 
 app-jam-list-container /deep/ .mat-list-item-content:hover #delete-button {
+    display: block;
     margin-right: 0px;
 }
 
 #delete-button {
+    display: none;
     margin-right: -88px;
     min-width: initial;
     height: 100%;
