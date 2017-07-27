@@ -3,11 +3,16 @@
         <nav>
             <a  md-button
                 *ngFor="let navigationItem of navigationList"
-                [routerLink]="[navigationItem.link]"
-                [style.backgroundColor]="navigationItem.selected ? 'black' : 'lightslategray'"
-            >
+                id="{{ navigationItem.iconName }}"
+                [routerLink]="[navigationItem.url]"
+                [style.backgroundColor]="navigationItem.selected ? 'black' : 'lightslategray'">
                 <md-icon> {{ navigationItem.iconName }} </md-icon>
                 <span> {{ navigationItem.title }} </span>
+            </a>
+            <a  md-button
+                (click)="logout()">
+                <md-icon> accessibility </md-icon>
+                <span> Logout </span>
             </a>
         </nav>    
     </aside>

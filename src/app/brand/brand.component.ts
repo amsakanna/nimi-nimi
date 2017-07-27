@@ -31,13 +31,13 @@ export class BrandComponent implements OnInit {
 			this.routeId = params['id'];
 			if(this.routeId == "null") this.newForm();
 			this.brandService.getList(SORT.SEARCH_KEY, FILTER.EQUAL_TO, this.routeId)
-			.first().subscribe(brands => brands.forEach(brand => {
-				this.brand = brand;
-				this.brandForm.setValue({
-					name: brand.name,
-					rating: brand.rating
-				});
-			}));
+				.first().subscribe(brands => brands.forEach(brand => {
+					this.brand = brand;
+					this.brandForm.setValue({
+						name: brand.name,
+						rating: brand.rating
+					});
+				}));
 		});
 	}
 
@@ -55,7 +55,7 @@ export class BrandComponent implements OnInit {
 			name: this.brandForm.get('name').value,
 			rating: this.brandForm.get('rating').value
 		});
-		this.brandService.upsert(brand);
+		this.brandService.upsert(brand, this.brand.name);
 	}
 
 	removeBrand() {

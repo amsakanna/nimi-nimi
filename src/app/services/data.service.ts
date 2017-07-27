@@ -7,10 +7,11 @@ import { DataServiceObject } from '../models/data-service-object.model';
 import { Error } from '../models/error.model';
 
 @Injectable()
-export abstract class DataService<T> {
+export abstract class DataService<T>
+{
 
 	/*-----------------------------------------------------------------------
-	VARIABLE-SECTION
+		VARIABLE-SECTION
 	-----------------------------------------------------------------------*/
 
 	private table: FirebaseListObservable<any[]>;
@@ -35,9 +36,10 @@ export abstract class DataService<T> {
 		this.dataServiceObject = new DataServiceObject({operation: null, object: null});
 	}
 
-	setTable(tableName: string)	{
+	setTable(tableName: string) : FirebaseListObservable<any[]>	{
 		this.tableName = tableName;
 		this.table = this.db.list(this.tableName);
+		return this.table;
 	}
 
 	insert(object: any) : DataServiceObject
@@ -73,9 +75,6 @@ export abstract class DataService<T> {
 		this.dataServiceObject = new DataServiceObject({operation: DATABASE_OPERATION.UPDATE, object: object});
 		if(this.isValidKey(this.dataServiceObject.object.$key))
 		{
-			delete this.dataServiceObject.objectWithoutKey.product;
-			console.log(this.dataServiceObject.object.$key);
-			console.log(this.dataServiceObject.objectWithoutKey);
 			this.table.update(this.dataServiceObject.object.$key, this.dataServiceObject.objectWithoutKey)
 				.then(data => this.dataServiceObject.status = STATUS.SUCCESS )
 				.catch(error => {
@@ -92,22 +91,31 @@ export abstract class DataService<T> {
 		return this.dataServiceObject;
 	}
 
-	upsert(object: any) : DataServiceObject
+	upsert(object: any, lookupValue: string, lookupColumn?: string) : DataServiceObject
 	{
-		if(this.isValidKey(this.dataServiceObject.object.$key))
-			this.update(object);
-		else
-			this.insert(object);
+		this.dataServiceObject = new DataServiceObject({operation: DATABASE_OPERATION.UPDATE, object: object});
+		var newLookupColumn = ( lookupColumn === undefined ) ? this.searchKeyName : lookupColumn;
+		this.lookup(lookupValue, newLookupColumn).subscribe( data => {
+			if( data === undefined ) {
+				this.insert(this.dataServiceObject.object);
+			} else {
+				this.dataServiceObject.object.$key = data.$key;
+				this.update(this.dataServiceObject.object);
+			}
+		});
 		return this.dataServiceObject;
 	}
 
-	exists(key: string) : Observable<boolean> 
+	lookup(lookupValue: string, lookupColumn?: string) : Observable<any> 
 	{
-		if(this.isValidKey(key)) {
-			const dataStream = this.db.object(this.tableName + "/" + key);
-			return dataStream.take(1).count().map(count => count > 0);
-		} else {
-			return Observable.of(false);
+		var dataStream;
+		if( ! this.isValidKey(lookupValue) ) {
+			return Observable.of(undefined);
+		}
+		if(lookupColumn === undefined) {
+			return this.getObject(lookupValue);
+		} else {	
+			return this.getList(SORT.SEARCH_KEY, FILTER.EQUAL_TO, lookupValue).take(1).map(list => list[0]);
 		}
 	}
 
@@ -128,7 +136,7 @@ export abstract class DataService<T> {
 		CRUD HELPERS
 	-----------------------------------------------------------------------*/
 
-	private isValidKey(key: string) 
+	isValidKey(key: string) : boolean
 	{
 		if(key !== undefined && key !== null && key !== '') {
 			this.dataServiceObject.isValidKey = true;

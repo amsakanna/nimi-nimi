@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2';
 import { DataService } from '../services/data.service';
-import { Address } from '../models/address.model';
+import { Card } from '../models/card.model';
 
 @Injectable()
-export class AddressService extends DataService<Address> 
+export class CardService extends DataService<Card>
 {
 
 	protected foreignKeyName = "userKey";
-	protected searchKeyName = "streetAddress";
+	protected searchKeyName = "holderName";
 	protected tableName: string;
 
 	constructor(db: AngularFireDatabase) 
 	{
-		super(db, "addresses");
+		super(db, "cards");
 	}
 
-	protected createModel(json) : Address 
+	protected createModel(json) : Card 
 	{
-		return new Address(json);
+		return new Card(json);
 	}
 
 }

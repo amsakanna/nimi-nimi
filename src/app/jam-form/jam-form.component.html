@@ -1,0 +1,22 @@
+<div *ngIf="visible" class="jam-form-container dialog">
+	<form [formGroup]="form" novalidate (ngSubmit)="_save()"
+			class="jam-form floating-box">
+		<header>
+			<div class="jam-form-title-container">
+				<div class="jam-form-title"> {{ title }} </div>
+				<div class="jam-form-subtitle"> {{ subtitle }} </div>
+			</div>
+			<button md-button type="button" class="jam-form-close-button" (click)="_close()">
+				<md-icon> close </md-icon>
+			</button>
+		</header>
+		<main class="jam-form-data-container scrollable">			
+			<ng-content class="jam-form-data" selector="[jam-form-data]">
+			</ng-content>
+		</main>
+		<footer>
+			<button md-button type="button" class="jam-form-reset-button" (click)="_reset()"> RESET </button>
+			<button md-raised-button color="primary" type="submit" class="jam-form-save-button"> SAVE </button>
+		</footer>
+	</form>
+</div>

@@ -1,0 +1,48 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+header {
+    padding: 50px 100px;
+    border-bottom: 2px solid rgb(223, 226, 232);
+}
+
+.title {
+    color: gray;
+    font-size: 2em;    
+}
+
+main {
+    padding: 80px 200px;
+}
+
+.login-button-container {
+    margin-top: 20px;
+    text-align: center
+}
+
+main > div:first-child {
+    margin-top: 0px;
+}
+
+.login-button {
+    width: 200px;
+    height: 50px;
+    color: white;
+}
+
+.google-button {
+    background-color: rgb(219, 68, 55);
+}
+
+.twitter-button {
+    background-color:  rgb(29, 161, 242);
+}
+
+.facebook-button {
+    background-color: rgb(59, 89, 152);
+}
+

@@ -13,15 +13,19 @@ import { AppRouter } from './app.router';
 import { AppComponent } from './app.component';
 import { RouterService } from './services/router.service';
 import { LogService } from './services/log.service';
-import { AuthService } from './services/auth.service';
-import { KeyValService } from './services/key-val.service';
+import { AuthGuard } from './services/auth.service';
+
 import { ProductService } from './services/product.service';
 import { BrandService } from './services/brand.service';
 import { DepartmentService } from './services/department.service';
 import { AccountService } from './services/account.service';
 import { JournalService } from './services/journal.service';
 import { InventoryService } from './services/inventory.service';
+import { KeyValService } from './services/key-val.service';
+
+import { UserService } from './services/user.service';
 import { AddressService } from './services/address.service';
+import { CardService } from './services/card.service';
 
 import { HomePageComponent } from './home-page/home-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
@@ -44,6 +48,7 @@ import { AddressesComponent } from './addresses/addresses.component';
 import { CardsComponent } from './cards/cards.component';
 import { WishListsComponent } from './wish-lists/wish-lists.component';
 import { OrdersComponent } from './orders/orders.component';
+import { JamFormComponent } from './jam-form/jam-form.component';
 
 export const firebaseAppConfig : FirebaseAppConfig = {
     apiKey: "AIzaSyBV4KfPwTrqbFXzf7Sm6YAXkjSY1jSVcEk",
@@ -77,6 +82,7 @@ export const firebaseAppConfig : FirebaseAppConfig = {
     CardsComponent,
     WishListsComponent,
     OrdersComponent,
+    JamFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,7 +97,7 @@ export const firebaseAppConfig : FirebaseAppConfig = {
   providers: [
     RouterService,
     LogService,
-    AuthService,
+    AuthGuard,
     KeyValService,
 	  ProductService,
     BrandService,
@@ -99,7 +105,9 @@ export const firebaseAppConfig : FirebaseAppConfig = {
     AccountService,
     JournalService,
     InventoryService,
-    AddressService
+    UserService,
+    AddressService,
+    CardService
   ],
   bootstrap: [AppComponent]
 })

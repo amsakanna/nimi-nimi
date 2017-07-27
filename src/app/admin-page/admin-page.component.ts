@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import { RouterService } from '../services/router.service';
 import { NavigationItem } from '../models/navigationItem.model';
 

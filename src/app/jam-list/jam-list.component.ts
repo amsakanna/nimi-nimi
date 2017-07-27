@@ -1,6 +1,6 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
-import { Input, Output, ContentChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, ContentChild, TemplateRef } from '@angular/core';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/core';
+import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -23,16 +23,25 @@ import { Observable } from 'rxjs';
 		])
 	]
 })
-export class JamListComponent implements OnInit {
+export class JamListComponent implements OnInit 
+{
 
-	@ContentChild(TemplateRef) itemTemplate: TemplateRef<any>;
+	private _selectedItem: any;
+	private _selectedIndex: number;
+	private _hoveredIndex: number;
+	private deleteButtonState: string;
 
-	@Input() public stream: Observable<any[]>;
-	@Input() public iconName: string;
-	@Output() public search = new EventEmitter();
-	@Output() public newItem = new EventEmitter();
-	@Output() public delete = new EventEmitter();
-	@Output() public select = new EventEmitter();
+	@ContentChild(TemplateRef) listItemTemplate: TemplateRef<any>;
+	@Input() stream: Observable<any[]>;
+	@Input() iconName: string;
+	@Input() hideDeleteButton: boolean;
+	@Input() hideNewButton: boolean;
+	@Input() formTitle: string;
+	@Input() formSubtitle: string;
+	@Output() search = new EventEmitter();
+	@Output() newItem = new EventEmitter();
+	@Output() delete = new EventEmitter();
+	@Output() select = new EventEmitter();
 
 	constructor() { }
 
@@ -48,14 +57,22 @@ export class JamListComponent implements OnInit {
 		this.newItem.emit();
 	}
 
-	_delete(item: any)
-	{
-		this.delete.emit( { item: item } );
-	}
+	// _delete(item: any)
+	// {
+	// 	this.delete.emit( { item: item } );
+	// }
 
 	_select(item: any, index: number)
 	{
+		this._selectedItem = item;
+		this._selectedIndex = index;
 		this.select.emit( { item: item, index: index });
+	}
+
+	_deselect()
+	{
+		this._selectedItem = null;
+		this._selectedIndex = null;
 	}
 
 }

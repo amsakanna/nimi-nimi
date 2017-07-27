@@ -61,7 +61,7 @@ export class DepartmentComponent implements OnInit {
 			name: this.departmentForm.get('name').value,
 			path: this.departmentForm.get('path').value
 		});
-		this.departmentService.upsert(department);
+		this.departmentService.upsert(department, this.department.id);
 	}
 
 	removeDepartment() {

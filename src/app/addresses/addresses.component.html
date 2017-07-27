@@ -1,14 +1,32 @@
 <main class="container floating-box">	
 	<jam-list class="stretch-with-max"
 		[stream]="addressStream"
-		[iconName]="'location_on'">
-		<template let-item="item">
-			<div class="list-item-container">
-				<div class="item-door-no"> {{ item.doorNo }} </div>
-				<div class="item-street"> {{ item.street }} </div>
-				<div class="item-area"> {{ item.area }} </div>
-				<div class="item-city"> {{ item.city }} </div>
+		[iconName]="'location_on'"
+		[formTitle]="Address"
+		[formSubtitle]="edit"
+		(newItem)="this.formVisible = true;">
+		<template let-item="item" let-index="index" let-hoveredIndex="hoveredIndex" let-selectedIndex="selectedIndex">
+			<div class="template-container">
+				<div class="item-street"> {{ item.streetAddress }} </div>
+				<div class="item-city"> {{ item.city }} - {{ item.pincode }} </div>
+				<div class="item-state"> {{ item.state }}, {{ item.country }} </div>
+				<div class="item-phone"> Phone - {{ item.phone }} </div>				
 			</div>
 		</template>
 	</jam-list>
+	<jam-form title="Address" subtitle="edit"
+			[(visible)]="formVisible"
+			(save)="insert()"
+			[form]="form"
+			[formGroup]="form">
+		<div jam-form-data>
+			<p><md-input-container><input type="text" mdInput placeholder="Name / Office / Organisation" formControlName="name"/></md-input-container></p>
+			<p><md-input-container><input type="tel" mdInput placeholder="Phone" formControlName="phone"/></md-input-container></p>
+			<p><md-input-container><input type="text" mdInput placeholder="PIN Code" formControlName="pinCode"/></md-input-container></p>
+			<p><md-input-container><input type="text" mdInput placeholder="Street Address" formControlName="streetAddress"/></md-input-container></p>
+			<p><md-input-container><input type="text" mdInput placeholder="City" formControlName="city"/></md-input-container></p>
+			<p><md-input-container><input readonly type="text" mdInput placeholder="State" formControlName="state"/></md-input-container></p>
+			<p><md-input-container><input readonly type="text" mdInput placeholder="Country" formControlName="country"/></md-input-container></p>
+		</div>
+	</jam-form>
 </main>

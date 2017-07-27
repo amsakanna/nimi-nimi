@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2';
-import { DataService } from '../services/data.service';
+import { DataService } from './data.service';
 import { Account } from '../models/account.model';
 
 @Injectable()

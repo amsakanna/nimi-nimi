@@ -1,4 +1,4 @@
-<div class="jam-list-container">
+<div class="floating-box jam-list-container" (click)="_deselect()">
 	<header>
 		<div class="jam-list-search-container">
 			<md-icon class="jam-list-search-icon" md-prefix> search </md-icon>
@@ -9,25 +9,35 @@
 		<ul>
 			<li *ngFor="let item of stream | async; let i = index"
 				(click)="_select(item, i); $event.stopImmediatePropagation();"
+				(mouseenter)="_hoveredIndex = i"
+				(mouseleave)="_hoveredIndex = -1"
 				[@listItemAnimation]="listItemState"
-				[style.backgroundColor]="i == selectedIndex ? 'cornflowerblue' : 'transparent'"
-				[style.color]="i == selectedIndex ? 'white' : 'black'"
-			>
+				[style.backgroundColor]="i == _selectedIndex ? 'cornflowerblue' : i == _hoveredIndex ? 'rgb(227, 230, 235)' : 'rgb(247, 250, 255)'"
+				[style.color]="i == _selectedIndex ? 'white' : 'black'"
+				[style.paddingTop]="i == _selectedIndex || i == _hoveredIndex ? '10px' : '0px'"
+				[style.paddingBottom]="i == _selectedIndex || i == _hoveredIndex ? '10px' : '0px'">
 				<div class="jam-list-item-container">
-					<md-icon class="jam-list-item-icon"> {{ iconName }} </md-icon>
+					<md-icon class="jam-list-item-icon" [style.fontSize]="i == _selectedIndex || i == _hoveredIndex ? '32px' : '20px'"> {{ iconName }} </md-icon>
 					<section class="jam-list-item-data-container">
-						<template [ngTemplateOutlet]="itemTemplate" [ngOutletContext]="{ item: item }"></template>
+						<template [ngTemplateOutlet]="listItemTemplate" [ngOutletContext]="{ 
+							item: item, 
+							index: i, 
+							hoveredIndex: _hoveredIndex, 
+							selectedIndex: _selectedIndex 
+						}"></template>
 					</section>
-					<button md-button class="jam-list-item-delete-button"
-							(click)="_delete(item); $event.stopImmediatePropagation();"
-					>
+					 <!-- <button md-button 
+							class="jam-list-item-delete-button"
+							[style.width]="i == _selectedIndex ? '88px' : '0px'"
+							[style.minWidth]="i == _selectedIndex ? '88px' : '0px'"
+							(click)="_delete(item); $event.stopImmediatePropagation();">
 						<md-icon> delete </md-icon>
-					</button>
+					</button>  -->
 				</div>
 			</li>
 		</ul>
 	</main>
 	<footer>
-		<button md-button disableRipple (click)="_newItem()"> NEW </button>
+		<button *ngIf="!hideNewButton" md-button disableRipple (click)="_newItem(); $event.stopImmediatePropagation();"> NEW </button>
 	</footer>
 </div>

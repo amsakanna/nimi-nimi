@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { RouterService } from '../services/router.service';
-import { NavigationItem } from '../models/navigationItem.model';
+import { FILTER, SORT, STATUS } from '../app.enum';
+import { UserService } from '../services/user.service';
+import { AuthGuard } from '../services/auth.service';
+import { User } from '../models/user.model';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-profile',
@@ -11,19 +13,30 @@ import { NavigationItem } from '../models/navigationItem.model';
 export class ProfileComponent implements OnInit 
 {
 
-	navigationList: NavigationItem[];
+	private userStream: Observable<User>;
+	private user: User;
+	private formVisible: boolean;
+
 	ngOnInit() {}
 
-	constructor(private router: Router,	
-				private routerService: RouterService) 
+	constructor(private userService: UserService,
+				private authGuard: AuthGuard)
 	{
-		this.navigationList = this.routerService.requestRoutes([
-			'/user/profile',
-			'/user/addresses',
-			'/user/cards',
-			'/user/lists',
-			'/user/orders'
-		]);
+		this.user = new User({
+			$key: '',
+			firstName: '',
+			lastName: '',
+			email: '',
+			photo: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif',
+			gender: '',
+			rating: 0,
+			type: 0					
+		});
+		this.authGuard.getAuth().subscribe(auth => {
+			if(auth !== null) {
+				this.userService.lookup(auth.auth.email, 'email').subscribe(user => this.user = user);
+			}
+		});
 	}
 
 }

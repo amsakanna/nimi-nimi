@@ -1,10 +1,10 @@
 <main class="container floating-box">	
 	<div class="photo-preference-container">
 		<div class="photo-container">
-			<img class="photo" src="https://pbs.twimg.com/profile_images/884649985396023296/nGKxHU38_400x400.jpg" alt="photo unavailable">
+			<img class="photo" src="{{ user.photo }}" alt="photo unavailable">
 		</div>
 		<div class="edit-preference-container">
-			<div class="edit-button-container"><button class="edit-button" md-button><md-icon>edit</md-icon></button></div>
+			<div class="edit-button-container"><button (click)="this.formVisible = true" class="edit-button" md-button><md-icon>edit</md-icon></button></div>
 			<div class="preference-container">
 				<div> Female </div>
 				<div> Brown tone </div>
@@ -13,7 +13,7 @@
 		</div>
 	</div>
 	<div class="name-container">
-		<div class="name"> Susaritha </div>
+		<div class="name"> {{ user.firstName }} </div>
 		<div> Gold customer </div>
 	</div>
 	<div class="counts">
@@ -32,3 +32,11 @@
 	</div>
 	<div *ngIf="false" class="last-visited"> Last visited: July 12,2017 </div>
 </main>
+<jam-form [(visible)]="formVisible" title="Profile" subtitle="edit">
+	<div jam-form-data>
+		<p><md-input-container><input mdInput placeholder="Profile Name"/></md-input-container></p>
+		<p><md-input-container><input mdInput placeholder="Gender"/></md-input-container></p>
+		<p><md-input-container><input mdInput placeholder="Skin Tone"/></md-input-container></p>
+		<p><md-input-container><input mdInput placeholder="Size"/></md-input-container></p>
+	</div>
+</jam-form>

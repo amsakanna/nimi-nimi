@@ -44,7 +44,6 @@ export class ProductComponent implements OnInit {
 		// var fileLocation = this.firebaseStorage.ref('thumbnails/products/' + product.thumbnailFileName);			
 		// fileLocation.getDownloadURL().then((url: string) => {
 		// 	this.products[0].thumbnailUrl = url;
-		// 	console.log(this.products[0].thumbnailUrl);
 		// });
 
 	}
@@ -85,8 +84,7 @@ export class ProductComponent implements OnInit {
 			brand: this.productForm.get('brand').value,
 			thumbnailFileName: ''			
 		});
-		console.log(product);
-		this.productService.upsert(product);
+		this.productService.upsert(product, this.product.name);
 	}
 
 	removeproduct() {

@@ -1,3 +1,21 @@
-<p>
-  cards works!
-</p>
+<main class="container floating-box">	
+	<jam-list class="stretch-with-max"
+		[stream]="cardStream"
+		[iconName]="'credit_card'"
+		(newItem)="newItem()">
+		<template let-item="item">
+			<div class="list-item-container">
+				<div class="item-holderName"> {{ item.holderName }} </div>
+				<div class="item-number"> {{ item.number }} </div>
+				<div class="item-expiry-date"> {{ item.expiryDate }} </div>
+			</div>
+		</template>
+	</jam-list>
+	<jam-form [(visible)]="formVisible" title="Cards" subtitle="edit">
+		<div jam-form-data>
+			<p><md-input-container><input mdInput placeholder="Card Holder Name"/></md-input-container></p>
+			<p><md-input-container><input mdInput placeholder="Card Number"/></md-input-container></p>
+			<p><md-input-container><input mdInput placeholder="Expiry Date"/></md-input-container></p>
+		</div>
+	</jam-form>
+</main>

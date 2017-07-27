@@ -17,11 +17,18 @@ import { AddressesComponent } from "./addresses/addresses.component";
 import { CardsComponent } from "./cards/cards.component";
 import { WishListsComponent } from "./wish-lists/wish-lists.component";
 import { OrdersComponent } from "./orders/orders.component";
+import { AuthComponent } from "./auth/auth.component";
+
+import { AuthGuard } from "./services/auth.service";
 
 const APP_ROUTES: Routes = [
     { path: '', component: HomePageComponent },
+    { path: 'auth', component: AuthComponent },
     { path: 'home', redirectTo: '', component: HomePageComponent },
-    { path: 'user',component: UserPageComponent, children: [
+    { path: 'user', component: UserPageComponent, 
+        canActivate: [AuthGuard], 
+        children: [
+        { path:'', redirectTo: 'profile', pathMatch: 'full' },
         { path: 'profile', component: ProfileComponent },
         { path: 'addresses', component: AddressesComponent },
         { path: 'cards', component: CardsComponent },
@@ -30,6 +37,7 @@ const APP_ROUTES: Routes = [
     ]},
     { path: 'cart',component: CartPageComponent },
     { path: 'admin', component: AdminPageComponent , children: [
+        { path:'', redirectTo: 'inventory', pathMatch: 'full' },
         { path: 'journal', component: JournalPageComponent },
         { path: 'inventory', component: InventoryPageComponent },
         { path: 'definition', children: [

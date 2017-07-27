@@ -20,7 +20,7 @@ export class RouterService
 		this.navigationList.push(new NavigationItem('/admin/definition/department', 'Department', 'group_work'));
 		this.navigationList.push(new NavigationItem('/admin/definition/product', 'Product', 'card_giftcard'));
 		
-		this.navigationList.push(new NavigationItem('/user/profile', 'Profile', 'account_circle'));
+		this.navigationList.push(new NavigationItem('/user/profile', 'Profile', 'account_circle', '/user'));
 		this.navigationList.push(new NavigationItem('/user/addresses', 'Addresses', 'location_on'));
 		this.navigationList.push(new NavigationItem('/user/cards', 'Cards', 'credit_card'));
 		this.navigationList.push(new NavigationItem('/user/wish-lists', 'Wish Lists', 'favorite'));
@@ -28,13 +28,15 @@ export class RouterService
 
 		this.router.events.filter(event => event instanceof NavigationEnd).subscribe(event => {
 			this.currentUrl = event.url;
-			this.navigationList.forEach( item => item.selected = (item.link == this.currentUrl) );
+			this.navigationList.forEach( item => {
+				item.selected = (item.url == this.currentUrl || item.redirectFromUrl == this.currentUrl);
+			});
 		});
 	}
 
-	public requestRoutes(links: string[]) : NavigationItem[]
+	public requestRoutes(urls: string[]) : NavigationItem[]
 	{
-		return this.navigationList.filter(item => links.doesExist(item.link));
+		return this.navigationList.filter(item => urls.doesExist(item.url));
 	}
 
 

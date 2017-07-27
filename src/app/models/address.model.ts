@@ -2,36 +2,28 @@ export class Address
 {
 
     $key: string;
-    userKey: string;
+    userKey: string;    
     type: string;
-    doorNumber: string;
-    street: string;
-    area: string;
+    name: string;
+    phone: string;
+    pinCode: string;
+    streetAddress: string;
     city: string;
-    district: string;
     state: string;
     country: string;
-    pincode: string;
-    phone: string;
-    email: string;
-    active: string;
 
-    constructor({$key, userKey, type, doorNumber, street, area, city, district, state, country, pincode, phone, email, active})
+    constructor({$key, userKey, type, name, phone, pinCode, streetAddress, city, state, country})
     {
         this.$key = $key;
         this.userKey = userKey;
+        this.name = name;
+        this.phone = phone;
+        this.pinCode = pinCode;
         this.type = type;
-        this.doorNumber = doorNumber;
-        this.street = street;
-        this.area = area;
+        this.streetAddress = streetAddress;
         this.city = city;
-        this.district = district;
         this.state = state;
         this.country = country;
-        this.pincode = pincode;
-        this.phone = phone;
-        this.email = email;
-        this.active = active;
     }
 
 }

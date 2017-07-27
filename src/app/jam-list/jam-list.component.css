@@ -1,14 +1,12 @@
-.scrollable {
-    overflow-y: auto;
-}
-
 .jam-list-container {
-    height: 100%;
+    min-width: 500px;
+    height: 100%;    
 }
 
 header {
     height: 70px;
     padding: 0px 30px;
+    border-bottom: 1px solid rgb(193, 196, 202);
 }
 
 .jam-list-search-container {
@@ -38,7 +36,8 @@ header {
 }
 
 main {
-    min-height: 100px; height: calc(100% - 120px);
+    height: calc(100% - 120px);
+    background-color: rgb(193, 196, 202);
 }
 
 ul {
@@ -49,11 +48,8 @@ ul {
 
 li {
     list-style: none;
-    transition: background-color 0.3s ease-in-out;
-}
-
-li:hover {
-    background-color: rgba(100, 100, 100, 0.1) !important;
+    background-color: rgb(247, 250, 255);
+    transition: all 0.4s ease-out;
 }
 
 .jam-list-item-container {
@@ -61,14 +57,22 @@ li:hover {
 }
 
 .jam-list-item-icon {
-    padding: 8px 30px 4px 30px;
+    padding: 30px 30px 4px 30px;
     color: lightsteelblue;
     font-size: 20px;
     transition: all 0.5s ease-in-out;
 }
 
 .jam-list-item-data-container {
+    padding: 30px;
+    padding-left: 0px;
     flex-grow: 1;
+    font-size: 0.8em;
+}
+
+.jam-list-item-delete-button {
+    background-color: red;
+    transition: all 0.3s ease-in;
 }
 
 footer {
@@ -76,6 +80,7 @@ footer {
     display: flex;
     justify-content: flex-end;
     align-content: flex-end;
+    border-top: 1px solid rgb(193, 196, 202);
 }
 
 footer button {

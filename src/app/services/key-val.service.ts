@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2';
 import { DataService } from '../services/data.service';
 import { KeyVal } from '../models/key-val.model';
 
@@ -14,8 +14,8 @@ export class KeyValService extends DataService<KeyVal> {
 		super(db, "dummy");
 	}
 
-	setTable(tableName: string) {
-		super.setTable(tableName);
+	setTable(tableName: string) : FirebaseListObservable<any[]> {
+		return super.setTable(tableName);
 	}
 
 	protected createModel(json): KeyVal {

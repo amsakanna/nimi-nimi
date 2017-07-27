@@ -89,7 +89,6 @@ export class JournalPageComponent implements OnInit {
 	}
 
 	search(text) {
-		console.log(text);
 	}
 
 	searchAccount(key: string) {		

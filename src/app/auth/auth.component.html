@@ -1,3 +1,14 @@
-<button md-button>Login with Google</button>
-<button md-button>Login with Twitter</button>
-<button md-button>Login with Facebook</button>
+<div class="wrapper">
+    <div class="container">
+        <div class="login-box floating-box">
+            <header>
+                <div class="title">Login</div>
+            </header>
+            <main>
+                <div class="login-button-container"><button md-raised-button class="login-button google-button" (click)="login('google')">Login with Google</button></div>
+                <div class="login-button-container"><button md-raised-button class="login-button twitter-button" (click)="login('twitter')">Login with Twitter</button></div>
+                <div class="login-button-container"><button md-raised-button class="login-button facebook-button" (click)="login('facebook')">Login with Facebook</button></div>
+            </main>
+        </div>
+    </div>
+</div>
