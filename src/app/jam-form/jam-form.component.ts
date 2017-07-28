@@ -10,8 +10,6 @@ import { DataService } from '../services/data.service';
 export class JamFormComponent implements OnInit 
 {
 
-	@ContentChild(TemplateRef) formTemplate: TemplateRef<any>;
-	
 	@Input() form: FormGroup;
 	@Input() title: string;
 	@Input() subtitle: string;
@@ -28,7 +26,7 @@ export class JamFormComponent implements OnInit
 
 	_save()
 	{
-		this.save.emit();
+		this.save.emit(); 
 	}
 
 	_reset()

@@ -41,6 +41,8 @@ export class JamListComponent implements OnInit
 	@Output() search = new EventEmitter();
 	@Output() newItem = new EventEmitter();
 	@Output() delete = new EventEmitter();
+	@Input() selectedItem: any;
+	@Output() selectedItemChange = new EventEmitter<any>();
 	@Output() select = new EventEmitter();
 
 	constructor() { }
@@ -57,22 +59,19 @@ export class JamListComponent implements OnInit
 		this.newItem.emit();
 	}
 
-	// _delete(item: any)
-	// {
-	// 	this.delete.emit( { item: item } );
-	// }
-
 	_select(item: any, index: number)
 	{
 		this._selectedItem = item;
 		this._selectedIndex = index;
 		this.select.emit( { item: item, index: index });
+		this.selectedItemChange.emit(this._selectedItem);
 	}
 
 	_deselect()
 	{
 		this._selectedItem = null;
 		this._selectedIndex = null;
+		this.selectedItemChange.emit(this._selectedItem);
 	}
 
 }

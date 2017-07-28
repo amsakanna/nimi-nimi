@@ -49,6 +49,7 @@ import { CardsComponent } from './cards/cards.component';
 import { WishListsComponent } from './wish-lists/wish-lists.component';
 import { OrdersComponent } from './orders/orders.component';
 import { JamFormComponent } from './jam-form/jam-form.component';
+import { JamListItemComponent } from './jam-list-item/jam-list-item.component';
 
 export const firebaseAppConfig : FirebaseAppConfig = {
     apiKey: "AIzaSyBV4KfPwTrqbFXzf7Sm6YAXkjSY1jSVcEk",
@@ -83,6 +84,7 @@ export const firebaseAppConfig : FirebaseAppConfig = {
     WishListsComponent,
     OrdersComponent,
     JamFormComponent,
+    JamListItemComponent,
   ],
   imports: [
     BrowserModule,

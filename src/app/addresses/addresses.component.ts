@@ -19,6 +19,8 @@ export class AddressesComponent implements OnInit
 	private form: FormGroup;
 	private formValues: any;
 	private formVisible: boolean;
+	private selectedItem: any;
+	private selected: boolean;
 
 	ngOnInit() {}
 
@@ -70,6 +72,25 @@ export class AddressesComponent implements OnInit
 				});
 			}
 		});
+	}
+
+	delete()
+	{
+		this.addressService.delete(this.selectedItem);
+		this.selectedItem = null;
+		this.selected = false;		
+	}
+
+	edit()
+	{
+		this.form.patchValue({
+			name: this.selectedItem.name,
+			phone: this.selectedItem.phone,
+			pinCode: this.selectedItem.pinCode,
+			streetAddress: this.selectedItem.streetAddress,
+			city: this.selectedItem.city,
+		});
+		this.formVisible = true;
 	}
 
 }

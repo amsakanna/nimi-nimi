@@ -1,0 +1,23 @@
+<div *ngIf="visible" class="jam-list-item-container dialog">
+	<div class="jam-list-item floating-box">
+		<header>
+			<div class="jam-list-item-title-container">
+				<div class="jam-list-item-title"> {{ title }} </div>
+				<div class="jam-list-item-subtitle"> {{ subtitle }} </div>
+			</div>
+			<button md-button type="button" class="header-button jam-list-item-delete-button" (click)="_delete()">
+				<md-icon> delete </md-icon>
+			</button>
+			<button md-button type="button" class="header-button jam-list-item-edit-button" (click)="_edit()">
+				<md-icon> edit </md-icon>
+			</button>
+			<button md-button type="button" class="header-button jam-list-item-close-button" (click)="_close()">
+				<md-icon> close </md-icon>
+			</button>
+		</header>
+		<main class="jam-list-item-template-container scrollable">			
+			<ng-content class="jam-list-item-template" selector="[jam-list-item-template]">
+			</ng-content>
+		</main>
+	</div>
+</div>

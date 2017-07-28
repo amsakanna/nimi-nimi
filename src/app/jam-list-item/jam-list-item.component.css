@@ -1,0 +1,44 @@
+.jam-list-item {
+    width: 500px;
+    height: calc(100% - 200px);
+}
+
+header {
+    position: relative;
+    padding: 50px 50px;
+    border-bottom: 2px solid rgb(223, 226, 232);
+}
+
+.jam-list-item-title {
+    color: gray;
+    font-size: 2em;    
+}
+
+.jam-list-item-title-container {
+    flex-grow: 1;
+}
+
+.header-button.mat-button {
+    position: absolute;
+    top: 0px; right: 0px;
+    min-width: auto !important;
+    padding: 10px;
+}
+
+.jam-list-item-edit-button {
+    right: 54px !important;
+}
+
+.jam-list-item-delete-button {
+    right: 108px !important;
+}
+
+.header-button.mat-button-focus-overlay {
+    display: none;
+}
+
+main {
+    padding: 20px 100px;
+    min-height: 300px; height: calc(100% - 277px);
+}
+
