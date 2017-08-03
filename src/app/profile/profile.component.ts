@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FILTER, SORT, STATUS } from '../app.enum';
-import { UserService } from '../services/user.service';
 import { AuthGuard } from '../services/auth.service';
 import { User } from '../models/user.model';
 import { Observable } from 'rxjs';
@@ -13,14 +12,11 @@ import { Observable } from 'rxjs';
 export class ProfileComponent implements OnInit 
 {
 
-	private userStream: Observable<User>;
 	private user: User;
-	private formVisible: boolean;
 
 	ngOnInit() {}
 
-	constructor(private userService: UserService,
-				private authGuard: AuthGuard)
+	constructor(private authGuard: AuthGuard)
 	{
 		this.user = new User({
 			$key: '',
@@ -32,11 +28,7 @@ export class ProfileComponent implements OnInit
 			rating: 0,
 			type: 0					
 		});
-		this.authGuard.getAuth().subscribe(auth => {
-			if(auth !== null) {
-				this.userService.lookup(auth.auth.email, 'email').subscribe(user => this.user = user);
-			}
-		});
+		this.authGuard.getUser().subscribe( user => this.user = user );
 	}
 
 }

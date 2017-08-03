@@ -1,0 +1,13 @@
+<jam-list-item title="Address" subtitle="view" [(visible)]="selected"
+	(delete)="delete()"
+	(edit)="edit()">
+	<div jam-list-item-template>
+		<div> {{ selectedItem?.name }} </div>
+		<div> {{ selectedItem?.phone }} </div>
+		<div> {{ selectedItem?.pinCode }} </div>
+		<div> {{ selectedItem?.streetAddress }} </div>
+		<div> {{ selectedItem?.city }} </div>
+		<div> {{ selectedItem?.state }} </div>
+		<div> {{ selectedItem?.country }} </div> 
+	</div>
+</jam-list-item>

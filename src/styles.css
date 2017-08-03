@@ -189,3 +189,11 @@ md-nav-list {
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
 }
+
+.no-animation.mat-button {
+    color: cornflowerblue;
+}
+
+.no-animation /deep/ .mat-button-focus-overlay {    
+    display: none;
+}

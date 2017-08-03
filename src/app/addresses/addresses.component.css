@@ -1,11 +1,3 @@
 main {
     height: 100%;
 }
-
-jam-list-item {
-    z-index: 98;
-}
-
-jam-form {
-    z-index: 99;
-}

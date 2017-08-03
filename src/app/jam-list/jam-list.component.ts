@@ -38,6 +38,7 @@ export class JamListComponent implements OnInit
 	@Input() hideNewButton: boolean;
 	@Input() formTitle: string;
 	@Input() formSubtitle: string;
+	@Input() newItemUrl: string;
 	@Output() search = new EventEmitter();
 	@Output() newItem = new EventEmitter();
 	@Output() delete = new EventEmitter();

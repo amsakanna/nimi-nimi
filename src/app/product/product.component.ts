@@ -84,7 +84,7 @@ export class ProductComponent implements OnInit {
 			brand: this.productForm.get('brand').value,
 			thumbnailFileName: ''			
 		});
-		this.productService.upsert(product, this.product.name);
+		this.productService.upsert(product, this.product.name, 'name');
 	}
 
 	removeproduct() {

@@ -1,3 +1,7 @@
+.jam-list-item-container {
+    z-index: 999998 !important;
+}
+
 .jam-list-item {
     width: 500px;
     height: calc(100% - 200px);
@@ -6,6 +10,7 @@
 header {
     position: relative;
     padding: 50px 50px;
+    display: flex;
     border-bottom: 2px solid rgb(223, 226, 232);
 }
 
@@ -18,22 +23,21 @@ header {
     flex-grow: 1;
 }
 
-.header-button.mat-button {
-    position: absolute;
-    top: 0px; right: 0px;
+.header-buttons-container {
+    float: left;
+}
+
+.compact.mat-button {
     min-width: auto !important;
     padding: 10px;
 }
 
-.jam-list-item-edit-button {
-    right: 54px !important;
+.jam-list-item-close-button {
+    position: absolute;
+    top: 0px; right: 0px;
 }
 
-.jam-list-item-delete-button {
-    right: 108px !important;
-}
-
-.header-button.mat-button-focus-overlay {
+.no-focus /deep/ .mat-button-focus-overlay {
     display: none;
 }
 

@@ -7,17 +7,17 @@ export class Card
 	holderName: string;
 	number: string;
 	expiryDate: Date;
-	cvv: number;
-
-    constructor( { $key, userKey, billingAddressKey, holderName, number, expiryDate, cvv } )
+    cvv: number;
+    
+    constructor(object?: { $key, userKey, billingAddressKey, holderName, number, expiryDate, cvv })
     {
-        this.$key = $key;
-        this.userKey = userKey;
-        this.billingAddressKey = billingAddressKey;
-        this.holderName = holderName;
-        this.number = number;
-        this.expiryDate = expiryDate;
-        this.cvv = cvv;
+        this.$key = object ? object.$key : '';
+        this.userKey = object ? object.userKey : '';
+        this.billingAddressKey = object ? object.billingAddressKey : '';
+        this.holderName = object ? object.holderName : '';
+        this.number = object ? object.number : '';
+        this.expiryDate = object ? object.expiryDate : '';
+        this.cvv = object ? object.cvv : '';
     }
 
 }

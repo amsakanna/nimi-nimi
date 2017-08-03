@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { AngularFireAuth, AuthProviders, AuthMethods } from 'angularfire2';
+import { AngularFireAuth, AuthProviders, AuthMethods, FirebaseAuthState } from 'angularfire2';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/take';
 import { LogService } from './log.service';
@@ -11,12 +11,20 @@ import { User } from '../models/user.model';
 export class AuthGuard implements CanActivate {
 
 	user: User;
+	authState: FirebaseAuthState;
 
 	constructor(private logService: LogService,
 				private userService: UserService,
 				private auth: AngularFireAuth,
 				private router: Router)
 	{
+		this.auth.subscribe(authState => 
+		{
+			this.authState = authState;
+			var user$ = this.getUser();
+			if(user$ !== null)
+				user$.subscribe( user => this.user = user );
+		});
 	}
 
 	canActivate(activatedRouteSnapshot: ActivatedRouteSnapshot, 
@@ -53,7 +61,7 @@ export class AuthGuard implements CanActivate {
 					rating: 0,
 					type: 0
 				});
-				this.userService.upsert(this.user, this.user.email);
+				this.userService.upsert(this.user, this.user.email, 'email');
 				this.router.navigateByUrl(returnUrl);
 			})
 			.catch( (error) => this.logService.dumpVariable('error (from auth service)', error.message) );
@@ -69,6 +77,14 @@ export class AuthGuard implements CanActivate {
 	getAuth(): AngularFireAuth
 	{
 		return this.auth;
+	}
+
+	getUser(): Observable<User>
+	{
+		if(this.authState !== null)
+			return this.userService.lookup(this.authState.auth.email, 'email');
+		else
+			return null;
 	}
 
 }

@@ -2,11 +2,9 @@
 	<jam-list class="stretch-with-max"
 		[stream]="addressStream"
 		[iconName]="'location_on'"
-		[formTitle]="Address"
-		[formSubtitle]="edit"
-		(newItem)="formVisible = true;"
+		newItemUrl="new/edit"
 		[(selectedItem)]="selectedItem"
-		(selectedItemChange)="selected = (selectedItem != null)">
+		(select)="selected = (selectedItem != null)">
 		<template let-item="item" let-index="index" let-hoveredIndex="hoveredIndex" let-selectedIndex="selectedIndex">
 			<div class="template-container">
 				<div class="item-street"> {{ item.streetAddress }} </div>
@@ -16,32 +14,4 @@
 			</div>
 		</template>
 	</jam-list>
-	<jam-form title="Address" subtitle="edit"
-			[(visible)]="formVisible"
-			(save)="insert()"
-			[form]="form"
-			[formGroup]="form">
-		<div jam-form-template>
-			<p><md-input-container><input type="text" mdInput placeholder="Name / Office / Organisation" formControlName="name"/></md-input-container></p>
-			<p><md-input-container><input type="tel" mdInput placeholder="Phone" formControlName="phone"/></md-input-container></p>
-			<p><md-input-container><input type="text" mdInput placeholder="PIN Code" formControlName="pinCode"/></md-input-container></p>
-			<p><md-input-container><input type="text" mdInput placeholder="Street Address" formControlName="streetAddress"/></md-input-container></p>
-			<p><md-input-container><input type="text" mdInput placeholder="City" formControlName="city"/></md-input-container></p>
-			<p><md-input-container><input readonly type="text" mdInput placeholder="State" formControlName="state"/></md-input-container></p>
-			<p><md-input-container><input readonly type="text" mdInput placeholder="Country" formControlName="country"/></md-input-container></p>
-		</div>
-	</jam-form>
-	<jam-list-item title="Address" subtitle="view" [(visible)]="selected"
-		(delete)="delete()"
-		(edit)="edit()">
-		<div jam-list-item-template>
-			<div> {{ selectedItem?.name }} </div>
-			<div> {{ selectedItem?.phone }} </div>
-			<div> {{ selectedItem?.pinCode }} </div>
-			<div> {{ selectedItem?.streetAddress }} </div>
-			<div> {{ selectedItem?.city }} </div>
-			<div> {{ selectedItem?.state }} </div>
-			<div> {{ selectedItem?.country }} </div> 
-		</div>
-	</jam-list-item>
 </main>

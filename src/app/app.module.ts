@@ -22,7 +22,6 @@ import { AccountService } from './services/account.service';
 import { JournalService } from './services/journal.service';
 import { InventoryService } from './services/inventory.service';
 import { KeyValService } from './services/key-val.service';
-
 import { UserService } from './services/user.service';
 import { AddressService } from './services/address.service';
 import { CardService } from './services/card.service';
@@ -50,6 +49,9 @@ import { WishListsComponent } from './wish-lists/wish-lists.component';
 import { OrdersComponent } from './orders/orders.component';
 import { JamFormComponent } from './jam-form/jam-form.component';
 import { JamListItemComponent } from './jam-list-item/jam-list-item.component';
+import { AddressComponent } from './address/address.component';
+import { AddressFormComponent } from './addresses/address-form.component';
+import { CardFormComponent } from './cards/card-form.component';
 
 export const firebaseAppConfig : FirebaseAppConfig = {
     apiKey: "AIzaSyBV4KfPwTrqbFXzf7Sm6YAXkjSY1jSVcEk",
@@ -85,6 +87,9 @@ export const firebaseAppConfig : FirebaseAppConfig = {
     OrdersComponent,
     JamFormComponent,
     JamListItemComponent,
+    AddressComponent,
+    AddressFormComponent,
+    CardFormComponent,
   ],
   imports: [
     BrowserModule,

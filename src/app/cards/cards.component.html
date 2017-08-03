@@ -2,7 +2,7 @@
 	<jam-list class="stretch-with-max"
 		[stream]="cardStream"
 		[iconName]="'credit_card'"
-		(newItem)="newItem()">
+		newItemUrl="new/edit">
 		<template let-item="item">
 			<div class="list-item-container">
 				<div class="item-holderName"> {{ item.holderName }} </div>
@@ -11,11 +11,4 @@
 			</div>
 		</template>
 	</jam-list>
-	<jam-form [(visible)]="formVisible" title="Cards" subtitle="edit">
-		<div jam-form-data>
-			<p><md-input-container><input mdInput placeholder="Card Holder Name"/></md-input-container></p>
-			<p><md-input-container><input mdInput placeholder="Card Number"/></md-input-container></p>
-			<p><md-input-container><input mdInput placeholder="Expiry Date"/></md-input-container></p>
-		</div>
-	</jam-form>
 </main>

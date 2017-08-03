@@ -14,24 +14,32 @@ import { UserPageComponent } from "./user-page/user-page.component";
 import { CartPageComponent } from "./cart-page/cart-page.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { AddressesComponent } from "./addresses/addresses.component";
+import { AddressComponent } from "./address/address.component";
+import { AddressFormComponent } from "./addresses/address-form.component";
 import { CardsComponent } from "./cards/cards.component";
+import { CardFormComponent } from "./cards/card-form.component";
 import { WishListsComponent } from "./wish-lists/wish-lists.component";
 import { OrdersComponent } from "./orders/orders.component";
 import { AuthComponent } from "./auth/auth.component";
-
 import { AuthGuard } from "./services/auth.service";
 
 const APP_ROUTES: Routes = [
     { path: '', component: HomePageComponent },
     { path: 'auth', component: AuthComponent },
     { path: 'home', redirectTo: '', component: HomePageComponent },
-    { path: 'user', component: UserPageComponent, 
-        canActivate: [AuthGuard], 
-        children: [
-        { path:'', redirectTo: 'profile', pathMatch: 'full' },
-        { path: 'profile', component: ProfileComponent },
-        { path: 'addresses', component: AddressesComponent },
+    { path: 'user', component: UserPageComponent, canActivate: [AuthGuard], children: [
+        { path: '', component: ProfileComponent },
+        { path: 'profile', redirectTo: 'profile', pathMatch: 'full' },
+        { path: 'addresses', component: AddressesComponent},
+        { path: 'addresses/:key', children: [
+            { path: '', component: AddressComponent },
+            { path: 'edit', component: AddressFormComponent }
+        ]},
         { path: 'cards', component: CardsComponent },
+        { path: 'cards/:key', children: [
+            // { path: '', component: CardComponent },
+            { path: 'edit', component: CardFormComponent }
+        ]},
         { path: 'wish-lists', component: WishListsComponent },
         { path: 'orders', component: OrdersComponent }
     ]},

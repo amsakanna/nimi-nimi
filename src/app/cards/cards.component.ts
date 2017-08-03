@@ -15,7 +15,6 @@ export class CardsComponent implements OnInit
 {
 
 	private cardStream: Observable<Card[]>;
-	private formVisible: boolean;
 
 	ngOnInit() {}
 
@@ -30,11 +29,6 @@ export class CardsComponent implements OnInit
 				});
 			}
 		});
-	}
-
-	newItem()
-	{
-		this.formVisible = true;
 	}
 
 }

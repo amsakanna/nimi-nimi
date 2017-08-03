@@ -25,13 +25,33 @@ export abstract class DataService<T>
 		return item;
 	}
 
+	mapService()
+    {
+		switch (this.constructor.name) {
+			case 'AddressService':
+				this.tableName = 'addresses'
+				break;
+			case 'UserService':
+				this.tableName = 'users'
+				break;
+			case 'DepartmentService':
+				this.tableName = 'departments'
+				break;
+		
+			default:
+				break;
+		}
+	}
+
+    
 	/*-----------------------------------------------------------------------
 		CRUD
 	-----------------------------------------------------------------------*/
 
-	constructor(protected db: AngularFireDatabase, tableName: string)
-	{		
-		this.tableName = tableName;
+	constructor(protected db?: AngularFireDatabase, tableName?: string)
+	{	
+		// this.tableName = tableName;
+		this.mapService();
 		this.table = this.db.list(this.tableName);
 		this.dataServiceObject = new DataServiceObject({operation: null, object: null});
 	}
@@ -94,8 +114,7 @@ export abstract class DataService<T>
 	upsert(object: any, lookupValue: string, lookupColumn?: string) : DataServiceObject
 	{
 		this.dataServiceObject = new DataServiceObject({operation: DATABASE_OPERATION.UPDATE, object: object});
-		var newLookupColumn = ( lookupColumn === undefined ) ? this.searchKeyName : lookupColumn;
-		this.lookup(lookupValue, newLookupColumn).subscribe( data => {
+		this.lookup(lookupValue, lookupColumn).subscribe( data => {
 			if( data === undefined ) {
 				this.insert(this.dataServiceObject.object);
 			} else {

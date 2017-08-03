@@ -1,3 +1,8 @@
+export interface IAddress
+{
+    $key: string; userKey: string; type: string; name: string; phone: string; pinCode: string; streetAddress: string; city: string; state: string; country: string;
+}
+
 export class Address
 {
 
@@ -12,18 +17,20 @@ export class Address
     state: string;
     country: string;
 
-    constructor({$key, userKey, type, name, phone, pinCode, streetAddress, city, state, country})
+    constructor();
+    constructor(object: IAddress);
+    constructor(object?: any)
     {
-        this.$key = $key;
-        this.userKey = userKey;
-        this.name = name;
-        this.phone = phone;
-        this.pinCode = pinCode;
-        this.type = type;
-        this.streetAddress = streetAddress;
-        this.city = city;
-        this.state = state;
-        this.country = country;
+        this.$key = object ? object.$key : '';
+        this.userKey = object ? object.userKey : '';
+        this.name = object ? object.name : '';
+        this.phone = object ? object.phone : '';
+        this.pinCode = object ? object.pinCode : '';
+        this.type = object ? object.type : '';
+        this.streetAddress = object ? object.streetAddress : '';
+        this.city = object ? object.city : '';
+        this.state = object ? object.state : 'Tamil Nadu';
+        this.country = object ? object.country : 'India';
     }
 
 }

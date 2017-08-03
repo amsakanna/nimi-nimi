@@ -37,14 +37,13 @@ main {
 footer {
     padding: 20px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-content: flex-end;
     border-top: 2px solid rgb(223, 226, 232);
 }
 
-
-.jam-form-reset-button.mat-button-focus-overlay {
-    color: cornflowerblue;
-    display: none;
+.footer-left {
+    flex-grow: 1;
 }
+
 

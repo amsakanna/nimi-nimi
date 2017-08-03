@@ -11,9 +11,9 @@ export class AddressService extends DataService<Address>
 	protected searchKeyName = "streetAddress";
 	protected tableName: string;
 
-	constructor(db: AngularFireDatabase) 
+	constructor()
 	{
-		super(db, "addresses");
+		super();
 	}
 
 	protected createModel(json) : Address 
