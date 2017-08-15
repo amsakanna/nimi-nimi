@@ -154,9 +154,24 @@ md-nav-list {
     justify-content: space-around;
 }
 
+.flex-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .flex-vertical {
     display: flex;
     flex-direction: column;
+}
+
+.flex-hcenter {
+    display: flex;
+    justify-content: center;
+}
+
+.flex-vcenter {
+    display: flex;
+    align-items: center;
 }
 
 .flex-center-center {

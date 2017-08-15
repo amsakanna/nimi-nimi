@@ -6,12 +6,12 @@ export class Department
     name: string;
     path: string;
 
-    constructor({$key, id, name, path})
+    constructor(object?: {$key, id, name, path})
     {
-        this.$key = $key;
-        this.id = id;
-        this.name = name;
-        this.path = path;
+        this.$key = object ? object.$key : '';
+        this.id = object ? object.id : '';
+        this.name = object ? object.name : '';
+        this.path = object ? object.path : '';
     }
 
 }

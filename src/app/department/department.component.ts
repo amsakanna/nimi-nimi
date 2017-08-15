@@ -1,71 +1,122 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { FILTER, SORT } from '../app.enum';
-import { DepartmentService } from '../services/department.service';
+import { FILTER, SORT, STATUS } from '../app.enum';
+import { ActivatedRoute } from '@angular/router';
+import { DepartmentService } from '../services/all-data.service';
+import { AuthGuard } from '../services/auth.service';
 import { Department } from '../models/department.model';
 import { Observable } from 'rxjs';
-import "rxjs/add/operator/first";
+
+@Component({
+	selector: 'app-department-list',
+	template: `
+		<main class="container">	
+			<jam-list class="stretch-with-max"
+				[stream]="departmentStream"
+				iconName="group_work"
+				newItemUrl="new/edit"
+				selectItemUrl="admin/dimension/department/:key">
+				<template let-item="item" let-index="index" let-hoveredIndex="hoveredIndex" let-selectedIndex="selectedIndex">
+					<div class="template-container">
+						<div class="item-id"> {{ item.id }} </div>
+						<div class="item-name"> {{ item.name }} </div>
+					</div>
+				</template>
+			</jam-list>
+		</main>		
+	`,
+	styles: [`
+		main {
+			height: 100%;
+		}
+	`]
+})
+export class DepartmentListComponent implements OnInit {
+
+	private departmentStream: Observable<Department[]>;
+
+	ngOnInit() {}
+	constructor(private departmentService: DepartmentService)
+	{
+		this.departmentStream = this.departmentService.getList(SORT.VALUE, FILTER.NONE);
+	}
+
+}
 
 @Component({
 	selector: 'app-department',
-	templateUrl: './department.component.html',
-	styleUrls: ['./department.component.css']
+	template: `
+		<jam-list-item title="Department" subtitle="view"
+			[dataService]="departmentService"
+			editItemUrl="edit"
+			returnUrl="admin/dimension/department"
+			[item]="item">
+			<div jam-list-item-template>
+				<div> {{ item?.id }} </div>
+				<div> {{ item?.name }} </div>
+			</div>
+		</jam-list-item>
+	`
 })
 export class DepartmentComponent implements OnInit {
 
-	department: Department;
-  	departmentForm: FormGroup;
-	routeId: string;
-	departmentStream: Observable<Department[]>;
+	private item: Department;
 
-	constructor(private route: ActivatedRoute, 
-				private router: Router,
-				private formBuilder: FormBuilder,
-				private departmentService: DepartmentService) 
+	ngOnInit() {}
+	constructor(private departmentService: DepartmentService,
+				private route: ActivatedRoute)
 	{
-		this.newForm();
-		this.departmentStream = departmentService.getList(SORT.NONE, FILTER.NONE, undefined);
+		var key = this.route.snapshot.params['key'];
+		this.departmentService.getObject(key).subscribe( object => this.item = object );
 	}
 
-	ngOnInit() {
-		this.route.params.subscribe((params: Params) =>  {
-			this.routeId = params['id'];
-			if(this.routeId == "null") this.newForm();
-			this.departmentService.getList(SORT.SEARCH_KEY, FILTER.EQUAL_TO, this.routeId)
-			.first().subscribe(departments => departments.forEach(department => {				
-				this.department = department
-				this.departmentForm.setValue({
-					id: department.id,
-					name: department.name,
-					path: department.path
-				});
-			}));
-		});
+}
+
+
+@Component({
+	selector: 'app-department-form',
+	template: `
+		<jam-form title="Department"
+				subtitle="edit"
+				[formElements]="formElements"
+				[dataService]="departmentService"
+				returnUrl="/admin/dimension/department">
+		</jam-form>
+	`
+})
+export class DepartmentFormComponent implements OnInit 
+{
+
+	private formElements: any[];
+	private item: Department;
+
+	ngOnInit() {}
+	constructor(private departmentService: DepartmentService,
+				private authGuard: AuthGuard,
+				private route: ActivatedRoute) 
+	{
+		
+		this.formElements = this.generateFormElements(this.item);
+
+		var key = this.route.snapshot.params['key'];
+		if(key != 'new') {
+			this.departmentService.getObject(key).subscribe(object => {
+				this.item = object;
+				this.formElements = this.generateFormElements(this.item);
+			});
+		}
+
 	}
 
-	newForm() {
-		this.departmentForm = this.formBuilder.group({
-			id: ['', Validators.required],
-			name: ['', Validators.required],
-			path: ['', Validators.required],
-			parent: ['']
-		});
-		this.department = new Department({$key: '', id: '', name: '', path: ''});
-	}
-
-	submitForm() {
-		var department: Department = new Department ({
-			$key: this.department.$key,
-			id: this.departmentForm.get('id').value,
-			name: this.departmentForm.get('name').value,
-			path: this.departmentForm.get('path').value
-		});
-		this.departmentService.upsert(department, this.department.id, 'id');
-	}
-
-	removeDepartment() {
-		this.departmentService.delete(this.department);
+	generateFormElements(item: Department) : any[]
+	{
+		if(item === undefined)
+			item = new Department();
+		var formElements = [
+			{ key: '$key', exclude: true, initialValue: item.$key },
+			{ key: 'id', exclude: false, initialValue: item.id, type: 'text', placeHolder: 'Id', formControlName: 'id' },
+			{ key: 'name', exclude: false, initialValue: item.name, type: 'text', placeHolder: 'Name', formControlName: 'name' }
+		];
+		return formElements;
 	}
 
 }

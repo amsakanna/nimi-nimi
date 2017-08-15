@@ -1,0 +1,9 @@
+<jam-list-item title="WishList" subtitle="view"
+	[dataService]="wishListService"
+	editItemUrl="edit"
+	returnUrl="user/wish-lists"
+	[item]="item">
+	<div jam-list-item-template>
+		<div> {{ item?.name }} </div>
+	</div>
+</jam-list-item>

@@ -1,7 +1,8 @@
 <md-grid-list class="product-grid" cols="4" rowHeight="340px">
-	<md-grid-tile *ngFor="let product of productStream | async">
+	<div *ngIf="!productList || !productList.length" class="no-item-box floating-box"> No item to show </div>
+	<md-grid-tile *ngFor="let product of productList">
 
-		<md-card>
+		<md-card (click)="select(product)">
 
 			<md-card-header>
 				<md-card-title>
@@ -11,7 +12,7 @@
 
 			<md-card-content>
 				<div class="thumbnail-wrapper">
-					<img class="thumbnail" [src]="'../assets/img/' + product.thumbnail" />
+					 <img class="thumbnail" [src]="product.picture.thumbnail" [alt]="product.picture.name" /> 
 				</div>
 				<!--<div class="thumbnail"
 				[style.background-image]="url(' + product.thumbnail + ')"></div>-->
@@ -19,7 +20,7 @@
 
 			<md-card-footer>			
 				<md-card-actions>
-					<span class="price">{{ product.price }}/-</span>
+					<span class="price">{{ product.price ? product.price : 'N/A' }}/-</span>
 					<span class="buy">
 						<button md-button>BUY</button>
 					</span>

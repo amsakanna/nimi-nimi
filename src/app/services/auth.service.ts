@@ -4,7 +4,7 @@ import { AngularFireAuth, AuthProviders, AuthMethods, FirebaseAuthState } from '
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/take';
 import { LogService } from './log.service';
-import { UserService } from './user.service';
+import { UserService } from './all-data.service';
 import { User } from '../models/user.model';
 
 @Injectable()

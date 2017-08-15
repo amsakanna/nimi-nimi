@@ -2,7 +2,8 @@
 	<jam-list class="stretch-with-max"
 		[stream]="cardStream"
 		[iconName]="'credit_card'"
-		newItemUrl="new/edit">
+		newItemUrl="new/edit"
+		selectItemUrl="user/cards/:key">
 		<template let-item="item">
 			<div class="list-item-container">
 				<div class="item-holderName"> {{ item.holderName }} </div>

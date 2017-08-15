@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FILTER, SORT } from '../app.enum';
-import { DepartmentService } from '../services/department.service';
-import { Department } from '../models/department.model';
+import { TagService } from '../services/all-data.service';
+import { Tag } from '../models/tag.model';
+import { Router } from "@angular/router";
 
 @Component({
 	selector: 'app-home-page',
@@ -11,12 +12,18 @@ import { Department } from '../models/department.model';
 })
 export class HomePageComponent implements OnInit {
 
-	departmentStream: Observable<Department[]>;
-
-	constructor(departmentService: DepartmentService) {
-		this.departmentStream = departmentService.getList(SORT.NONE, FILTER.NONE, undefined);		
-	}
+	tagStream: Observable<Tag[]>;
 
 	ngOnInit() {}
+	constructor(private router: Router,
+				private tagService: TagService) {
+		this.tagStream = tagService.getList(SORT.NONE, FILTER.NONE);		
+	}
+
+	search(text)
+	{		
+		this.router.navigate(['/products'], { queryParams: { keyword: text } });
+	}
+
 
 }

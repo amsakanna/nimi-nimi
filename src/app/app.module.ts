@@ -15,30 +15,35 @@ import { RouterService } from './services/router.service';
 import { LogService } from './services/log.service';
 import { AuthGuard } from './services/auth.service';
 
-import { ProductService } from './services/product.service';
-import { BrandService } from './services/brand.service';
-import { DepartmentService } from './services/department.service';
-import { AccountService } from './services/account.service';
-import { JournalService } from './services/journal.service';
-import { InventoryService } from './services/inventory.service';
+import {
+	AddressService,
+	ProductService,
+	BrandService,
+	DepartmentService,
+	AccountService,
+	JournalService,
+	InventoryService,
+	UserService,
+  CardService,
+  WishListService,
+  TagService,
+  PictureService,
+  IndexService
+} from './services/all-data.service';
 import { KeyValService } from './services/key-val.service';
-import { UserService } from './services/user.service';
-import { AddressService } from './services/address.service';
-import { CardService } from './services/card.service';
 
 import { HomePageComponent } from './home-page/home-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { JournalPageComponent } from './journal-page/journal-page.component';
 import { InventoryPageComponent } from './inventory-page/inventory-page.component';
 import { BrandPageComponent } from './brand-page/brand-page.component';
-import { BrandComponent } from './brand/brand.component';
 import { DepartmentPageComponent } from './department-page/department-page.component';
-import { DepartmentComponent } from './department/department.component';
-import { ProductComponent } from './product/product.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { ProductsPageComponent } from './products-page/products-page.component';
 import { JamListContainerComponent } from './jam-list-container/jam-list-container.component';
 import { JamListComponent } from './jam-list/jam-list.component';
+import { JamListItemComponent } from './jam-list-item/jam-list-item.component';
+import { JamFormComponent } from './jam-form/jam-form.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { CartPageComponent } from './cart-page/cart-page.component';
 import { AuthComponent } from './auth/auth.component';
@@ -47,11 +52,18 @@ import { AddressesComponent } from './addresses/addresses.component';
 import { CardsComponent } from './cards/cards.component';
 import { WishListsComponent } from './wish-lists/wish-lists.component';
 import { OrdersComponent } from './orders/orders.component';
-import { JamFormComponent } from './jam-form/jam-form.component';
-import { JamListItemComponent } from './jam-list-item/jam-list-item.component';
 import { AddressComponent } from './address/address.component';
 import { AddressFormComponent } from './addresses/address-form.component';
 import { CardFormComponent } from './cards/card-form.component';
+import { CardComponent } from './card/card.component';
+import { WishListComponent } from './wish-list/wish-list.component';
+import { WishListFormComponent } from './wish-lists/wish-list-form.component';
+import { JournalComponent, JournalFormComponent, JournalListComponent } from './journal/journal.component';
+import { InventoryComponent, InventoryFormComponent, InventoryListComponent } from './inventory/inventory.component';
+import { BrandComponent, BrandFormComponent, BrandListComponent } from './brand/brand.component';
+import { DepartmentComponent, DepartmentFormComponent, DepartmentListComponent } from './department/department.component';
+import { ProductComponent, ProductFormComponent, ProductListComponent } from './product/product.component';
+import { ProductSearchBarComponent } from './product-search-bar/product-search-bar.component';
 
 export const firebaseAppConfig : FirebaseAppConfig = {
     apiKey: "AIzaSyBV4KfPwTrqbFXzf7Sm6YAXkjSY1jSVcEk",
@@ -67,29 +79,35 @@ export const firebaseAppConfig : FirebaseAppConfig = {
     HomePageComponent,
     AdminPageComponent,
     ProductsPageComponent,
-    ProductComponent,
     InventoryPageComponent,
     JournalPageComponent,
     BrandPageComponent,
     DepartmentPageComponent,
     ProductPageComponent,
-    BrandComponent,
-    DepartmentComponent,
     JamListContainerComponent,
     JamListComponent,
+    JamListItemComponent,
+    JamFormComponent,
     UserPageComponent,
     CartPageComponent,
-    AuthComponent,
     ProfileComponent,
     AddressesComponent,
     CardsComponent,
     WishListsComponent,
     OrdersComponent,
-    JamFormComponent,
-    JamListItemComponent,
     AddressComponent,
     AddressFormComponent,
     CardFormComponent,
+    CardComponent,
+    WishListComponent,
+    WishListFormComponent,
+    JournalComponent, JournalFormComponent, JournalListComponent,
+    InventoryComponent, InventoryFormComponent, InventoryListComponent,
+    BrandComponent, BrandFormComponent, BrandListComponent,
+    DepartmentComponent, DepartmentFormComponent, DepartmentListComponent,
+    ProductComponent, ProductFormComponent, ProductListComponent,
+    AuthComponent,
+    ProductSearchBarComponent
   ],
   imports: [
     BrowserModule,
@@ -114,7 +132,11 @@ export const firebaseAppConfig : FirebaseAppConfig = {
     InventoryService,
     UserService,
     AddressService,
-    CardService
+    CardService,
+    WishListService,
+    TagService,
+    PictureService,
+    IndexService
   ],
   bootstrap: [AppComponent]
 })

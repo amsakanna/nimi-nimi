@@ -1,12 +1,13 @@
-<main>
-    <nav>	
-		<ul class="scrollable">
-			<li *ngFor="let department of departmentStream | async">
-                <a md-button>
-                    <div class="department"> {{ department.name }} </div>
-                </a>
-            </li>
-		</ul>
+<header>
+    <div class="product-search-bar-container">
+        <app-product-search-bar (search)="search($event)"></app-product-search-bar>
+    </div>
+    <nav class="scrollable">
+			<div class="tag-container" *ngFor="let tag of tagStream | async">
+                <a md-button><div class="tag"> {{ tag?.name }} </div></a>
+            </div>
     </nav>
+</header>
+<main class="flex-hcenter">
     <router-outlet></router-outlet>
 </main>

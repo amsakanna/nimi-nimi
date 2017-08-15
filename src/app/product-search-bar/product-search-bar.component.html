@@ -1,0 +1,12 @@
+<div class="product-search-bar">
+	<form class="product-search-form" [formGroup]="formGroup" novalidate (ngSubmit)="_search()">
+		<!-- <md-input-container><input mdInput placeholder="Search" formControlName="search" /></md-input-container> -->
+		<div class="product-search-container floating-box">
+			<!-- <md-icon class="product-search-icon" md-prefix> search </md-icon> -->
+			<input class="product-search-box" placeholder="Search" formControlName="search" />
+			<button md-raised-button color="primary" type="submit" class="product-search-button">
+				<md-icon class="product-search-button-icon"> search </md-icon>
+			</button>
+		</div>
+	</form>
+</div>

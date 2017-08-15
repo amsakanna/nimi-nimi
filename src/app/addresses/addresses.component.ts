@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FILTER, SORT, STATUS } from '../app.enum';
-import { AddressService } from '../services/address.service';
+import { AddressService } from '../services/all-data.service';
 import { AuthGuard } from '../services/auth.service';
 import { Address } from '../models/address.model';
 import { User } from '../models/user.model';
@@ -15,7 +15,7 @@ export class AddressesComponent implements OnInit
 {
 	
 	private addressStream: Observable<Address[]>;
-	private selectedItem: any;
+	public selectedItem: any;
 	private user: User;
 
 	ngOnInit() {}

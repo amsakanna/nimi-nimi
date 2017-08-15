@@ -1,10 +1,9 @@
 <main class="container floating-box">	
 	<jam-list class="stretch-with-max"
 		[stream]="addressStream"
-		[iconName]="'location_on'"
+		iconName="location_on"
 		newItemUrl="new/edit"
-		[(selectedItem)]="selectedItem"
-		(select)="selected = (selectedItem != null)">
+		selectItemUrl="user/addresses/:key">
 		<template let-item="item" let-index="index" let-hoveredIndex="hoveredIndex" let-selectedIndex="selectedIndex">
 			<div class="template-container">
 				<div class="item-street"> {{ item.streetAddress }} </div>

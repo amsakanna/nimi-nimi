@@ -9,7 +9,7 @@
 				<div class="jam-form-subtitle"> {{ subtitle }} </div>
 			</div>
 		</header>
-		<main class="jam-form-template-container scrollable">			
+		<main *ngIf="formElements" class="jam-form-template-container scrollable">			
 			<div *ngFor="let formElement of activeFormElements">
 				<md-input-container>
 					<input mdInput 

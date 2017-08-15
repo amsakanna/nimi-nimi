@@ -1,26 +1,44 @@
-header {
+/* header {
     padding: 22px;
     display: flex;
+} */
+
+.wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.menu {
+    position: absolute;
 }
 
 .home {
-    flex-grow: 1;
+    /* flex-grow: 1; */
+    left: 10px;
+    top: 10px;
+}
+
+.user {
+    right: 10px;
+    top: 10px;
+}
+
+.cart {
+    right: 10px;
+    bottom: 10px;
 }
 
 main {
     width: 100%;
-    height: calc(100% - 192px);
+    height: 100%;
     box-sizing: border-box;
 }
 
-footer {
+/* footer {
     padding: 22px;
     display: flex;
-}
-
-.placeholder {
-    flex-grow: 1;
-}
+} */
 
 md-icon {
     color: white;

@@ -37,7 +37,8 @@ header {
 
 main {
     height: calc(100% - 120px);
-    background-color: rgb(193, 196, 202);
+    /* background-color: rgb(193, 196, 202); */
+    background-color: rgb(247, 250, 255);
 }
 
 ul {

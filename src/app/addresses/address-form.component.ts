@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { AddressService } from '../services/address.service';
+import { AddressService } from '../services/all-data.service';
 import { AuthGuard } from '../services/auth.service';
 import { User } from '../models/user.model';
 import { Address } from '../models/address.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'app-address-form',
@@ -11,8 +12,8 @@ import { Address } from '../models/address.model';
 		<jam-form title="Address"
 				subtitle="edit"
 				[formElements]="formElements"
-				[dataService]="dataService"
-				[returnUrl]="returnUrl">
+				[dataService]="addressService"
+				returnUrl="/user/addresses">
 		</jam-form>
 	`
 })
@@ -20,19 +21,32 @@ export class AddressFormComponent implements OnInit
 {
 
 	private formElements: any[];
-	private returnUrl: string;
 	private currentUser: User;
-
-	@Input() selectedItem: Address;
+	private item: Address;
 
 	ngOnInit() {}
 
-	constructor(private dataService: AddressService,
-				private authGuard: AuthGuard) 
+	constructor(private addressService: AddressService,
+				private authGuard: AuthGuard,
+				private route: ActivatedRoute) 
 	{
-		this.currentUser = this.authGuard.user;
-		this.returnUrl = '/user/addresses';
-		this.formElements = this.generateFormElements(this.selectedItem);
+		
+		this.formElements = this.generateFormElements(this.item);
+
+		var key = this.route.snapshot.params['key'];
+		this.authGuard.getUser().subscribe(user => 
+		{
+			this.currentUser = user;
+			if(key == 'new') {
+				this.formElements = this.generateFormElements(this.item);
+			} else {
+				this.addressService.getObject(key).subscribe(object => {
+					this.item = object;
+					this.formElements = this.generateFormElements(this.item);
+				});
+			}
+		});
+
 	}
 
 	generateFormElements(item: Address) : any[]

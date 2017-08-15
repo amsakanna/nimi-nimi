@@ -1,23 +1,8 @@
-<header>
-	<h3>Brand</h3>
-</header>
-<main>
-	<div class="brand-list">
-		<header>
-			<h3 md-subheader>Brand List</h3>
-			<a [routerLink]="['/admin/inventory/brand/null']" md-mini-fab color="accent">
-				<md-icon>add</md-icon>
-			</a>
-		</header>
-		<md-divider></md-divider>		
-		<md-nav-list>
-			<md-list-item *ngFor="let brand of brandStream | async" [routerLink]="['/admin/inventory/brand/' + brand.name]">
-				<h4 md-line>{{ brand.name }}</h4>
-				<p md-line>{{ brand.rating }} star brand</p>
-			</md-list-item>
-		</md-nav-list>
-	</div>
-	<div class="brand-edit">
-		<router-outlet></router-outlet>
-	</div>
-</main>
+<jam-list newItemUrl="new/edit"
+	[stream]="brandStream"
+	iconName="aspect_ratio">
+	<template let-item="item">
+		<div> {{ item.name }} </div>
+		<div> {{ item.rating }} </div>
+	</template>
+</jam-list>

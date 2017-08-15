@@ -1,4 +1,6 @@
-import { Component, OnInit, EventEmitter, Input, Output, ContentChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { DataService } from '../services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'jam-list-item',
@@ -9,18 +11,25 @@ export class JamListItemComponent implements OnInit {
 
 	@Input() title: string;
 	@Input() subtitle: string;
+	@Input() dataService: DataService<any>;
+	@Input() editItemUrl: string;
+	@Input() returnUrl: string;
+	@Input() item: any;
 	@Output() delete = new EventEmitter();
 	@Output() edit = new EventEmitter();
-	@Output() close = new EventEmitter();
-	@Input() visible: boolean;
-	@Output() visibleChange = new EventEmitter<boolean>();
 
-	constructor() { }
+	constructor(private router: Router) { }
 
 	ngOnInit() {
 	}
 
-	_delete() {
+	_delete() 
+	{
+		if(this.dataService) 
+		{
+			this.dataService.delete(this.item);
+			this.router.navigateByUrl(this.returnUrl);
+		}
 		this.delete.emit();
 	}
 
@@ -28,10 +37,8 @@ export class JamListItemComponent implements OnInit {
 		this.edit.emit();
 	}
 
-	_close() {
-		this.visible = false;
-		this.visibleChange.emit(this.visible);		
-		this.close.emit();
+	_goBack() {
+		this.router.navigateByUrl(this.returnUrl);
 	}
 
 }

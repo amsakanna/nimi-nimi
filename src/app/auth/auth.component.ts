@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthProviders } from 'angularfire2';
 import { LogService } from '../services/log.service';
 import { AuthGuard } from '../services/auth.service';
-import { UserService } from '../services/user.service';
+import { UserService } from '../services/all-data.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../models/user.model';
 

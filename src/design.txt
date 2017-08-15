@@ -61,3 +61,57 @@
 	- profile
 		- orders			
 		- other settings
+
+
+
+search
+	- $key[]
+		- itemKey
+			- subject
+			- subjectKey
+
+
+		- item-0004
+			- subject: Product
+			- subjectKey: -Kduhwenszi+adf
+		- item-0008
+			- subject: User
+			- subjectKey: -K3uhwenszi+adf
+		- item-0015
+			- subject: Color
+			- subjectKey: -Kd34ewenszi+adf
+
+-Kj7kDOcALXZzW4Vxm1T
+product-2
+
+
+search
+	- is
+		- item-0002
+	- top
+		- item-0004
+		- item-0008
+		- item-0015
+	- VBlue
+		- item-0256
+	- white
+		- item-0026
+		- item-0546
+		- item-0687
+	- bag
+		- item-0546
+		- item-0256
+	- whirlpool
+		- item-0468
+	- white
+		- item-0050
+
+white top
+whirlpool saree
+
+
+saree
+whirlpool
+white
+	- item-4468
+	- item-6797

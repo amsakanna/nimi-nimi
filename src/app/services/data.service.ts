@@ -16,42 +16,94 @@ export abstract class DataService<T>
 
 	private table: FirebaseListObservable<any[]>;
 	private dataServiceObject: DataServiceObject;
-	protected abstract tableName: string;
-	protected abstract foreignKeyName: string;
-	protected abstract searchKeyName: string;
+	protected tableName: string;
+	protected foreignKeyName: string;
+	protected searchKeyName: string;
 	protected abstract createModel(json: any): T;
 	protected mapModelToObject(item: T): any
 	{
 		return item;
 	}
 
-	mapService()
-    {
-		switch (this.constructor.name) {
-			case 'AddressService':
-				this.tableName = 'addresses'
-				break;
-			case 'UserService':
-				this.tableName = 'users'
-				break;
-			case 'DepartmentService':
-				this.tableName = 'departments'
-				break;
-		
-			default:
-				break;
+	private serviceList = {
+		AddressService: {
+			tableName: 'Address',
+			foreignKeyName: 'userKey',
+			searchKeyName: 'streetAddress'
+		},
+		UserService: {
+			tableName: 'User',
+			foreignKeyName: null,
+			searchKeyName: 'email'
+		},
+		DepartmentService: {
+			tableName: 'Department',
+			foreignKeyName: null,
+			searchKeyName: 'id'
+		},
+		CardService: {
+			tableName: 'Card',
+			foreignKeyName: 'userKey',
+			searchKeyName: 'holderName'
+		},
+		ProductService: {
+			tableName: 'Product',
+			foreignKeyName: null,
+			searchKeyName: 'name'
+		},
+		BrandService: {
+			tableName: 'Brand',
+			foreignKeyName: null,
+			searchKeyName: 'name'
+		},
+		InventoryService: {
+			tableName: 'Inventory',
+			foreignKeyName: null,
+			searchKeyName: 'id'
+		},
+		JournalService: {
+			tableName: 'Journal',
+			foreignKeyName: null,
+			searchKeyName: 'id'
+		},
+		AccountService: {
+			tableName: 'Account',
+			foreignKeyName: null,
+			searchKeyName: 'id'
+		},
+		WishListService: {
+			tableName: 'WishList',
+			foreignKeyName: 'userKey',
+			searchKeyName: 'name'
+		},
+		TagService: {
+			tableName: 'Tag',
+			foreignKeyName: '',
+			searchKeyName: 'name'
+		},
+		PictureService: {
+			tableName: 'Picture',
+			foreignKeyName: '',
+			searchKeyName: 'name'
+		},
+		IndexService: {
+			tableName: 'Index',
+			foreignKeyName: '',
+			searchKeyName: ''
 		}
 	}
-
     
 	/*-----------------------------------------------------------------------
 		CRUD
 	-----------------------------------------------------------------------*/
 
-	constructor(protected db?: AngularFireDatabase, tableName?: string)
+	constructor( protected db?: AngularFireDatabase )
 	{	
-		// this.tableName = tableName;
-		this.mapService();
+		var serviceName = this.constructor.name;
+		var service = this.serviceList[serviceName];
+		this.tableName = service.tableName;
+		this.foreignKeyName = service.foreignKeyName;
+		this.searchKeyName = service.searchKeyName;
 		this.table = this.db.list(this.tableName);
 		this.dataServiceObject = new DataServiceObject({operation: null, object: null});
 	}
@@ -215,16 +267,16 @@ export abstract class DataService<T>
 		MAP TO MODEL
 	-----------------------------------------------------------------------*/
 
-	private mapListToModel(dataStream : Observable<any[]>) 
+	private mapListToModel( dataStream : Observable<any[]> ) 
 	{
-		return dataStream.map(list => {			
-			return list.map(object => this.createModel(object));
+		return dataStream.map( list => {			
+			return list.map( object => this.createModel(object) );
 		});
 	}
 
-	private mapObjectToModel(dataStream : Observable<any>) 
+	private mapObjectToModel( dataStream : Observable<any> ) 
 	{
-		return dataStream.map(object => this.createModel(object));
+		return dataStream.map( object => this.createModel( object ) );
 	}
 
 	/*-----------------------------------------------------------------------

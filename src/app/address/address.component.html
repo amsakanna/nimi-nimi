@@ -1,13 +1,15 @@
-<jam-list-item title="Address" subtitle="view" [(visible)]="selected"
-	(delete)="delete()"
-	(edit)="edit()">
+ <jam-list-item title="Address" subtitle="view"
+	[dataService]="addressService"
+	editItemUrl="edit"
+	returnUrl="user/addresses"
+	[item]="item">
 	<div jam-list-item-template>
-		<div> {{ selectedItem?.name }} </div>
-		<div> {{ selectedItem?.phone }} </div>
-		<div> {{ selectedItem?.pinCode }} </div>
-		<div> {{ selectedItem?.streetAddress }} </div>
-		<div> {{ selectedItem?.city }} </div>
-		<div> {{ selectedItem?.state }} </div>
-		<div> {{ selectedItem?.country }} </div> 
+		<div> {{ item?.name }} </div>
+		<div> {{ item?.phone }} </div>
+		<div> {{ item?.pinCode }} </div>
+		<div> {{ item?.streetAddress }} </div>
+		<div> {{ item?.city }} </div>
+		<div> {{ item?.state }} </div>
+		<div> {{ item?.country }} </div>
 	</div>
-</jam-list-item>
+</jam-list-item> 

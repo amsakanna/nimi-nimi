@@ -1,8 +1,13 @@
-<main>
-	<jam-list (newItem)="newItem()">
-
+<main class="container">	
+	<jam-list class="stretch-with-max"
+		[stream]="wishListStream"
+		iconName="star"
+		newItemUrl="new/edit"
+		selectItemUrl="user/wish-lists/:key">
+		<template let-item="item" let-index="index" let-hoveredIndex="hoveredIndex" let-selectedIndex="selectedIndex">
+			<div class="template-container">
+				<div class="name"> {{ item.name }} </div>				
+			</div>
+		</template>
 	</jam-list>
-	<jam-form>
-
-	</jam-form>
 </main>

@@ -5,11 +5,12 @@ export class Brand
     name: string;
     rating: number;
 
-    constructor({$key, name, rating})
+    constructor(object?: any)
     {
-        this.$key = $key;
-        this.name = name;
-        this.rating = rating;
+        object = object ? object : {};
+        this.$key = object.$key ? object.$key : '';
+        this.name = object.name ? object.name : '';
+        this.rating = object.rating ? object.rating : 0;
     }
 
 }

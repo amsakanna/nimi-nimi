@@ -1,8 +1,0 @@
-md-input-container.ng-invalid.ng-touched /deep/ .mat-input-underline {
-    border-color: red;
-}
-
-.update-department-button {
-    background-color: rgb(41, 121, 255);
-    color: white !important;
-}

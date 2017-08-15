@@ -11,7 +11,7 @@ export class KeyValService extends DataService<KeyVal> {
 	protected tableName: string;
 
 	constructor(db: AngularFireDatabase) {
-		super(db, "dummy");
+		super(db);
 	}
 
 	setTable(tableName: string) : FirebaseListObservable<any[]> {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FILTER, SORT, STATUS } from '../app.enum';
-import { CardService } from '../services/card.service';
-import { UserService } from '../services/user.service';
+import { CardService } from '../services/all-data.service';
+import { UserService } from '../services/all-data.service';
 import { AuthGuard } from '../services/auth.service';
 import { Card } from '../models/card.model';
 import { Observable } from 'rxjs';

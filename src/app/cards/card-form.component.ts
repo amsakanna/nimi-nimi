@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { CardService } from '../services/card.service';
+import { CardService } from '../services/all-data.service';
 import { AuthGuard } from '../services/auth.service';
 import { User } from '../models/user.model';
 import { Card } from '../models/card.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'app-card-form',
@@ -11,7 +12,7 @@ import { Card } from '../models/card.model';
 		<jam-form title="Card"
 				subtitle="edit"
 				[formElements]="formElements"
-				[dataService]="dataService"
+				[dataService]="cardService"
 				[returnUrl]="returnUrl">
 		</jam-form>
 	`
@@ -21,18 +22,34 @@ export class CardFormComponent implements OnInit
 
 	private formElements: any[];
 	private returnUrl: string;
-
-	@Input() currentUser: User;
-	@Input() selectedItem: Card;
+	private currentUser: User;
+	private item: Card;
 
 	ngOnInit() {}
 
-	constructor(private dataService: CardService,
-				private authGuard: AuthGuard) 
+	constructor(private cardService: CardService,
+				private authGuard: AuthGuard,
+				private route: ActivatedRoute) 
 	{
-		this.currentUser = this.authGuard.user;
 		this.returnUrl = '/user/cards';
-		this.formElements = this.generateFormElements(this.selectedItem);
+		this.formElements = this.generateFormElements(this.item);
+
+		var key = this.route.snapshot.params['key'];
+		this.authGuard.getUser().subscribe(user => 
+		{
+			this.currentUser = user;
+			if(key == 'new')
+			{
+				this.formElements = this.generateFormElements(this.item);
+			} else
+			{
+				this.cardService.getObject(key).subscribe(object => 
+				{
+					this.item = object;
+					this.formElements = this.generateFormElements(this.item);
+				});
+			}
+		});
 	}
 
 	generateFormElements(item: Card) : any[]

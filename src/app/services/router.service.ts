@@ -14,11 +14,13 @@ export class RouterService
 		
 		this.navigationList = new Array<NavigationItem>();
 
-		this.navigationList.push(new NavigationItem('/admin/journal', 'Journal', 'assignment'));
-		this.navigationList.push(new NavigationItem('/admin/inventory', 'Inventory', 'dns'));
-		this.navigationList.push(new NavigationItem('/admin/definition/brand', 'Brand', 'aspect_ratio'));
-		this.navigationList.push(new NavigationItem('/admin/definition/department', 'Department', 'group_work'));
-		this.navigationList.push(new NavigationItem('/admin/definition/product', 'Product', 'card_giftcard'));
+		this.navigationList.push(new NavigationItem('/admin/transaction/journal', 'Journal', 'assignment'));
+		this.navigationList.push(new NavigationItem('/admin/transaction/inventory', 'Inventory', 'dns'));
+		this.navigationList.push(new NavigationItem('/admin/dimension/brand', 'Brand', 'aspect_ratio'));
+		this.navigationList.push(new NavigationItem('/admin/dimension/department', 'Department', 'group_work'));
+		this.navigationList.push(new NavigationItem('/admin/dimension/product', 'Product', 'card_giftcard'));
+		this.navigationList.push(new NavigationItem('/admin/dimension/size', 'Size', 'content_cut'));
+		this.navigationList.push(new NavigationItem('/admin/dimension/colour', 'Colour', 'format_color_fill'));
 		
 		this.navigationList.push(new NavigationItem('/user/profile', 'Profile', 'account_circle', '/user'));
 		this.navigationList.push(new NavigationItem('/user/addresses', 'Addresses', 'location_on'));

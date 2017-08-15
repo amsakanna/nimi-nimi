@@ -1,0 +1,12 @@
+<jam-list-item title="Card" subtitle="view"
+	[dataService]="cardService"
+	editItemUrl="edit"
+	returnUrl="user/cards"
+	[item]="item">
+	<div jam-list-item-template>
+		<div> {{ item?.holderName }} </div>
+		<div> {{ item?.number }} </div>
+		<div> {{ item?.expiryDate }} </div>
+		<div> {{ item?.cvv }} </div>
+	</div>
+</jam-list-item>

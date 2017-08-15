@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
@@ -29,16 +29,21 @@ export class JamFormComponent implements OnInit
 
 	ngOnInit()
 	{
+	}
+
+	ngOnChanges(changes: SimpleChanges)
+	{		
 		this.build();
 	}
 
 	build()
 	{
+		if(this.formElements === undefined) return;
 		var formObject = {};
 		this.activeFormElements = this.formElements.filter(formElement => formElement.exclude == false);
 		this.activeFormElements.forEach(formElement => 
 		{
-			formObject[formElement.key] = [ formElement.initialValue, formElement.validators ]
+			formObject[formElement.key] = [ formElement.initialValue, formElement.validators ];
 		});
 		this.jamFormGroup = this.formBuilder.group(formObject);
 	}

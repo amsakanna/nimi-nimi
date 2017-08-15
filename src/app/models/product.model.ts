@@ -1,30 +1,33 @@
 import { Department } from './department.model';
 import { Brand } from './brand.model';
+import { Size } from './size.model';
+import { Color } from './color.model';
+import { Picture } from './picture.model';
+import { Review } from './review.model';
 
 export class Product
 {
 
     $key: string;
     name: string;
-    color: string = '#1ec8c8';
+    price: number;
+    review: Review
+    brand: Brand;
+    size: Size;
+    color: Color;
+    picture: Picture;
 
-    department: string;
-    brand: string;
-
-    thumbnailFile: File;
-    thumbnailFileName: string;
-    thumbnailPath: string;
-    thumbnailUrl: string;
-    productOverState: string = 'inactive';
-    active: boolean = false;
-
-    constructor({$key, name, department, brand, thumbnailFileName})
+    constructor(object?: any)
     {
-        this.$key = $key;
-        this.name = name;
-        this.department = department;
-        this.brand = brand;        
-        this.thumbnailFileName = thumbnailFileName;
+        object = object ? object : {};
+        this.$key = object.$key ? object.$key : '';
+        this.name = object.name ? object.name : '';
+        this.price = object.price ? object.price : null;
+        this.review = object.reviewKey ? new Review( { $key: object.reviewKey } ) : new Review();
+        this.brand = object.brandKey ? new Brand( { $key: object.brandKey } ) : new Brand();
+        this.size = object.sizeKey ? new Size( { $key: object.sizeKey } ) : new Size();
+        this.color = object.colorKey ? new Color( { $key: object.colorKey } ) : new Color();
+        this.picture = object.pictureKey ? new Picture( { $key: object.pictureKey } ) : new Picture();
     }
 
 }

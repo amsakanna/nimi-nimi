@@ -2,52 +2,46 @@ main {
     display: flex;
 }
 
-.product-list {
-    min-width: 200px;
-    background-color: white;
-    box-shadow: 0px 4px 8px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-    border-radius: 3px;
+.picture-grid {
+    width: 400px;
 }
 
-.product-list > header {
-    position: relative;
-    padding: 5px 20px;
+.product-info {
+    margin-left: 100px;
+    min-width: 500px;
 }
 
-.product-list > header > h3 {
-    font-size: 0.9em;
-    color: gray;
+.picture {
+    margin-left: -6px;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
 }
 
-.product-list > header > a {
-    position: absolute;
-    right: 16px;
-    bottom: -16px;
+.product-info > header {
+    padding: 50px;
+    border-bottom: 2px solid rgb(223, 226, 232);
+}
+
+.name {
+    font-size: 2em;    
+}
+
+.price {
+    padding: 10px 20px; 
+    background-color: yellowgreen;
+    border-radius: 5px;
     color: white;
+    font-size: 2em;
 }
 
-.product-list md-nav-list {
-    height: 300px;
-    overflow-y: scroll;
+.counts {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px 50px 50px 100px;
 }
 
-.product-list /deep/ .mat-list-item-content {
-    height: 62px;
-}
-
-.product-list md-list-item h4 {
-    padding-bottom: 5px;
-    font-size: 0.9em;
-    color: lightseagreen;
-}
-
-.product-list md-list-item p {
-    font-size: 0.7em;
-    font-style: italic;
-    color: gray;
-}
-
-.product-edit {
-    flex-grow: 1;
-    margin-left: 20px;
+.count {
+    font-size: 1.5em;
 }

@@ -2,8 +2,8 @@ import { Component, OnInit, Input, trigger, state, style, transition, animate, k
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/take';
-import { AccountService } from '../services/account.service';
-import { JournalService } from '../services/journal.service';
+import { AccountService } from '../services/all-data.service';
+import { JournalService } from '../services/all-data.service';
 import { KeyValService } from '../services/key-val.service';
 import { Account } from '../models/account.model';
 import { Journal } from '../models/journal.model';

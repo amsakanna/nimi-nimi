@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Input, Output, ContentChild, TemplateR
 import { trigger, state, style, transition, animate, keyframes } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { Router } from "@angular/router";
 
 @Component({
 	selector: 'jam-list',
@@ -39,6 +40,7 @@ export class JamListComponent implements OnInit
 	@Input() formTitle: string;
 	@Input() formSubtitle: string;
 	@Input() newItemUrl: string;
+	@Input() selectItemUrl: string;
 	@Output() search = new EventEmitter();
 	@Output() newItem = new EventEmitter();
 	@Output() delete = new EventEmitter();
@@ -46,7 +48,7 @@ export class JamListComponent implements OnInit
 	@Output() selectedItemChange = new EventEmitter<any>();
 	@Output() select = new EventEmitter();
 
-	constructor() { }
+	constructor(private router: Router) { }
 
 	ngOnInit() { }
 
@@ -64,8 +66,10 @@ export class JamListComponent implements OnInit
 	{
 		this._selectedItem = item;
 		this._selectedIndex = index;
-		this.select.emit( { item: item, index: index });
-		this.selectedItemChange.emit(this._selectedItem);
+		this.select.emit( { item: item, index: index } );
+		this.selectedItemChange.emit(item);
+		var selectedItemUrl = this.selectItemUrl.replace(':key', item.$key);
+		this.router.navigateByUrl(selectedItemUrl);
 	}
 
 	_deselect()

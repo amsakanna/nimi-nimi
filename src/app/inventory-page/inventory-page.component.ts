@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, trigger, state, style, transition, animate, keyframes } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { FILTER, SORT, STATUS } from '../app.enum';
-import { InventoryService } from '../services/inventory.service';
-import { InventoryItem } from '../models/inventory-item.model';
+import { InventoryService } from '../services/all-data.service';
+import { Inventory } from '../models/inventory.model';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/take';
 
@@ -29,8 +29,8 @@ import 'rxjs/add/operator/take';
 export class InventoryPageComponent implements OnInit {
 
 	private form: FormGroup;
-	private inventoryStream: Observable<InventoryItem[]>;
-	private selectedItem: InventoryItem;
+	private inventoryStream: Observable<Inventory[]>;
+	private selectedItem: Inventory;
 	private selectedIndex: number;
 	private formVisible: boolean;
 
@@ -48,11 +48,11 @@ export class InventoryPageComponent implements OnInit {
 				return item;
 			});			
 		});
-		this.selectedItem = new InventoryItem({$key: '', units: 0, price: 0});
+		this.selectedItem = new Inventory({$key: '', units: 0, price: 0});
 		this.selectedIndex = 0;
 	}
 
-	buildForm(item?: InventoryItem) : FormGroup
+	buildForm(item?: Inventory) : FormGroup
 	{
 		if(item)
 		{
@@ -73,14 +73,14 @@ export class InventoryPageComponent implements OnInit {
 		return this.form;
 	}
 
-	buildModelFromForm() : InventoryItem
+	buildModelFromForm() : Inventory
 	{
 		var itemJson = {
 			$key: this.form.get('key').value,
 			units: this.form.get('units').value,
 			price: this.form.get('price').value
 		};
-		this.selectedItem = new InventoryItem(itemJson);
+		this.selectedItem = new Inventory(itemJson);
 		return this.selectedItem;
 	}
 
@@ -91,7 +91,7 @@ export class InventoryPageComponent implements OnInit {
 		this.selectedItem = item;
 	}
 
-	select(item: InventoryItem, index: number)
+	select(item: Inventory, index: number)
 	{
 		this.formVisible = false;
 		this.selectedIndex = index;
@@ -107,7 +107,7 @@ export class InventoryPageComponent implements OnInit {
 		this.formVisible = (event.target.id != 'container');
 	}
 
-	delete(item: InventoryItem)
+	delete(item: Inventory)
 	{
 		if(item == this.selectedItem)
 			this.selectedIndex -= 1;

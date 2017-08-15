@@ -1,6 +1,9 @@
-<div *ngIf="visible" class="jam-list-item-container dialog">
+<div class="jam-list-item-container">
 	<div class="jam-list-item floating-box">
 		<header>
+			<button md-button type="button" (click)="_goBack()" class="jam-list-item-back-button compact no-animation">
+				<md-icon> arrow_back </md-icon>
+			</button>
 			<div class="jam-list-item-title-container">
 				<div class="jam-list-item-title"> {{ title }} </div>
 				<div class="jam-list-item-subtitle"> {{ subtitle }} </div>
@@ -9,13 +12,10 @@
 				<button md-button type="button" class="jam-list-item-delete-button compact" (click)="_delete()">
 					<md-icon> delete </md-icon>
 				</button>
-				<button md-button type="button" class="jam-list-item-edit-button compact" (click)="_edit()">
+				<a md-button type="button" [routerLink]="[editItemUrl]" class="jam-list-item-edit-button compact" (click)="_edit()">
 					<md-icon> edit </md-icon>
-				</button>
+				</a>
 			</div>
-			<button md-button type="button" class="jam-list-item-close-button no-focus compact" (click)="_close()">
-				<md-icon> close </md-icon>
-			</button>
 		</header>
 		<main class="jam-list-item-template-container scrollable">			
 			<ng-content class="jam-list-item-template" selector="[jam-list-item-template]">

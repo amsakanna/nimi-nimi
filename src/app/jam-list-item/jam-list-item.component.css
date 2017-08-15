@@ -9,18 +9,23 @@
 
 header {
     position: relative;
-    padding: 50px 50px;
+    padding: 30px 50px 30px 10px;
     display: flex;
     border-bottom: 2px solid rgb(223, 226, 232);
+}
+
+.jam-list-item-back-button {
+    color: black;
+}
+
+.jam-list-item-title-container {
+    padding-left: 20px;    
+    flex-grow: 1;
 }
 
 .jam-list-item-title {
     color: gray;
     font-size: 2em;    
-}
-
-.jam-list-item-title-container {
-    flex-grow: 1;
 }
 
 .header-buttons-container {
@@ -32,17 +37,12 @@ header {
     padding: 10px;
 }
 
-.jam-list-item-close-button {
-    position: absolute;
-    top: 0px; right: 0px;
-}
-
 .no-focus /deep/ .mat-button-focus-overlay {
     display: none;
 }
 
 main {
-    padding: 20px 100px;
+    padding: 20px 70px;
     min-height: 300px; height: calc(100% - 277px);
 }
 

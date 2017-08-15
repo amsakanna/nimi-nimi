@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DepartmentService } from '../services/department.service';
+import { DepartmentService } from '../services/all-data.service';
 import { FILTER, SORT } from '../app.enum';
 
 @Component({

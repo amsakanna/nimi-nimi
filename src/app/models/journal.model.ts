@@ -9,13 +9,13 @@ export class Journal
     transactionAmount: number;    
     transactionDate: string;
 
-    constructor({$key, debitAccount, creditAccount, transactionAmount, transactionDate})
+    constructor(object?: {$key, debitAccount, creditAccount, transactionAmount, transactionDate})
     {
-        this.$key = $key;
-        this.debitAccount = new Account({ $key: debitAccount, name: '' });
-        this.creditAccount = new Account({ $key: creditAccount, name: '' });
-        this.transactionAmount = transactionAmount;
-        this.transactionDate = transactionDate;
+        this.$key = object ? object.$key : '';
+        this.debitAccount = object ? new Account({ $key: object.debitAccount, name: '' }) : new Account({ $key: '', name: '' });
+        this.creditAccount = object ? new Account({ $key: object.creditAccount, name: '' }) : new Account({ $key: '', name: '' });
+        this.transactionAmount =  object ? object.transactionAmount : 0;
+        this.transactionDate = object ? object.transactionDate : '';
     }
 
 }

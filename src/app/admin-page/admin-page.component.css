@@ -1,38 +1,41 @@
 .wrapper {
-    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100%;
 }
 
 main {
-    width: 100%;
-    height: calc(100% - 120px);
+    height: 100%;
 }
 
-footer {
-    padding: 30px 0px;
-    display: flex;
-    justify-content: center;    
+aside {
+    position: fixed;
+    top: 30%;
+    left: 100px;
+    /*margin-left: -200px;
+    padding-right: 200px;*/
 }
 
-footer nav a {
-    float: left;
-    background-color: lightslategray;
+nav a {
+    display: block;
     padding-top: 10px;
     padding-bottom: 10px;
+    background-color: lightslategray;
 }
 
-footer nav a /deep/ .mat-button-wrapper {
+nav a /deep/ .mat-button-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-footer nav a md-icon {
+nav a md-icon {
     color: white !important;
 }
 
-footer nav a span {
+nav a span {
     color: white !important;
     font-size: 0.7em;
     margin-top: 5px;
