@@ -90,6 +90,21 @@ export abstract class DataService<T>
 			tableName: 'Index',
 			foreignKeyName: '',
 			searchKeyName: ''
+		},
+		ColorService: {
+			tableName: 'Color',
+			foreignKeyName: '',
+			searchKeyName: 'name'
+		},
+		SizeService: {
+			tableName: 'Size',
+			foreignKeyName: '',
+			searchKeyName: 'code'
+		},
+		CartItemService: {
+			tableName: 'CartItem',
+			foreignKeyName: 'userKey',
+			searchKeyName: 'sequence'
 		}
 	}
     
@@ -116,6 +131,7 @@ export abstract class DataService<T>
 
 	insert(object: any) : DataServiceObject
 	{
+		console.log('insert');
 		this.dataServiceObject = new DataServiceObject({operation: DATABASE_OPERATION.INSERT, object: object});
 		this.dataServiceObject.object.$key = this.table.push(this.dataServiceObject.objectWithoutKey).key;
 		return this.dataServiceObject;
@@ -123,6 +139,7 @@ export abstract class DataService<T>
 
 	delete(object: any) : DataServiceObject
 	{
+		console.log('delete');
 		this.dataServiceObject = new DataServiceObject({operation: DATABASE_OPERATION.DELETE, object: object});
 		if(this.isValidKey(this.dataServiceObject.object.$key))
 		{
@@ -144,12 +161,13 @@ export abstract class DataService<T>
 
 	update(object: any) : DataServiceObject
 	{
+		console.log('update');
 		this.dataServiceObject = new DataServiceObject({operation: DATABASE_OPERATION.UPDATE, object: object});
 		if(this.isValidKey(this.dataServiceObject.object.$key))
 		{
 			this.table.update(this.dataServiceObject.object.$key, this.dataServiceObject.objectWithoutKey)
-				.then(data => this.dataServiceObject.status = STATUS.SUCCESS )
-				.catch(error => {
+				.then( data => this.dataServiceObject.status = STATUS.SUCCESS )
+				.catch( error => {
 					this.dataServiceObject.status = STATUS.FAILURE;
 					this.dataServiceObject.error = new Error({
 						code: ERROR.UPDATE_FAILED,
@@ -166,6 +184,7 @@ export abstract class DataService<T>
 	upsert(object: any, lookupValue: string, lookupColumn?: string) : DataServiceObject
 	{
 		this.dataServiceObject = new DataServiceObject({operation: DATABASE_OPERATION.UPDATE, object: object});
+		console.log('looking up', lookupColumn, 'for', lookupValue);
 		this.lookup(lookupValue, lookupColumn).subscribe( data => {
 			if( data === undefined ) {
 				this.insert(this.dataServiceObject.object);
@@ -192,7 +211,7 @@ export abstract class DataService<T>
 
 	getObject(key: string): Observable<T> 
 	{
-		const dataStream = this.db.object(this.tableName + "/" + key);
+		const dataStream = this.db.object(this.tableName + "/" + key).take(1);
 		return this.mapObjectToModel(dataStream);
 	}
 

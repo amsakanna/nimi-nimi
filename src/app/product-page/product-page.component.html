@@ -7,30 +7,43 @@
 		<md-grid-tile colspan="5" rowspan="2"><img class="picture" src="{{ product?.picture.frontView }}" alt="{{ product ? product.name +  ' - front view' : 'loading' }}"></md-grid-tile>
 		<md-grid-tile colspan="2" rowspan="2"><img class="picture" src="{{ product?.picture.frontView }}" alt="{{ product ? product.name +  ' - front view' : 'loading' }}"></md-grid-tile>
 	</md-grid-list> -->
-	<div class="product-info floating-box">
-		<header>
-			<div  *ngIf="product">
-				<div class="name"> {{ product?.name }} </div>
-				<div class="rating"> Rating: {{ product?.review.rating }} </div>
-				<div class="flex-end">
-					<div class="price"> ₹ {{ product?.price }} </div>
+	<div class="product-box floating-box">
+		<div class="picture-preview-box">
+			 <img *ngIf="product?.picture" class="picture" [src]="product?.picture?.frontView" [alt]="product?.picture?.name"> 
+		</div> 
+		<div class="info-box">
+			<header>
+				<div *ngIf="product">
+					<div class="brand"><span> {{ product?.brand?.name }} </span></div>
+					<div class="name"> {{ product?.name }} </div>
+					<div class="size"></div>
+					<div class="flex-end"><div class="price"> ₹ {{ product?.price }} </div></div>
 				</div>
-			</div>
-		</header>
-		<div class="counts">
-			<div class="orders">
-				<div class="count"> 40 </div>
-				<div class="text"> orders </div>
-			</div>
-			<div class="orders">
-				<div class="count"> 523 </div>
-				<div class="text"> points </div>
-			</div>
-			<div class="orders">
-				<div class="count"> 4 </div>
-				<div class="text"> stars </div>
-			</div>
+			</header>
+			<main class="scrollable">
+				<div class="counts">
+					<div class="orders">
+						<div class="count"> 4 </div>
+						<div class="text"> stars </div>
+					</div>
+					<div class="orders">
+						<div class="count"> 523 </div>
+						<div class="text"> likes </div>
+					</div>
+					<div class="orders">
+						<div class="count"> 42 </div>
+						<div class="text"> units sold </div>
+					</div>
+				</div>
+			</main>
+			<footer>
+				<div>
+					<button md-raised-button class="add-to-cart-button" (click)="addToCart()">
+						<md-icon> add_shopping_cart </md-icon>
+						<span> Add to Cart </span>
+					</button>
+				</div>
+			</footer>
 		</div>
-		<div *ngIf="false" class="last-visited"> Last visited: July 12,2017 </div>
 	</div>
 </main>

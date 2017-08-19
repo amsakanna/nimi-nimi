@@ -22,7 +22,7 @@ export class Product
         object = object ? object : {};
         this.$key = object.$key ? object.$key : '';
         this.name = object.name ? object.name : '';
-        this.price = object.price ? object.price : null;
+        this.price = object.price ? Number(object.price) : 0;
         this.review = object.reviewKey ? new Review( { $key: object.reviewKey } ) : new Review();
         this.brand = object.brandKey ? new Brand( { $key: object.brandKey } ) : new Brand();
         this.size = object.sizeKey ? new Size( { $key: object.sizeKey } ) : new Size();

@@ -7,6 +7,8 @@ import { InventoryComponent, InventoryFormComponent, InventoryListComponent } fr
 import { BrandComponent, BrandFormComponent, BrandListComponent } from "./brand/brand.component";
 import { DepartmentComponent, DepartmentFormComponent, DepartmentListComponent } from "./department/department.component";
 import { ProductComponent, ProductFormComponent, ProductListComponent } from "./product/product.component";
+import { ColorComponent, ColorFormComponent, ColorListComponent } from "./color/color.component";
+import { SizeComponent, SizeFormComponent, SizeListComponent } from "./size/size1.component";
 import { DepartmentPageComponent } from "./department-page/department-page.component";
 import { ProductsPageComponent } from "./products-page/products-page.component";
 import { ProductPageComponent } from "./product-page/product-page.component";
@@ -84,6 +86,16 @@ const APP_ROUTES: Routes = [
         { path: 'dimension/product/:key', children: [
             { path: '', component: ProductComponent },
             { path: 'edit', component: ProductFormComponent }
+        ]},
+        { path: 'dimension/color', component: ColorListComponent },
+        { path: 'dimension/color/:key', children: [
+            { path: '', component: ColorComponent },
+            { path: 'edit', component: ColorFormComponent }
+        ]},
+        { path: 'dimension/size', component: SizeListComponent },
+        { path: 'dimension/size/:key', children: [
+            { path: '', component: SizeComponent },
+            { path: 'edit', component: SizeFormComponent }
         ]}
         // { path: 'dimension/department', component: DepartmentPageComponent },
         // { path: 'dimension/department/:key', children: [

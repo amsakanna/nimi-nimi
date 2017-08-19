@@ -1,6 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output, ContentChild, TemplateRef } from '@angular/core';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Router } from "@angular/router";
 

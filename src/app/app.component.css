@@ -13,20 +13,23 @@
     position: absolute;
 }
 
+.home a, .user a, .cart a {
+    background-color: lightseagreen;
+}
+
 .home {
-    /* flex-grow: 1; */
-    left: 10px;
-    top: 10px;
+    left: 20px;
+    top: 20px;
 }
 
 .user {
-    right: 10px;
-    top: 10px;
+    right: 20px;
+    top: 20px;
 }
 
 .cart {
-    right: 10px;
-    bottom: 10px;
+    right: 20px;
+    bottom: 20px;
 }
 
 main {

@@ -10,16 +10,17 @@ export class User
 	rating: number;
 	type: number;
 
-    constructor({$key, firstName, lastName, email, photo, gender, rating, type})
+    constructor(object?: any)
     {
-        this.$key = $key;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.photo = photo;
-        this.gender = gender;
-        this.rating = rating;
-        this.type = type;
+        object = object ? object : {};
+        this.$key = object.$key ? object.$key : '';
+        this.firstName = object.firstName ? object.firstName : '';
+        this.lastName = object.lastName ? object.lastName : '';
+        this.email = object.email ? object.email : '';
+        this.photo = object.photo ? object.photo : '';
+        this.gender = object.gender ? object.gender : '';
+        this.rating = object.rating ? object.rating : 0;
+        this.type = object.type ? object.type : 0;
     }
 
 }

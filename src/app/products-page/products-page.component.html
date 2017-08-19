@@ -1,5 +1,4 @@
 <md-grid-list class="product-grid" cols="4" rowHeight="340px">
-	<div *ngIf="!productList || !productList.length" class="no-item-box floating-box"> No item to show </div>
 	<md-grid-tile *ngFor="let product of productList">
 
 		<md-card (click)="select(product)">

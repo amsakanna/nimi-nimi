@@ -1,13 +1,19 @@
-<header>
-    <div class="product-search-bar-container">
-        <app-product-search-bar (search)="search($event)"></app-product-search-bar>
-    </div>
-    <nav class="scrollable">
-			<div class="tag-container" *ngFor="let tag of tagStream | async">
-                <a md-button><div class="tag"> {{ tag?.name }} </div></a>
+<div class="wrapper">
+     <header>
+        <div class="product-search-bar-container">
+            <div class="product-search-bar-pad"></div>
+            <div class="product-search-bar">
+                <app-product-search-bar (search)="search($event)"></app-product-search-bar>
             </div>
-    </nav>
-</header>
-<main class="flex-hcenter">
-    <router-outlet></router-outlet>
-</main>
+            <div class="product-search-bar-pad"></div>
+        </div>
+        <nav class="scrollable">
+                <div class="tag-container" *ngFor="let tag of tagStream | async">
+                    <a md-button><div class="tag"> {{ tag?.name }} </div></a>
+                </div>
+        </nav>
+    </header> 
+    <main>
+        <router-outlet></router-outlet>
+    </main>
+</div>

@@ -212,3 +212,12 @@ md-nav-list {
 .no-animation /deep/ .mat-button-focus-overlay {    
     display: none;
 }
+
+.compact.mat-button {
+    min-width: auto !important;
+    padding: 10px;
+}
+
+.no-focus /deep/ .mat-button-focus-overlay {
+    display: none;
+}

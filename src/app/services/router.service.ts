@@ -20,7 +20,7 @@ export class RouterService
 		this.navigationList.push(new NavigationItem('/admin/dimension/department', 'Department', 'group_work'));
 		this.navigationList.push(new NavigationItem('/admin/dimension/product', 'Product', 'card_giftcard'));
 		this.navigationList.push(new NavigationItem('/admin/dimension/size', 'Size', 'content_cut'));
-		this.navigationList.push(new NavigationItem('/admin/dimension/colour', 'Colour', 'format_color_fill'));
+		this.navigationList.push(new NavigationItem('/admin/dimension/color', 'Color', 'format_color_fill'));
 		
 		this.navigationList.push(new NavigationItem('/user/profile', 'Profile', 'account_circle', '/user'));
 		this.navigationList.push(new NavigationItem('/user/addresses', 'Addresses', 'location_on'));

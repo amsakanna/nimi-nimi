@@ -26,7 +26,7 @@ export class AdminPageComponent implements OnInit
 			'/admin/dimension/department',
 			'/admin/dimension/product',
 			'/admin/dimension/size',
-			'/admin/dimension/colour'
+			'/admin/dimension/color'
 		]);
 	}
 

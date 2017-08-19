@@ -28,7 +28,10 @@ import {
   WishListService,
   TagService,
   PictureService,
-  IndexService
+  IndexService,
+  ColorService,
+  SizeService,
+  CartItemService
 } from './services/all-data.service';
 import { KeyValService } from './services/key-val.service';
 
@@ -64,6 +67,8 @@ import { BrandComponent, BrandFormComponent, BrandListComponent } from './brand/
 import { DepartmentComponent, DepartmentFormComponent, DepartmentListComponent } from './department/department.component';
 import { ProductComponent, ProductFormComponent, ProductListComponent } from './product/product.component';
 import { ProductSearchBarComponent } from './product-search-bar/product-search-bar.component';
+import { ColorComponent, ColorFormComponent, ColorListComponent } from './color/color.component';
+import { SizeComponent, SizeFormComponent, SizeListComponent } from './size/size1.component';
 
 export const firebaseAppConfig : FirebaseAppConfig = {
     apiKey: "AIzaSyBV4KfPwTrqbFXzf7Sm6YAXkjSY1jSVcEk",
@@ -107,7 +112,9 @@ export const firebaseAppConfig : FirebaseAppConfig = {
     DepartmentComponent, DepartmentFormComponent, DepartmentListComponent,
     ProductComponent, ProductFormComponent, ProductListComponent,
     AuthComponent,
-    ProductSearchBarComponent
+    ProductSearchBarComponent,
+    ColorComponent, ColorFormComponent, ColorListComponent, 
+    SizeComponent, SizeFormComponent, SizeListComponent
   ],
   imports: [
     BrowserModule,
@@ -136,7 +143,10 @@ export const firebaseAppConfig : FirebaseAppConfig = {
     WishListService,
     TagService,
     PictureService,
-    IndexService
+    IndexService,
+    ColorService,
+    SizeService,
+    CartItemService
   ],
   bootstrap: [AppComponent]
 })

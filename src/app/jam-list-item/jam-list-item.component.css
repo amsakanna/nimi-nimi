@@ -32,15 +32,6 @@ header {
     float: left;
 }
 
-.compact.mat-button {
-    min-width: auto !important;
-    padding: 10px;
-}
-
-.no-focus /deep/ .mat-button-focus-overlay {
-    display: none;
-}
-
 main {
     padding: 20px 70px;
     min-height: 300px; height: calc(100% - 277px);

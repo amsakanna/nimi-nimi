@@ -3,10 +3,7 @@ export class Size
 
     $key: string;
     unitOfMeasure: string;
-    usaCode: string;
-    indianCode: string;
-    europeanCode: string;
-    asianCode: string;
+    code: string;
     length: number;
     width: number;
     height: number;
@@ -21,10 +18,7 @@ export class Size
         object = object ? object : {};
         this.$key = object.$key ? object.$key : '';
         this.unitOfMeasure = object.unitOfMeasure ? object.unitOfMeasure : '';
-        this.usaCode = object.usaCode ? object.usaCode : '';
-        this.indianCode = object.indianCode ? object.indianCode : '';
-        this.europeanCode = object.europeanCode ? object.europeanCode : '';
-        this.asianCode = object.asianCode ? object.asianCode : '';
+        this.code = object.code ? object.code : '';
         this.length = object.length ? object.length : 0;
         this.width = object.width ? object.width : 0;
         this.height = object.height ? object.height : 0;

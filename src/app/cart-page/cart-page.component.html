@@ -1,7 +1,41 @@
-<div>hello</div>
-<div>hi</div>
-
-<ul>
-	<li>hello</li>
-	<li>hi</li>
-</ul>
+<div class="wrapper">
+	<div class="floating-box cart-box">
+		<header>
+			<div class="title-container">
+				<div class="title"> Cart </div>
+			</div>
+		</header>
+		<main class="scrollable">
+			<div *ngFor="let cartItem of cart.items; let i = index" class="cart-item"
+				(mouseenter)="hoveredIndex = i"
+				(mouseleave)="hoveredIndex = -1">
+				<md-icon class="icon" [style.fontSize]="i == hoveredIndex ? '32px' : '20px'"> shopping_cart </md-icon>
+				<section class="product">
+					<div class="name"> {{ cartItem.product?.name }} </div>
+					<div class="price"> ₹ {{ cartItem.product?.price }} /- </div>
+				</section>
+				<form [formGroup]="formGroupList[cartItem.$key]" novalidate 
+					(ngSubmit)="updateUnits(cartItem)"
+					class="units">
+					<md-input-container>
+						<input mdInput 
+							type="number"
+							formControlName="units"
+							(change)="updateUnits(cartItem)" />
+					</md-input-container>
+				</form>
+				<section class="amount"> ₹ {{ cartItem.amount }} /- </section>
+				<!-- <button md-button class="delete-button compact no-focus" (click)="delete(cartItem)">
+					<md-icon> delete </md-icon>
+				</button> -->
+			</div>
+		</main>
+		<footer>
+			<div class="pad"></div>
+			<div class="place-order-button-container">
+				<button md-button class="place-order-button" (click)="checkout()"> CHECKOUT </button>
+			</div>
+			<div class="total"> ₹ {{ cart.grandTotal }} /- </div>
+		</footer>
+	</div>
+</div>
