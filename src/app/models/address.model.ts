@@ -1,8 +1,3 @@
-export interface IAddress
-{
-    $key: string; userKey: string; type: string; name: string; phone: string; pinCode: string; streetAddress: string; city: string; state: string; country: string;
-}
-
 export class Address
 {
 
@@ -17,10 +12,9 @@ export class Address
     state: string;
     country: string;
 
-    constructor();
-    constructor(object: IAddress);
     constructor(object?: any)
     {
+        object = object ? object : {};
         this.$key = object ? object.$key : '';
         this.userKey = object ? object.userKey : '';
         this.name = object ? object.name : '';

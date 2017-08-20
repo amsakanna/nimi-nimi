@@ -6,6 +6,12 @@ export class Cart
 
     user: User;
     items: CartItem[];
+    get itemCount(): number
+    {
+        let count = 0;
+        this.items.forEach( item => count  += item.units );
+        return count;
+    }
     get total(): number
     {
         let total = 0;

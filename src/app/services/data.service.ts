@@ -196,6 +196,18 @@ export abstract class DataService<T>
 		return this.dataServiceObject;
 	}
 
+	insertIfNew(object: any, lookupValue: string, lookupColumn?: string) : DataServiceObject
+	{
+		this.dataServiceObject = new DataServiceObject({operation: DATABASE_OPERATION.INSERT, object: object});
+		console.log('looking up', lookupColumn, 'for', lookupValue);
+		this.lookup(lookupValue, lookupColumn).subscribe( data => {
+			if( data === undefined ) {
+				this.insert(this.dataServiceObject.object);
+			}
+		});
+		return this.dataServiceObject;
+	}
+
 	lookup(lookupValue: string, lookupColumn?: string) : Observable<any> 
 	{
 		var dataStream;

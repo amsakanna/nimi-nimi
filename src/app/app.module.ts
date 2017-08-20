@@ -69,6 +69,7 @@ import { ProductComponent, ProductFormComponent, ProductListComponent } from './
 import { ProductSearchBarComponent } from './product-search-bar/product-search-bar.component';
 import { ColorComponent, ColorFormComponent, ColorListComponent } from './color/color.component';
 import { SizeComponent, SizeFormComponent, SizeListComponent } from './size/size1.component';
+import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 
 export const firebaseAppConfig : FirebaseAppConfig = {
     apiKey: "AIzaSyBV4KfPwTrqbFXzf7Sm6YAXkjSY1jSVcEk",
@@ -114,7 +115,7 @@ export const firebaseAppConfig : FirebaseAppConfig = {
     AuthComponent,
     ProductSearchBarComponent,
     ColorComponent, ColorFormComponent, ColorListComponent, 
-    SizeComponent, SizeFormComponent, SizeListComponent
+    SizeComponent, SizeFormComponent, SizeListComponent, CheckoutPageComponent
   ],
   imports: [
     BrowserModule,

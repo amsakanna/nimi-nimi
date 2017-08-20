@@ -41,14 +41,7 @@ main {
     background-color: rgb(247, 250, 255);
 }
 
-ul {
-    margin: 0px;
-    padding: 0px;
-    cursor: pointer;
-}
-
-li {
-    list-style: none;
+.jam-list-item {
     background-color: rgb(247, 250, 255);
     transition: all 0.4s ease-out;
 }

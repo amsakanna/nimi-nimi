@@ -221,3 +221,40 @@ md-nav-list {
 .no-focus /deep/ .mat-button-focus-overlay {
     display: none;
 }
+
+ul.plain {
+    margin: 0px;
+    padding: 0px;
+    list-style-type:none;
+    cursor: default;
+}
+
+li.plain {
+    list-style: none;
+}
+
+ul.horizontal {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+ul.horizontal li {    
+    flex: 0 0 auto;
+}
+
+ul.floating-list {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 20px;
+}
+
+ul.floating-list li:first-child {
+    margin-left: 0px !important;
+}
+
+ul.floating-list li {
+    margin-left: 20px;
+    padding: 20px;
+}

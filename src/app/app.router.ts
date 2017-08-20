@@ -14,6 +14,7 @@ import { ProductsPageComponent } from "./products-page/products-page.component";
 import { ProductPageComponent } from "./product-page/product-page.component";
 import { UserPageComponent } from "./user-page/user-page.component";
 import { CartPageComponent } from "./cart-page/cart-page.component";
+import { CheckoutPageComponent } from "./checkout-page/checkout-page.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { AddressesComponent } from "./addresses/addresses.component";
 import { AddressComponent } from "./address/address.component";
@@ -59,7 +60,8 @@ const APP_ROUTES: Routes = [
         ]},
         { path: 'orders', component: OrdersComponent }
     ]},
-    { path: 'cart',component: CartPageComponent },
+    { path: 'cart',component: CartPageComponent, canActivate: [AuthGuard] },
+    { path: 'checkout',component: CheckoutPageComponent, canActivate: [AuthGuard] },
     { path: 'admin', component: AdminPageComponent, children: [
         { path:'', redirectTo: 'transaction/journal', pathMatch: 'full' },
         { path: 'transaction/journal', component: JournalListComponent },

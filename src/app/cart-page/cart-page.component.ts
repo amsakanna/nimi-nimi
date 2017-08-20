@@ -6,8 +6,7 @@ import { CartItem } from '../models/cart-item.model';
 import { Cart } from '../models/cart.model';
 import { User } from '../models/user.model';
 import { FILTER, SORT } from '../app.enum';
-import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-
+import { Router } from "@angular/router";
 
 @Component({
 	selector: 'app-cart-page',
@@ -17,8 +16,8 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } 
 export class CartPageComponent implements OnInit {
 	
 	private cart: Cart;
-	private formGroupList: FormGroup[];
 	private hoveredIndex: number = -1;
+	private selectedIndex: number = -1;
 	private total: number = 0;
 
 	ngOnInit() {}
@@ -26,7 +25,7 @@ export class CartPageComponent implements OnInit {
 				private cartItemService: CartItemService,
 				private userService: UserService,
 				private authGuard: AuthGuard,
-				private formBuilder: FormBuilder)
+				private router: Router)
 	{
 		this.cart = new Cart();
 		this.authGuard.getAuth().subscribe( data => {
@@ -38,11 +37,7 @@ export class CartPageComponent implements OnInit {
 						this.cartItemService
 							.getList(SORT.FOREIGN_KEY, FILTER.EQUAL_TO, this.cart.user.$key)
 							.subscribe( cartItemList => {
-								this.formGroupList = new Array<FormGroup>();
 								cartItemList.forEach( cartItem => {
-									this.formGroupList[cartItem.$key] = this.formBuilder.group({
-										units: cartItem.units
-									});									
 									this.productService
 										.getObject( cartItem.product.$key )
 										.subscribe( product => {
@@ -53,16 +48,18 @@ export class CartPageComponent implements OnInit {
 							});
 					});
 			};
-		});		
+		});
 	}
 
-	updateUnits(cartItem: CartItem)
+	updateUnits(cartItem: CartItem, value: number)
 	{
+		let newUnits = cartItem.units + value;
+		newUnits = newUnits >= 1 ? newUnits : 1;
 		let newCartItem = { 
 			$key: cartItem.$key,							
 			userKey: this.cart.user.$key,
 			productKey: cartItem.product.$key,
-			units: this.formGroupList[cartItem.$key].controls['units'].value
+			units: newUnits
 		};
 		this.cartItemService.update( newCartItem );						
 	}
@@ -74,7 +71,7 @@ export class CartPageComponent implements OnInit {
 
 	checkout()
 	{
-
+		this.router.navigate(['/checkout']);
 	}
 
 }

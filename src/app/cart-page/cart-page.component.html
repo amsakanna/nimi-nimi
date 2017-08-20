@@ -3,39 +3,48 @@
 		<header>
 			<div class="title-container">
 				<div class="title"> Cart </div>
+				<div class="item-count"> ( {{ cart.itemCount }} items ) </div>
+			</div>
+			<div class="checkout-button-container">
+				<button md-button class="checkout-button" (click)="checkout()"> CHECKOUT </button>
 			</div>
 		</header>
-		<main class="scrollable">
-			<div *ngFor="let cartItem of cart.items; let i = index" class="cart-item"
-				(mouseenter)="hoveredIndex = i"
-				(mouseleave)="hoveredIndex = -1">
-				<md-icon class="icon" [style.fontSize]="i == hoveredIndex ? '32px' : '20px'"> shopping_cart </md-icon>
-				<section class="product">
-					<div class="name"> {{ cartItem.product?.name }} </div>
-					<div class="price"> ₹ {{ cartItem.product?.price }} /- </div>
-				</section>
-				<form [formGroup]="formGroupList[cartItem.$key]" novalidate 
-					(ngSubmit)="updateUnits(cartItem)"
-					class="units">
-					<md-input-container>
-						<input mdInput 
-							type="number"
-							formControlName="units"
-							(change)="updateUnits(cartItem)" />
-					</md-input-container>
-				</form>
-				<section class="amount"> ₹ {{ cartItem.amount }} /- </section>
-				<!-- <button md-button class="delete-button compact no-focus" (click)="delete(cartItem)">
-					<md-icon> delete </md-icon>
-				</button> -->
-			</div>
+		<main>
+			<ul class="plain scrollable">
+				<li *ngFor="let cartItem of cart?.items; let i = index"
+					class="cart-item plain"
+					(mouseenter)="hoveredIndex = i"
+					(mouseleave)="hoveredIndex = -1">
+					<section class="units-container"
+							[style.transform]="i == hoveredIndex ? 'scale(1.2)' : 'scale(1)'">
+						<button md-button 
+							class="decrease units-button compact small-button"
+							(click)="updateUnits(cartItem, -1)"
+							[style.opacity]="i == hoveredIndex ? 1 : 0"> - </button>
+						<div class="units">
+							{{ cartItem.units ? cartItem.units : 0 }}
+						</div>
+						<button md-button 
+							class="increase units-button compact small-button"
+							(click)="updateUnits(cartItem, 1)"
+							[style.opacity]="i == hoveredIndex ? 1 : 0"> + </button>
+					</section>
+					<section class="product">
+						<div class="name"> {{ cartItem.product?.name }} </div>
+						<div class="price"> ₹ {{ cartItem.product?.price }} </div>
+					</section>
+					<section class="amount"> ₹ {{ cartItem.amount ? cartItem.amount : 0 }} </section>
+					<div class="remove-button-container"
+						[style.opacity]="i == hoveredIndex ? 1 : 0">
+						<button md-button
+							class="remove-button compact no-focus"
+							(click)="remove(cartItem)"> <md-icon> delete </md-icon> </button> 
+					</div>
+				</li>
+			</ul>
 		</main>
 		<footer>
-			<div class="pad"></div>
-			<div class="place-order-button-container">
-				<button md-button class="place-order-button" (click)="checkout()"> CHECKOUT </button>
-			</div>
-			<div class="total"> ₹ {{ cart.grandTotal }} /- </div>
+			<div class="total"> ₹ {{ cart?.total }} </div>
 		</footer>
 	</div>
 </div>

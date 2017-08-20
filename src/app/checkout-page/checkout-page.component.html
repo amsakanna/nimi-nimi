@@ -1,0 +1,47 @@
+<div class="wrapper">
+	<div class="floating-box checkout-box">
+		<header>
+			<div class="title-container">
+				<div class="title"> Checkout </div>
+			</div>
+			<div class="place-order-button-container">
+				<button md-button class="place-order-button" (click)="placeOrder()"> PLACE ORDER </button>
+			</div>
+		</header>
+		<main>
+			<section class="address-box">
+				<ul class="plain horizontal floating-list">
+					<li class="plain floating-box"
+						*ngFor="let address of addressStream | async">
+						<div class="address">
+							<div class="street"> {{ address.streetAddress }} </div>
+							<div class="city"> {{ address.city }} - {{ address.pincode }} </div>
+							<div class="state"> {{ address.state }}, {{ address.country }} </div>
+							<div class="phone"> Phone - {{ address.phone }} </div>				
+						</div>
+					</li>
+				</ul>
+			</section>
+			<section class="card-box">
+				<ul class="plain horizontal floating-list">
+					<li class="plain floating-box"
+						*ngFor="let card of cardStream | async">
+						<div class="card">
+							<div class="number"> {{ card.number }} </div>
+							<div class="holder-name"> {{ card.holderName }} </div>
+						</div>
+					</li>
+				</ul>
+			</section>
+			<section class="coupon-box">				
+				<div> Coupon Code </div>
+				<md-input-container class="coupon-text-box">
+					<input mdInput placeholder="Enter your code" />
+				</md-input-container>
+				<div class="coupon-button-container">
+					<button md-button class="coupon-button" (click)="applyCoupon()"> Apply </button>
+				</div>
+			</section>
+		</main>
+	</div>
+</div>
