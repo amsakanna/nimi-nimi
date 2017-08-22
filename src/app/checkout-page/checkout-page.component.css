@@ -10,53 +10,85 @@
     height: calc(100% - 100px);
 }
 
-header {
+.checkout-box > header {
     display: flex;
     background-color: black;
 }
 
-header .title-container {
+.checkout-box > header .title-container {
     padding: 20px 50px;
     width: 130px;
     flex-grow: 1;
     color: white;
 }
 
-header .title-container .title {
+.checkout-box > header .title-container .title {
     font-size: 2em;    
 }
 
-header .place-order-button-container {
+.checkout-box > header .place-order-button-container {
     display: flex;
 }
 
-header .place-order-button {
+.checkout-box > header .place-order-button {
     width: 200px;
     background-color: #e40046;
     color: white;
 }
 
-main {
+.checkout-box > main {
     height: calc(100% - 78px);
+    display: flex;
+    justify-content: space-between;
 }
 
-main section {
-    padding-top: 20px;
+.checkout-box > main > section {
+    height: 100%;
+    flex-grow: 1;
+}
+
+.checkout-box > main > section > header {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.checkout-box > main > section > main {
+    height: calc(100% - 196px);
+}
+
+.checkout-box > main > section > main > ul {
+    height: calc(100% - 40px);
 }
 
 .address, .card {
-    width: 150px;
+    padding: 20px;
+    width: 300px;
+    height: 80px;
 }
 
-.coupon-box {
+.show-more-button {
+    display: flex;
+    justify-content: center;
+}
+
+.show-more-button button {
+    width: 110px;
+}
+
+.coupon {
     padding: 20px;
-    padding-left: 100px;
+}
+
+.coupon > header {
+    padding-bottom: 4px;
+    font-weight: bold;    
+}
+
+.coupon > main {
     display: flex;
     align-items: baseline;
-}
-
-.coupon-text-box {
-    padding-left: 50px;
 }
 
 .coupon-button-container {

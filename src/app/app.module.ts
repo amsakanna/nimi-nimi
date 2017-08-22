@@ -34,6 +34,7 @@ import {
   CartItemService
 } from './services/all-data.service';
 import { KeyValService } from './services/key-val.service';
+import { DefaultService } from './services/default.service';
 
 import { HomePageComponent } from './home-page/home-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
@@ -147,7 +148,8 @@ export const firebaseAppConfig : FirebaseAppConfig = {
     IndexService,
     ColorService,
     SizeService,
-    CartItemService
+    CartItemService,
+    DefaultService
   ],
   bootstrap: [AppComponent]
 })

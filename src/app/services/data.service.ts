@@ -105,6 +105,9 @@ export abstract class DataService<T>
 			tableName: 'CartItem',
 			foreignKeyName: 'userKey',
 			searchKeyName: 'sequence'
+		},
+		DefaultService: {
+			tableName: 'Default'
 		}
 	}
     
@@ -119,7 +122,8 @@ export abstract class DataService<T>
 		this.tableName = service.tableName;
 		this.foreignKeyName = service.foreignKeyName;
 		this.searchKeyName = service.searchKeyName;
-		this.table = this.db.list(this.tableName);
+		if( this.tableName )
+			this.table = this.db.list(this.tableName);
 		this.dataServiceObject = new DataServiceObject({operation: null, object: null});
 	}
 
@@ -223,7 +227,8 @@ export abstract class DataService<T>
 
 	getObject(key: string): Observable<T> 
 	{
-		const dataStream = this.db.object(this.tableName + "/" + key).take(1);
+		console.log('getObject', this.tableName + '/' + key)
+		const dataStream = this.db.object(this.tableName + '/' + key).take(1);
 		return this.mapObjectToModel(dataStream);
 	}
 

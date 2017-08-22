@@ -242,7 +242,13 @@ ul.horizontal {
 }
 
 ul.horizontal li {    
+    margin-left: 20px;
+    padding: 20px;
     flex: 0 0 auto;
+}
+
+ul.horizontal li:first-child {
+    margin-left: 0px !important;
 }
 
 ul.floating-list {
@@ -250,11 +256,17 @@ ul.floating-list {
     padding: 20px;
 }
 
-ul.floating-list li:first-child {
-    margin-left: 0px !important;
+ul.vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
 }
 
-ul.floating-list li {
-    margin-left: 20px;
-    padding: 20px;
+ul.vertical li {
+    margin-top: 20px;
+}
+
+ul.vertical li:first-child {
+    margin-top: 0px !important;
 }

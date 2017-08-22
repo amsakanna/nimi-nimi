@@ -10,37 +10,71 @@
 		</header>
 		<main>
 			<section class="address-box">
-				<ul class="plain horizontal floating-list">
-					<li class="plain floating-box"
-						*ngFor="let address of addressStream | async">
-						<div class="address">
-							<div class="street"> {{ address.streetAddress }} </div>
-							<div class="city"> {{ address.city }} - {{ address.pincode }} </div>
-							<div class="state"> {{ address.state }}, {{ address.country }} </div>
-							<div class="phone"> Phone - {{ address.phone }} </div>				
-						</div>
-					</li>
-				</ul>
+				<header>
+					<div class="address floating-box">
+						<div class="street"> {{ checkoutAddress?.streetAddress }} </div>
+						<div class="city"> {{ checkoutAddress?.city }} - {{ checkoutAddress?.pincode }} </div>
+						<div class="state"> {{ checkoutAddress?.state }}, {{ checkoutAddress?.country }} </div>
+						<div class="phone"> Phone - {{ checkoutAddress?.phone }} </div>				
+					</div>
+					<div class="show-more-button">
+						<button md-button (click)="listAction( 'toggle', 'Address')">
+							{{ showList['Address'] ? 'show less' : 'show more' }}
+						</button>
+					</div>
+				</header>
+				<main *ngIf="showList['Address']">
+					<ul class="plain vertical floating-list">
+						<li class="plain"
+							*ngFor="let address of addressStream | async">
+							<div class="address floating-box" (click)="select( address, 'Address' )">
+								<div class="street"> {{ address.streetAddress }} </div>
+								<div class="city"> {{ address.city }} - {{ address.pincode }} </div>
+								<div class="state"> {{ address.state }}, {{ address.country }} </div>
+								<div class="phone"> Phone - {{ address.phone }} </div>				
+							</div>
+						</li>
+					</ul>
+				</main>
 			</section>
 			<section class="card-box">
-				<ul class="plain horizontal floating-list">
-					<li class="plain floating-box"
-						*ngFor="let card of cardStream | async">
-						<div class="card">
-							<div class="number"> {{ card.number }} </div>
-							<div class="holder-name"> {{ card.holderName }} </div>
-						</div>
-					</li>
-				</ul>
+				<header>
+					<div class="card floating-box">
+						<div class="number"> {{ checkoutCard?.number }} </div>
+						<div class="holder-name"> {{ checkoutCard?.holderName }} </div>
+					</div>
+					<div class="show-more-button">
+						<button md-button (click)="listAction( 'toggle', 'Card')">
+							{{ showList['Card'] ? 'show less' : 'show more' }}
+						</button>
+					</div>
+				</header>
+				<main *ngIf="showList['Card']">
+					<ul class="plain vertical floating-list">
+						<li class="plain"
+							*ngFor="let card of cardStream | async">
+							<div class="card floating-box" (click)="select( card, 'Card' )">
+								<div class="number"> {{ card.number }} </div>
+								<div class="holder-name"> {{ card.holderName }} </div>
+							</div>
+						</li>
+					</ul>
+				</main>
 			</section>
 			<section class="coupon-box">				
-				<div> Coupon Code </div>
-				<md-input-container class="coupon-text-box">
-					<input mdInput placeholder="Enter your code" />
-				</md-input-container>
-				<div class="coupon-button-container">
-					<button md-button class="coupon-button" (click)="applyCoupon()"> Apply </button>
-				</div>
+				<header>
+					<div class="coupon floating-box">
+						<header> Coupon Code </header>
+						<main>
+							<md-input-container class="coupon-text-box">
+								<input mdInput placeholder="Enter your code" />
+							</md-input-container>
+							<div class="coupon-button-container">
+								<button md-button class="coupon-button" (click)="applyCoupon()"> Apply </button>
+							</div>
+						</main>
+					</div>
+				</header>
 			</section>
 		</main>
 	</div>
