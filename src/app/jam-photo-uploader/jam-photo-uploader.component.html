@@ -1,0 +1,15 @@
+<div class="jam-photo-uploader">
+	<input
+		id="jam-photo-uploader-input"
+		type="file" value="upload" multiple
+		(change)="_processFile($event)" />
+	<div
+		class="jam-photo-uploader-photo-container floating-box"
+		(click)="_showFileDialog()"
+		(mouseenter)="overAddButton = true"
+		(mouseleave)="overAddButton = false"
+		[style.transform]="overAddButton ? 'scale(0.95)' : 'scale(1)'">
+		<img class="jam-photo-uploader-photo"
+			[src]="_photoSource" />
+	</div>
+</div>

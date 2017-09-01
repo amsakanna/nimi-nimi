@@ -13,7 +13,7 @@ import { AppRouter } from './app.router';
 import { AppComponent } from './app.component';
 import { RouterService } from './services/router.service';
 import { LogService } from './services/log.service';
-import { AuthGuard } from './services/auth.service';
+import { AuthService } from './services/auth.service';
 
 import {
 	AddressService,
@@ -23,7 +23,6 @@ import {
 	AccountService,
 	JournalService,
 	InventoryService,
-	UserService,
   CardService,
   WishListService,
   TagService,
@@ -35,6 +34,8 @@ import {
 } from './services/all-data.service';
 import { KeyValService } from './services/key-val.service';
 import { DefaultService } from './services/default.service';
+import { MetadataService } from './services/metadata.service';
+import { UserService } from './services/user.service';
 
 import { HomePageComponent } from './home-page/home-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
@@ -71,6 +72,9 @@ import { ProductSearchBarComponent } from './product-search-bar/product-search-b
 import { ColorComponent, ColorFormComponent, ColorListComponent } from './color/color.component';
 import { SizeComponent, SizeFormComponent, SizeListComponent } from './size/size1.component';
 import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
+import { JamFormNewComponent } from './jam-form-new/jam-form-new.component';
+import { JamPictureUploaderComponent } from './jam-picture-uploader/jam-picture-uploader.component';
+import { JamPhotoUploaderComponent } from './jam-photo-uploader/jam-photo-uploader.component';
 
 export const firebaseAppConfig : FirebaseAppConfig = {
     apiKey: "AIzaSyBV4KfPwTrqbFXzf7Sm6YAXkjSY1jSVcEk",
@@ -116,7 +120,7 @@ export const firebaseAppConfig : FirebaseAppConfig = {
     AuthComponent,
     ProductSearchBarComponent,
     ColorComponent, ColorFormComponent, ColorListComponent, 
-    SizeComponent, SizeFormComponent, SizeListComponent, CheckoutPageComponent
+    SizeComponent, SizeFormComponent, SizeListComponent, CheckoutPageComponent, JamFormNewComponent, JamPictureUploaderComponent, JamPhotoUploaderComponent
   ],
   imports: [
     BrowserModule,
@@ -130,8 +134,9 @@ export const firebaseAppConfig : FirebaseAppConfig = {
   ],
   providers: [
     RouterService,
+    MetadataService,
     LogService,
-    AuthGuard,
+    AuthService,
     KeyValService,
 	  ProductService,
     BrandService,

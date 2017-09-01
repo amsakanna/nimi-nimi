@@ -6,7 +6,8 @@ export class DataServiceObject
 
     operation: DATABASE_OPERATION;
     status: STATUS;
-    readonly object: any;
+    oldObject: any;
+    object: any;
     readonly objectWithoutKey: any;
     error: Error;
     isValidKey: boolean;

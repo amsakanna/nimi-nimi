@@ -1,5 +1,6 @@
 <div class="jam-form-container">
-	<form [formGroup]="jamFormGroup" 
+	<form
+		[formGroup]="jamFormGroup" 
 		novalidate 
 		(ngSubmit)="_save()"
 		class="jam-form floating-box">
@@ -9,34 +10,80 @@
 				<div class="jam-form-subtitle"> {{ subtitle }} </div>
 			</div>
 		</header>
-		<main *ngIf="formElements" class="jam-form-template-container scrollable">			
-			<div *ngFor="let formElement of activeFormElements">
-				<md-input-container>
-					<input mdInput 
-						[type]="formElement.type" 
-						[placeholder]="formElement.placeHolder"
-						[formControlName]="formElement.formControlName" />
-				</md-input-container>
-			</div>			
+		<main *ngIf="formElements">
+			<div class="jam-form-element-list scrollable">
+
+				<div
+					class="jam-form-element"
+					*ngFor="let formElement of activeFormElements"
+					[ngSwitch]="formElement.type"
+					[style.float]="formElement.float ? formElement.float : 'none'"
+					[style.clear]="formElement.clear ? formElement.clear : 'none'">
+
+					<section
+						*ngSwitchCase="'dropdown'"
+						class="jam-form-dropdown-element">
+						<md-select
+							[(ngModel)]="formElement.selectedValue"
+							[placeholder]="formElement.placeHolder"
+							[formControlName]="formElement.formControlName">
+							<md-option
+								*ngFor="let option of formElement.options"
+								[value]="option.value">
+								{{ option.displayValue }}
+							</md-option>
+						</md-select>
+					</section>
+
+					<section
+						*ngSwitchCase="'photoUploader'"
+						class="jam-form-photo-uploader-element">
+						<jam-photo-uploader
+							class="floating-box"
+							[photoSource]="formElement.url"
+							[(selectedFile)]="formElement.selectedFile">
+						</jam-photo-uploader>
+					</section>
+
+					<section
+						*ngSwitchDefault
+						class="jam-form-input-element">
+						<md-input-container><input
+							mdInput
+							[type]="formElement.type" 
+							[placeholder]="formElement.placeHolder"
+							[formControlName]="formElement.formControlName"
+							[readonly]="formElement.readonly ? formElement.readonly : false" />
+						</md-input-container>
+					</section>
+
+				</div>
+
+			</div>
 		</main>
 		<footer>
-			<div class="footer-left">
-				<button md-button 
+			<div class="left">
+				<button
+					md-button 
 					type="button" 
 					class="jam-form-reset-button no-animation" 
 					(click)="_reset()"> RESET 
 				</button>
 			</div>
-			<button md-button 
-				type="button" 
-				class="jam-form-cancel-button no-animation" 
-				(click)="_cancel()"> CANCEL 
-			</button>
-			<button md-raised-button 
-				color="primary"
-				type="submit"
-				class="jam-form-save-button"> SAVE 
-			</button>
+			<div class="right">
+				<button
+					md-button 
+					type="button" 
+					class="jam-form-cancel-button no-animation" 
+					(click)="_cancel()"> CANCEL 
+				</button>
+				<button
+					md-raised-button 
+					color="primary"
+					type="submit"
+					class="jam-form-save-button"> SAVE 
+				</button>
+			</div>
 		</footer>
 	</form>
 </div>

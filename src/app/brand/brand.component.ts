@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FILTER, SORT, STATUS } from '../app.enum';
 import { ActivatedRoute } from '@angular/router';
 import { BrandService } from '../services/all-data.service';
-import { AuthGuard } from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
 import { Brand } from '../models/brand.model';
 import { Observable } from 'rxjs';
 
@@ -93,7 +93,7 @@ export class BrandFormComponent implements OnInit
 
 	ngOnInit() {}
 	constructor(private brandService: BrandService,
-				private authGuard: AuthGuard,
+				private authService: AuthService,
 				private route: ActivatedRoute) 
 	{
 		

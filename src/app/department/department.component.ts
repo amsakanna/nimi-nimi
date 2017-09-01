@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FILTER, SORT, STATUS } from '../app.enum';
 import { ActivatedRoute } from '@angular/router';
 import { DepartmentService } from '../services/all-data.service';
-import { AuthGuard } from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
 import { Department } from '../models/department.model';
 import { Observable } from 'rxjs';
 
@@ -17,7 +17,7 @@ import { Observable } from 'rxjs';
 				selectItemUrl="admin/dimension/department/:key">
 				<template let-item="item" let-index="index" let-hoveredIndex="hoveredIndex" let-selectedIndex="selectedIndex">
 					<div class="template-container">
-						<div class="item-id"> {{ item.id }} </div>
+						<div class="item-key"> {{ item.$key }} </div>
 						<div class="item-name"> {{ item.name }} </div>
 					</div>
 				</template>
@@ -51,7 +51,7 @@ export class DepartmentListComponent implements OnInit {
 			returnUrl="admin/dimension/department"
 			[item]="item">
 			<div jam-list-item-template>
-				<div> {{ item?.id }} </div>
+				<div> {{ item?.$key }} </div>
 				<div> {{ item?.name }} </div>
 			</div>
 		</jam-list-item>
@@ -91,7 +91,7 @@ export class DepartmentFormComponent implements OnInit
 
 	ngOnInit() {}
 	constructor(private departmentService: DepartmentService,
-				private authGuard: AuthGuard,
+				private authService: AuthService,
 				private route: ActivatedRoute) 
 	{
 		
@@ -113,7 +113,6 @@ export class DepartmentFormComponent implements OnInit
 			item = new Department();
 		var formElements = [
 			{ key: '$key', exclude: true, initialValue: item.$key },
-			{ key: 'id', exclude: false, initialValue: item.id, type: 'text', placeHolder: 'Id', formControlName: 'id' },
 			{ key: 'name', exclude: false, initialValue: item.name, type: 'text', placeHolder: 'Name', formControlName: 'name' }
 		];
 		return formElements;

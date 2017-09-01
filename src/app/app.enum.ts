@@ -43,6 +43,7 @@ export const enum ERROR {
 }
 
 export const enum DATABASE_OPERATION {
+	NONE,
 	INSERT,
 	DELETE,
 	UPDATE,

@@ -27,41 +27,43 @@ import { WishListComponent } from "./wish-list/wish-list.component";
 import { WishListFormComponent } from "./wish-lists/wish-list-form.component";
 import { OrdersComponent } from "./orders/orders.component";
 import { AuthComponent } from "./auth/auth.component";
-import { AuthGuard } from "./services/auth.service";
+import { AuthService } from "./services/auth.service";
+import { UserService } from "./services/user.service";
 
 const APP_ROUTES: Routes = [
     { path: '', component: HomePageComponent, children: [
-        { path: 'products', component: ProductsPageComponent },
-        { path: 'products/:key', children: [
-            { path: '', component: ProductPageComponent }
-            // { path: 'detail', component: ProductDetailPageComponent },
-            // { path: 'reviews', component: ReviewsPageComponent },
+        { path: '', redirectTo: 'products', pathMatch: 'full' },
+        { path: 'auth', component: AuthComponent },
+        { path: 'products', component: ProductsPageComponent, children: [
+            { path: ':key', children: [
+                { path: '', component: ProductPageComponent }
+            ]}
+        ]},
+        { path: 'user', component: UserPageComponent, canActivate: [AuthService], children: [
+            { path: '', component: ProfileComponent},
+            { path: 'cart', children: [
+                { path: '', component: CartPageComponent },
+                { path: 'checkout', component: CheckoutPageComponent }
+            ]},
+            { path: 'profile', redirectTo: '', pathMatch: 'full' },
+            { path: 'addresses', component: AddressesComponent },
+            { path: 'addresses/:key', children: [
+                { path: '', component: AddressComponent },
+                { path: 'edit', component: AddressFormComponent }
+            ]},
+            { path: 'cards', component: CardsComponent },
+            { path: 'cards/:key', children: [
+                { path: '', component: CardComponent },
+                { path: 'edit', component: CardFormComponent }
+            ]},
+            { path: 'wish-lists', component: WishListsComponent },
+            { path: 'wish-lists/:key', children: [
+                { path: '', component: WishListComponent },
+                { path: 'edit', component: WishListFormComponent }
+            ]},
+            { path: 'orders', component: OrdersComponent }
         ]}
     ]},
-    { path: 'auth', component: AuthComponent },
-    { path: 'home', redirectTo: '', pathMatch: 'full' },
-    { path: 'user', component: UserPageComponent, canActivate: [AuthGuard], children: [
-        { path: '', component: ProfileComponent },
-        { path: 'profile', redirectTo: '', pathMatch: 'full' },
-        { path: 'addresses', component: AddressesComponent},
-        { path: 'addresses/:key', children: [
-            { path: '', component: AddressComponent },
-            { path: 'edit', component: AddressFormComponent }
-        ]},
-        { path: 'cards', component: CardsComponent },
-        { path: 'cards/:key', children: [
-            { path: '', component: CardComponent },
-            { path: 'edit', component: CardFormComponent }
-        ]},
-        { path: 'wish-lists', component: WishListsComponent },
-        { path: 'wish-lists/:key', children: [
-            { path: '', component: WishListComponent },
-            { path: 'edit', component: WishListFormComponent }
-        ]},
-        { path: 'orders', component: OrdersComponent }
-    ]},
-    { path: 'cart',component: CartPageComponent, canActivate: [AuthGuard] },
-    { path: 'checkout',component: CheckoutPageComponent, canActivate: [AuthGuard] },
     { path: 'admin', component: AdminPageComponent, children: [
         { path:'', redirectTo: 'transaction/journal', pathMatch: 'full' },
         { path: 'transaction/journal', component: JournalListComponent },
@@ -99,28 +101,7 @@ const APP_ROUTES: Routes = [
             { path: '', component: SizeComponent },
             { path: 'edit', component: SizeFormComponent }
         ]}
-        // { path: 'dimension/department', component: DepartmentPageComponent },
-        // { path: 'dimension/department/:key', children: [
-        //     { path: '', component: DepartmentComponent },
-        //     { path: 'edit', component: DepartmentFormComponent }
-        // ]},
-        // { path: 'dimension/product', component: ProductPageComponent },
-        // { path: 'dimension/product/:key', children: [
-        //     { path: '', component: ProductComponent },
-        //     { path: 'edit', component: ProductFormComponent }
-        // ]},
-        // { path: 'dimension/size', component: SizePageComponent },
-        // { path: 'dimension/size/:key', children: [
-        //     { path: '', component: SizeComponent },
-        //     { path: 'edit', component: SizeFormComponent }
-        // ]},
-        // { path: 'dimension/colour', component: ColourPageComponent },
-        // { path: 'dimension/colour/:key', children: [
-        //     { path: '', component: ColourComponent },
-        //     { path: 'edit', component: ColourFormComponent }
-        // ]}
-    ]},
-    { path: 'products', component: ProductsPageComponent }
+    ]}
 ];
 
 export const AppRouter = RouterModule.forRoot(APP_ROUTES);

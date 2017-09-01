@@ -9,7 +9,6 @@ import { Department } from '../models/department.model';
 import { Inventory } from '../models/inventory.model';
 import { Journal } from '../models/journal.model';
 import { Product } from '../models/product.model';
-import { User } from '../models/user.model';
 import { WishList } from '../models/wish-list.model';
 import { Tag } from '../models/tag.model';
 import { Picture } from '../models/picture.model';
@@ -27,7 +26,6 @@ import { CartItem } from '../models/cart-item.model';
 @Injectable() export class InventoryService extends DataService<Inventory> { constructor(db: AngularFireDatabase) { super(db); } protected createModel(json) : Inventory { return new Inventory(json); } }
 @Injectable() export class JournalService extends DataService<Journal> { constructor(db: AngularFireDatabase) { super(db); } protected createModel(json) : Journal { return new Journal(json); } }
 @Injectable() export class ProductService extends DataService<Product> { constructor(db: AngularFireDatabase) { super(db); } protected createModel(json) : Product { return new Product(json); } }
-@Injectable() export class UserService extends DataService<User> { constructor(db: AngularFireDatabase) { super(db); } protected createModel(json) : User { return new User(json); } }
 @Injectable() export class WishListService extends DataService<WishList> { constructor(db: AngularFireDatabase) { super(db); } protected createModel(json) : WishList { return new WishList(json); } }
 @Injectable() export class TagService extends DataService<Tag> { constructor(db: AngularFireDatabase) { super(db); } protected createModel(json) : Tag { return new Tag(json); } }
 @Injectable() export class PictureService extends DataService<Picture> { constructor(db: AngularFireDatabase) { super(db); } protected createModel(json) : Picture { return new Picture(json); } }

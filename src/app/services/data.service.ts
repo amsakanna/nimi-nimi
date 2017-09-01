@@ -118,18 +118,27 @@ export abstract class DataService<T>
 	constructor( protected db?: AngularFireDatabase )
 	{	
 		var serviceName = this.constructor.name;
-		var service = this.serviceList[serviceName];
-		this.tableName = service.tableName;
-		this.foreignKeyName = service.foreignKeyName;
-		this.searchKeyName = service.searchKeyName;
+		if( this.serviceList[serviceName] )
+		{
+			var service = this.serviceList[serviceName];
+			this.tableName = service.tableName;
+			this.foreignKeyName = service.foreignKeyName;
+			this.searchKeyName = service.searchKeyName;
+		}
 		if( this.tableName )
-			this.table = this.db.list(this.tableName);
-		this.dataServiceObject = new DataServiceObject({operation: null, object: null});
+			this.table = this.db.list( this.tableName );
+		this.dataServiceObject = new DataServiceObject( { operation: null, object: null } );
 	}
 
-	setTable(tableName: string) : FirebaseListObservable<any[]>	{
+	getTable() : FirebaseListObservable<any[]>
+	{
+		return this.table;
+	}
+
+	setTable( tableName: string ) : FirebaseListObservable<any[]>
+	{
 		this.tableName = tableName;
-		this.table = this.db.list(this.tableName);
+		this.table = this.db.list( this.tableName );
 		return this.table;
 	}
 
@@ -141,102 +150,123 @@ export abstract class DataService<T>
 		return this.dataServiceObject;
 	}
 
-	delete(object: any) : DataServiceObject
+	delete(object: any) : firebase.Promise<any>
 	{
 		console.log('delete');
 		this.dataServiceObject = new DataServiceObject({operation: DATABASE_OPERATION.DELETE, object: object});
-		if(this.isValidKey(this.dataServiceObject.object.$key))
-		{
-			this.table.remove(this.dataServiceObject.object.$key)
-				.then(data => this.dataServiceObject.status = STATUS.SUCCESS )
-				.catch(error => {
-					this.dataServiceObject.status = STATUS.FAILURE;
-					this.dataServiceObject.error = new Error({
-						code: ERROR.DELETE_FAILED,
-						message: error.message, 
-						reason: 'Server error', 
-						solution: 'Check console log',
-						details: error.stack
-					});
+		if( ! this.isValidKey(this.dataServiceObject.object.$key))
+			return null;
+		return this.table.remove( this.dataServiceObject.object.$key )
+			.then( data => this.dataServiceObject.status = STATUS.SUCCESS )
+			.catch( error => {
+				this.dataServiceObject.status = STATUS.FAILURE;
+				this.dataServiceObject.error = new Error({
+					code: ERROR.DELETE_FAILED,
+					message: error.message, 
+					reason: 'Server error', 
+					solution: 'Check console log',
+					details: error.stack
 				});
-		}		
-		return this.dataServiceObject;
+			});
 	}
 
 	update(object: any) : DataServiceObject
 	{
 		console.log('update');
 		this.dataServiceObject = new DataServiceObject({operation: DATABASE_OPERATION.UPDATE, object: object});
-		if(this.isValidKey(this.dataServiceObject.object.$key))
-		{
-			this.table.update(this.dataServiceObject.object.$key, this.dataServiceObject.objectWithoutKey)
-				.then( data => this.dataServiceObject.status = STATUS.SUCCESS )
-				.catch( error => {
-					this.dataServiceObject.status = STATUS.FAILURE;
-					this.dataServiceObject.error = new Error({
-						code: ERROR.UPDATE_FAILED,
-						message: error.message, 
-						reason: 'Server error', 
-						solution: 'Check console log',
-						details: error.stack
-					});
+		if( ! this.isValidKey(this.dataServiceObject.object.$key) )
+			return null;
+		this.table.update(this.dataServiceObject.object.$key, this.dataServiceObject.objectWithoutKey)
+			.then( data => this.dataServiceObject.status = STATUS.SUCCESS )
+			.catch( error => {
+				this.dataServiceObject.status = STATUS.FAILURE;
+				this.dataServiceObject.error = new Error({
+					code: ERROR.UPDATE_FAILED,
+					message: error.message, 
+					reason: 'Server error', 
+					solution: 'Check console log',
+					details: error.stack
 				});
-		}		
+			});
 		return this.dataServiceObject;
 	}
 
-	upsert(object: any, lookupValue: string, lookupColumn?: string) : DataServiceObject
+	upsert(object: any, lookupValue: string, lookupColumn?: string) : Observable<DataServiceObject>
 	{
-		this.dataServiceObject = new DataServiceObject({operation: DATABASE_OPERATION.UPDATE, object: object});
-		console.log('looking up', lookupColumn, 'for', lookupValue);
-		this.lookup(lookupValue, lookupColumn).subscribe( data => {
-			if( data === undefined ) {
-				this.insert(this.dataServiceObject.object);
+
+		Object.keys( object ).forEach( key => {
+			object[key] = object[key] ? object[key] : '';
+		});
+
+		this.dataServiceObject = new DataServiceObject({
+			operation: DATABASE_OPERATION.NONE,
+			object: object
+		});
+
+		console.log( 'looking up', lookupColumn, 'for', lookupValue );
+		return this
+		.lookup( lookupValue, lookupColumn )
+		.map( data => {
+			if( data ) {
+				this.dataServiceObject.oldObject = data;
+				this.dataServiceObject.object.$key = this.dataServiceObject.oldObject.$key;
+				return this.update( this.dataServiceObject.object );
 			} else {
-				this.dataServiceObject.object.$key = data.$key;
-				this.update(this.dataServiceObject.object);
+				return this.insert( this.dataServiceObject.object );
 			}
 		});
-		return this.dataServiceObject;
+		
 	}
 
-	insertIfNew(object: any, lookupValue: string, lookupColumn?: string) : DataServiceObject
+	insertIfNew(object: any, lookupValue: string, lookupColumn?: string) : Observable<DataServiceObject>
 	{
-		this.dataServiceObject = new DataServiceObject({operation: DATABASE_OPERATION.INSERT, object: object});
-		console.log('looking up', lookupColumn, 'for', lookupValue);
-		this.lookup(lookupValue, lookupColumn).subscribe( data => {
-			if( data === undefined ) {
-				this.insert(this.dataServiceObject.object);
-			}
+		this.dataServiceObject = new DataServiceObject({
+			operation: DATABASE_OPERATION.NONE,
+			object: object
 		});
-		return this.dataServiceObject;
+
+		console.log( 'looking up', lookupColumn, 'for', lookupValue );
+
+		return this
+		.lookup( lookupValue, lookupColumn )
+		.map( data => {
+			console.log( 'looked up data', data );
+			this.dataServiceObject.object = data;
+			if( ! data && this.dataServiceObject.status != STATUS.FAILURE )
+				this.insert( this.dataServiceObject.object );
+			return this.dataServiceObject;
+		});
+
 	}
 
-	lookup(lookupValue: string, lookupColumn?: string) : Observable<any> 
+	lookup( lookupValue: string, lookupColumn?: string ) : Observable<T> 
 	{
 		var dataStream;
-		if( ! this.isValidKey(lookupValue) ) {
-			return Observable.of(undefined);
+		if( ! this.isValidKey( lookupValue ) ) {
+			return Observable.of( undefined );
 		}
-		if(lookupColumn === undefined) {
-			return this.getObject(lookupValue);
+		if( ! lookupColumn ) {
+			return this.getObject( lookupValue );
 		} else {	
-			return this.getList(SORT.SEARCH_KEY, FILTER.EQUAL_TO, lookupValue).take(1).map(list => list[0]);
+			return this
+			.getList( lookupColumn, FILTER.EQUAL_TO, lookupValue )
+			.take( 1 )
+			.map( list => list[0] );
 		}
 	}
 
-	getObject(key: string): Observable<T> 
+	getObject( key: string ): Observable<T> 
 	{
-		console.log('getObject', this.tableName + '/' + key)
-		const dataStream = this.db.object(this.tableName + '/' + key).take(1);
-		return this.mapObjectToModel(dataStream);
+		console.log( 'getObject', this.tableName + '/' + key )
+		const dataStream = this.db.object(this.tableName + '/' + key ).take( 1 );
+		return this.mapObjectToModel( dataStream );
 	}
 
-	getList(sortBy: SORT, filterBy: FILTER, filterValue?: string) : Observable<T[]>
+	getList( sortBy: SORT | string, filterBy: FILTER, filterValue?: string ) : Observable<T[]>
 	{
-		var query = this.prepareQuery(sortBy, filterBy, filterValue);
-		const dataStream = this.db.list(this.tableName, { query: query });
-		return this.mapListToModel(dataStream);
+		var query = this.prepareQuery( sortBy, filterBy, filterValue );
+		const dataStream = this.db.list( this.tableName, { query: query } ).take( 1 );
+		return this.mapListToModel( dataStream );
 	}
 
 	/*-----------------------------------------------------------------------
@@ -257,12 +287,12 @@ export abstract class DataService<T>
 		}
 	}
 
-	private prepareQuery(sortBy: SORT, filterBy: FILTER, filterValue?: string) : Query
+	private prepareQuery(sortBy: SORT | string, filterBy: FILTER, filterValue?: string) : Query
 	{
 
 		var query: Query = {};
 
-		switch (sortBy)
+		switch ( sortBy )
 		{
 			case SORT.KEY:
 				query.orderByKey = true;
@@ -276,11 +306,12 @@ export abstract class DataService<T>
 			case SORT.SEARCH_KEY:
 				query.orderByChild = this.searchKeyName;
 				break;
-			default: 
+			default:
+				query.orderByChild = <string>sortBy;
 				break;
 		} 
 
-		switch (filterBy) 
+		switch ( filterBy ) 
 		{
 			case FILTER.EQUAL_TO: 
 				query.equalTo = filterValue;

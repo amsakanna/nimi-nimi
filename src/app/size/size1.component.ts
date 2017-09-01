@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FILTER, SORT, STATUS } from '../app.enum';
 import { ActivatedRoute } from '@angular/router';
 import { SizeService } from '../services/all-data.service';
-import { AuthGuard } from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
 import { Size } from '../models/size.model';
 import { Observable } from 'rxjs';
 
@@ -93,7 +93,7 @@ export class SizeFormComponent implements OnInit
 
 	ngOnInit() {}
 	constructor(private sizeService: SizeService,
-				private authGuard: AuthGuard,
+				private authService: AuthService,
 				private route: ActivatedRoute) 
 	{
 		

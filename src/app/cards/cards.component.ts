@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FILTER, SORT, STATUS } from '../app.enum';
 import { CardService } from '../services/all-data.service';
-import { UserService } from '../services/all-data.service';
-import { AuthGuard } from '../services/auth.service';
+import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service';
 import { Card } from '../models/card.model';
 import { Observable } from 'rxjs';
 
@@ -20,15 +20,9 @@ export class CardsComponent implements OnInit
 
 	constructor(private cardService: CardService,
 				private userService: UserService,
-				private authGuard: AuthGuard)
+				private authService: AuthService)
 	{
-		this.authGuard.getAuth().subscribe(data => {
-			if ( data !== null ) {
-				this.userService.lookup(data.auth.email, 'email').subscribe(userJson => {
-					this.cardStream = this.cardService.getList(SORT.FOREIGN_KEY, FILTER.EQUAL_TO, userJson.$key);
-				});
-			}
-		});
+		this.cardStream = this.cardService.getList(SORT.FOREIGN_KEY, FILTER.EQUAL_TO, this.authService.user.$key);
 	}
 
 }

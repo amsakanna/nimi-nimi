@@ -50,10 +50,10 @@
 					</div>
 				</header>
 				<main *ngIf="showList['Card']">
-					<ul class="plain vertical floating-list">
+					<ul class="plain vertical floating">
 						<li class="plain"
 							*ngFor="let card of cardStream | async">
-							<div class="card floating-box" (click)="select( card, 'Card' )">
+							<div class="card" (click)="select( card, 'Card' )">
 								<div class="number"> {{ card.number }} </div>
 								<div class="holder-name"> {{ card.holderName }} </div>
 							</div>

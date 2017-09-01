@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthProviders } from 'angularfire2';
 import { LogService } from '../services/log.service';
-import { AuthGuard } from '../services/auth.service';
-import { UserService } from '../services/all-data.service';
+import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../models/user.model';
 
@@ -18,7 +18,7 @@ export class AuthComponent implements OnInit {
 	private loading: boolean;
 
 	constructor(private logService: LogService,
-				private authGuard: AuthGuard,
+				private authService: AuthService,
 				private route: ActivatedRoute,
 				private router: Router, private userService: UserService)
 	{
@@ -43,7 +43,7 @@ export class AuthComponent implements OnInit {
 	login(provider: string)
 	{
 		this.loading = true;
-		this.authGuard.login(AuthProviders.Google, this.returnUrl)
+		this.authService.login(AuthProviders.Google, this.returnUrl)
 			.then( (data) => {
 				this.loading = false;
 			})

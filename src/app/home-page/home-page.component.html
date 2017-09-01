@@ -1,19 +1,37 @@
 <div class="wrapper">
-     <header>
-        <div class="product-search-bar-container">
-            <div class="product-search-bar-pad"></div>
-            <div class="product-search-bar">
-                <app-product-search-bar (search)="search($event)"></app-product-search-bar>
-            </div>
-            <div class="product-search-bar-pad"></div>
-        </div>
-        <nav class="scrollable">
-                <div class="tag-container" *ngFor="let tag of tagStream | async">
-                    <a md-button><div class="tag"> {{ tag?.name }} </div></a>
-                </div>
-        </nav>
-    </header> 
+
+    <header>
+
+        <section class="home menu">
+            <a md-fab [routerLink]="['/']">
+                <md-icon> device_hub </md-icon>
+            </a>
+        </section>
+
+        <section class="user menu">
+            <a md-fab [routerLink]="['/user']">
+                <md-icon> account_circle </md-icon>
+            </a>
+        </section>
+
+    </header>
+
     <main>
-        <router-outlet></router-outlet>
+        <router-outlet>            
+        </router-outlet>
     </main>
+
+    <footer>
+
+        <section class="placeholder">
+        </section>
+
+        <section class="cart menu">
+            <a md-fab [routerLink]="['/cart']">
+                <md-icon> shopping_cart </md-icon>
+            </a>
+        </section>
+        
+    </footer>
+
 </div>

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService, CartItemService, UserService } from '../services/all-data.service';
-import { AuthGuard } from '../services/auth.service';
+import { Router } from "@angular/router";
+import { FILTER, SORT } from '../app.enum';
+import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
+import { ProductService, CartItemService } from '../services/all-data.service';
 import { Product } from '../models/product.model';
 import { CartItem } from '../models/cart-item.model';
 import { Cart } from '../models/cart.model';
 import { User } from '../models/user.model';
-import { FILTER, SORT } from '../app.enum';
-import { Router } from "@angular/router";
 
 @Component({
 	selector: 'app-cart-page',
@@ -24,30 +25,22 @@ export class CartPageComponent implements OnInit {
 	constructor(private productService: ProductService,
 				private cartItemService: CartItemService,
 				private userService: UserService,
-				private authGuard: AuthGuard,
+				private authService: AuthService,
 				private router: Router)
 	{
 		this.cart = new Cart();
-		this.authGuard.getAuth().subscribe( data => {
-			if ( data !== null ) {
-				this.userService
-					.lookup( data.auth.email, 'email' )
-					.subscribe( userJson => {
-						this.cart.user = new User(userJson);
-						this.cartItemService
-							.getList(SORT.FOREIGN_KEY, FILTER.EQUAL_TO, this.cart.user.$key)
-							.subscribe( cartItemList => {
-								cartItemList.forEach( cartItem => {
-									this.productService
-										.getObject( cartItem.product.$key )
-										.subscribe( product => {
-											cartItem.product = product;
-										});
-								});
-								this.cart.items = cartItemList;
-							});
-					});
-			};
+		this.cart.user = this.authService.user;		
+		this.cartItemService
+		.getList(SORT.FOREIGN_KEY, FILTER.EQUAL_TO, this.cart.user.$key)
+		.subscribe( cartItemList => {
+			cartItemList.forEach( cartItem => {
+				this.productService
+				.getObject( cartItem.product.$key )
+				.subscribe( product => {
+					cartItem.product = product;
+				});
+			});
+			this.cart.items = cartItemList;
 		});
 	}
 

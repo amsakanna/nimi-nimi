@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../models/product.model';
 import { Picture } from '../models/picture.model';
 import { Index } from '../models/index.model';
+import { g } from '../app.global';
 
 @Component({
 	selector: 'app-products-page',
@@ -14,11 +15,11 @@ import { Index } from '../models/index.model';
 })
 export class ProductsPageComponent implements OnInit {
 
-	private productStream: Observable<Product[]>;
-	private productList: Product[];
-	private pictureStream: Observable<Picture[]>;
-	private searchKey: string;
-	private searchKeySub: Subscription;
+	productStream: Observable<Product[]>;
+	productList: Product[];
+	pictureStream: Observable<Picture[]>;
+	searchKey: string;
+	searchKeySub: Subscription;
 
   	ngOnInit() {}
 	constructor(private route: ActivatedRoute,
@@ -29,35 +30,52 @@ export class ProductsPageComponent implements OnInit {
 	{
 		this.searchKeySub = this.route.queryParams.subscribe(params => 
 		{
+
 			var keyword: string = params[ 'keyword' ] || '';
-			if( keyword == '' )
-				alert('Enter some keywords to search');
 			this.searchKey = keyword.toLowerCase();
+			this.productList = new Array<Product>();
 			
-			this.indexService
-				.getObject( this.searchKey ).take(1)
+			if( this.searchKey == '' )
+			{				
+				this.productService
+				.getList( SORT.NONE, FILTER.NONE )
+				.subscribe( productList => productList.forEach( product => {
+					// get pictures for product
+					this.pictureService
+					.getObject( product.picture.$key )
+					.subscribe( picture => {
+						product.picture = picture;
+						this.productList.push( product );
+					});
+				}));
+			}
+			else
+			{				
+				this.indexService
+				.getObject( this.searchKey )
 				.subscribe( index => {
-					this.productList = new Array<Product>();
 					if( !index || !index.matchList || index.matchList.length <= 0 )
 						return;
 					// get all matches
+					var i: number = 0;
 					index.matchList
-						.filter( match => match.subject == 'Product' )
-						.forEach( match => {
-							// get product
-							this.productService
-								.getObject( match.subjectKey ).take(1)
-								.subscribe( product => {
-									// get pictures for product
-									this.pictureService
-										.getObject( product.picture.$key ).take(1)
-										.subscribe( picture => {
-											product.picture = picture;
-											this.productList.push( product );
-										});
-								});
+					.filter( match => match.subject == 'Product' )
+					.forEach( match => {
+						// get product
+						this.productService
+						.getObject( match.subjectKey )
+						.subscribe( product => {
+							// get pictures for product
+							this.pictureService
+							.getObject( product.picture.$key )
+							.subscribe( picture => {
+								product.picture = picture;
+								this.productList.push( product );
+							});
 						});
-				})
+					});
+				});
+			}
 		});
 	}
  

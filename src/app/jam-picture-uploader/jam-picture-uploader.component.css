@@ -1,0 +1,43 @@
+.jam-picture-uploader {
+	width: 100%;
+	height: 250px;
+}
+
+.jam-picture-uploader > header {
+    padding: 10px 0px;
+}
+
+.jam-picture-uploader > main {
+	display: flex;
+	justify-content: space-between;
+}
+
+.jam-picture-uploader-title {
+    color: gray;
+    font-weight: bold;
+}
+
+#jam-picture-uploader-input {
+     display: none; 
+}
+
+.jam-picture-uploader-picture-list {
+	flex-grow: 1;
+}
+
+.jam-picture-uploader-picture-list > li {
+    background-color: white;
+    padding: 10px;
+}
+
+.jam-picture-uploader-add-picture-button {
+    transition: all 0.2s ease-out;
+}
+
+.jam-picture-uploader-picture {
+    mix-blend-mode: multiply;
+}
+
+.scroll-button /deep/ .mat-icon {
+    transition: all 0.2s ease-out;
+}

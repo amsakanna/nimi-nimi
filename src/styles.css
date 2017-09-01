@@ -187,7 +187,13 @@ md-nav-list {
 }
 
 .scrollable {
-    overflow-y: scroll;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+}
+
+.horizontal.scrollable {
+    overflow-x: auto;
     -ms-overflow-style: none;
     overflow: -moz-scrollbars-none;
 }
@@ -242,8 +248,7 @@ ul.horizontal {
 }
 
 ul.horizontal li {    
-    margin-left: 20px;
-    padding: 20px;
+    margin-left: 40px;
     flex: 0 0 auto;
 }
 
@@ -251,9 +256,14 @@ ul.horizontal li:first-child {
     margin-left: 0px !important;
 }
 
-ul.floating-list {
-    background-color: rgba(0, 0, 0, 0.05);
-    padding: 20px;
+ul.floating {
+    padding: 30px;
+}
+
+ul.floating > li {
+    background-color: rgb(247, 250, 255);
+    border-radius: 5px;
+    box-shadow: 6px 6px 80px 0px rgba(0, 0, 0, 0.1) !important;
 }
 
 ul.vertical {
@@ -264,7 +274,7 @@ ul.vertical {
 }
 
 ul.vertical li {
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
 ul.vertical li:first-child {

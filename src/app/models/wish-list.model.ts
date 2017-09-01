@@ -1,22 +1,19 @@
-interface IWishList
-{
-    $key: string; userKey: string; name: string;
-}
+import { User } from "./user.model";
 
 export class WishList
 {
 
     $key: string;
-    userKey: string;
+    user: User;
     name: string;
 
-    constructor();
-    constructor(object: IWishList);
     constructor(object?: any)
     {
-        this.$key = object ? object.$key : '';
-        this.userKey = object ? object.userKey : '';
-        this.name = object ? object.name : '';
+        object = object ? object : {};
+        this.$key = object.$key ? object.$key : '';
+        this.user = object.user ? object.user : object.userKey
+            ? new User({ $key: object.userKey }) : new User();
+        this.name = object.name ? object.name : '';
     }
 
 }

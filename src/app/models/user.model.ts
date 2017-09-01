@@ -23,4 +23,10 @@ export class User
         this.type = object.type ? object.type : 0;
     }
 
+    setLoading()
+    {
+        if( ! this.photo )
+            this.photo = 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif';
+    }
+
 }

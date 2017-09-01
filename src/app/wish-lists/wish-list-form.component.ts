@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { WishListService } from '../services/all-data.service';
-import { AuthGuard } from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
 import { User } from '../models/user.model';
 import { WishList } from '../models/wish-list.model';
 import { ActivatedRoute } from '@angular/router';
@@ -13,52 +13,51 @@ import { ActivatedRoute } from '@angular/router';
 				subtitle="edit"
 				[formElements]="formElements"
 				[dataService]="wishListService"
-				returnUrl="/user/wish-lists">
+				[returnUrl]="returnUrl">
 		</jam-form>
 	`
 })
 export class WishListFormComponent implements OnInit 
 {
 
+	private returnUrl: string;
 	private formElements: any[];
-	private currentUser: User;
-	private item: WishList;
+	private wishList: WishList;
 
 	ngOnInit() {}
 
-	constructor(private wishListService: WishListService,
-				private authGuard: AuthGuard,
-				private route: ActivatedRoute) 
+	constructor(private route: ActivatedRoute,
+				private authService: AuthService,
+				private wishListService: WishListService)
 	{
 		
-		this.formElements = this.generateFormElements(this.item);
-
-		var key = this.route.snapshot.params['key'];
-		this.authGuard.getUser().subscribe(user => 
-		{
-			this.currentUser = user;
-			if(key == 'new') {
-				this.formElements = this.generateFormElements(this.item);
-			} else {
-				this.wishListService.getObject(key).subscribe(object => {
-					this.item = object;
-					this.formElements = this.generateFormElements(this.item);
-				});
-			}
+		this.returnUrl = '/user/wish-lists';
+		this.wishList = new WishList({
+			$key: this.route.snapshot.params['key'],
+			user: this.authService.user
 		});
+		
+		this.generateFormElements();
+
+		if( this.wishList.$key != 'new' )
+		{
+			this.wishListService
+			.getObject( this.wishList.$key )
+			.subscribe( wishList => {
+				this.wishList = wishList;
+				this.generateFormElements();
+			});
+		}
 
 	}
 
-	generateFormElements(item: WishList) : any[]
+	generateFormElements()
 	{
-		if(item === undefined)
-			item = new WishList();
-		var formElements = [
-			{ key: '$key', exclude: true, initialValue: item.$key },
-			{ key: 'userKey', exclude: true, initialValue: this.currentUser ? this.currentUser.$key : '' },
-			{ key: 'name', exclude: false, initialValue: item.name, type: 'text', placeHolder: 'Name', formControlName: 'name' },
+		this.formElements = [
+			{ key: '$key', exclude: true, initialValue: this.wishList.$key },
+			{ key: 'userKey', exclude: true, initialValue: this.wishList.user.$key },
+			{ key: 'name', exclude: false, initialValue: this.wishList.name, type: 'text', placeHolder: 'Name', formControlName: 'name' },
 		];
-		return formElements;
 	}
 
 }

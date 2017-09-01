@@ -6,8 +6,7 @@
 		</div>
 	</header>
 	<main class="scrollable">
-		<ul class="plain">
-			<li *ngFor="let item of stream | async; let i = index"
+			<div *ngFor="let item of stream | async; let i = index"
 				class="jam-list-item plain"
 				(click)="_select(item, i); $event.stopImmediatePropagation();"
 				(mouseenter)="_hoveredIndex = i"
@@ -28,8 +27,7 @@
 						}"></template>
 					</section>
 				</div>
-			</li>
-		</ul>		
+			</div>
 	</main>
 	<footer>
 		<a md-button disableRipple *ngIf="!hideNewButton"

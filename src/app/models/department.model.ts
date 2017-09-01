@@ -2,16 +2,15 @@ export class Department
 {
 
     $key: string;
-    id: string;    
+    id: string;
     name: string;
-    path: string;
 
-    constructor(object?: {$key, id, name, path})
+    constructor(object?: any)
     {
-        this.$key = object ? object.$key : '';
-        this.id = object ? object.id : '';
-        this.name = object ? object.name : '';
-        this.path = object ? object.path : '';
+        object = object ? object : {};
+        this.$key = object.$key ? object.$key : '';
+        this.id = object.id ? object.id : '';
+        this.name = object.name ? object.name : '';
     }
 
 }

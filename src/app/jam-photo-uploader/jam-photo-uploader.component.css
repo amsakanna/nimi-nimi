@@ -1,0 +1,18 @@
+.jam-photo-uploader, .jam-photo-uploader-photo-container, .jam-photo-uploader-photo {
+	width: 100%;
+	height: 100%;
+}
+
+#jam-photo-uploader-input {
+     display: none; 
+}
+
+.jam-photo-uploader-photo-container {
+    border: 3px solid lightgray;
+    border-radius: 3px;
+    transition: all 0.2s ease-out;
+}
+
+.jam-photo-uploader-photo {
+    object-fit: fill;
+}

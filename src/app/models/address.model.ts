@@ -1,8 +1,10 @@
+import { User } from "./user.model";
+
 export class Address
 {
 
     $key: string;
-    userKey: string;    
+    user: User;    
     type: string;
     name: string;
     phone: string;
@@ -12,19 +14,20 @@ export class Address
     state: string;
     country: string;
 
-    constructor(object?: any)
+    constructor( object?: any )
     {
         object = object ? object : {};
-        this.$key = object ? object.$key : '';
-        this.userKey = object ? object.userKey : '';
-        this.name = object ? object.name : '';
-        this.phone = object ? object.phone : '';
-        this.pinCode = object ? object.pinCode : '';
-        this.type = object ? object.type : '';
-        this.streetAddress = object ? object.streetAddress : '';
-        this.city = object ? object.city : '';
-        this.state = object ? object.state : 'Tamil Nadu';
-        this.country = object ? object.country : 'India';
+        this.$key = object.$key ? object.$key : '';
+        this.user = object.user ? object.user : object.userKey
+            ? new User( { $key: object.userKey } ) : new User();
+        this.name = object.name ? object.name : '';
+        this.phone = object.phone ? object.phone : '';
+        this.pinCode = object.pinCode ? object.pinCode : '';
+        this.type = object.type ? object.type : '';
+        this.streetAddress = object.streetAddress ? object.streetAddress : '';
+        this.city = object.city ? object.city : '';
+        this.state = object.state ? object.state : 'Tamil Nadu';
+        this.country = object.country ? object.country : 'India';
     }
 
 }

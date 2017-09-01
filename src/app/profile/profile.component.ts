@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FILTER, SORT, STATUS } from '../app.enum';
-import { AuthGuard } from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
 import { User } from '../models/user.model';
 import { Observable } from 'rxjs';
 
@@ -16,19 +16,9 @@ export class ProfileComponent implements OnInit
 
 	ngOnInit() {}
 
-	constructor(private authGuard: AuthGuard)
+	constructor(private authService: AuthService)
 	{
-		this.user = new User({
-			$key: '',
-			firstName: '',
-			lastName: '',
-			email: '',
-			photo: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif',
-			gender: '',
-			rating: 0,
-			type: 0					
-		});
-		this.authGuard.getUser().subscribe( user => this.user = user );
+		this.user = this.authService.user;
 	}
 
 }

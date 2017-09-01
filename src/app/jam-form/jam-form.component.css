@@ -1,12 +1,22 @@
-.jam-form {
-    width: 500px;
-    height: calc(100% - 200px);
+.jam-form-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
-header {
+.jam-form {
+    min-width: 500px;
+    height: 100%;
+}
+
+.jam-form > header {
     position: relative;
     padding: 50px 50px;
     border-bottom: 2px solid rgb(223, 226, 232);
+}
+
+.jam-form-title-container {
+    flex-grow: 1;
 }
 
 .jam-form-title {
@@ -14,27 +24,37 @@ header {
     font-size: 2em;    
 }
 
-.jam-form-title-container {
-    flex-grow: 1;
+.jam-form > main {
+    padding: 50px 100px;
+    height: calc(100% - 337px);    
 }
 
-.jam-form-close-button.mat-button {
-    position: absolute;
-    top: 0px; right: 0px;
-    min-width: auto !important;
-    padding: 10px;
+.jam-form-element-list {
+    height: 100%;
 }
 
-.jam-form-close-button.mat-button-focus-overlay {
-    display: none;
+.jam-form-element > section {
+    padding-top: 20px;
+    padding-right: 50px;
 }
 
-main {
-    padding: 20px 100px;
-    min-height: 300px; height: calc(100% - 277px);
+.jam-form-element:first-child > section {
+    padding-top: 0px;
 }
 
-footer {
+.jam-form-dropdown-element {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    min-width: 150px; 
+}
+
+.jam-form-photo-uploader-element {
+    padding-bottom: 50px;
+    width: 200px;
+    height: 200px;
+}
+
+.jam-form > footer {
     padding: 20px;
     display: flex;
     justify-content: center;
@@ -42,8 +62,6 @@ footer {
     border-top: 2px solid rgb(223, 226, 232);
 }
 
-.footer-left {
+.jam-form > footer > .left {
     flex-grow: 1;
 }
-
-

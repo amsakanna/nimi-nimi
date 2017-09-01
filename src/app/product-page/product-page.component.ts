@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProductService, PictureService, BrandService, CartItemService, UserService } from '../services/all-data.service';
-import { AuthGuard } from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
+import { ProductService, PictureService, BrandService, CartItemService } from '../services/all-data.service';
 import { FILTER, SORT } from '../app.enum';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../models/product.model';
@@ -23,7 +24,7 @@ export class ProductPageComponent implements OnInit {
 				private pictureService: PictureService,
 				private cartItemService: CartItemService,
 				private userService: UserService,
-				private authGuard: AuthGuard)
+				private authService: AuthService)
 	{
 		var key = this.route.snapshot.params['key'];
 		this.productService
@@ -41,27 +42,22 @@ export class ProductPageComponent implements OnInit {
 
 	addToCart()
 	{
-		this.authGuard.getAuth().subscribe( data => {
-			if ( data !== null ) {
-				this.userService
-					.lookup( data.auth.email, 'email' )
-					.subscribe( userJson => {						
-						var newCartItem = {
-							$key: userJson.$key + this.product.$key,
-							userKey: userJson.$key,
-							productKey: this.product.$key,
-							units: 1
-						};
-						this.cartItemService
-							.getObject( newCartItem.$key )
-							.subscribe( cartItem => {
-								newCartItem.units = cartItem.units + 1
-								this.cartItemService.upsert(newCartItem, newCartItem.$key);
-								alert('Item added to cart. Total units: ' + newCartItem.units);
-							});
+		var newCartItem = {
+			$key: this.authService.user.$key + this.product.$key,
+			userKey: this.authService.user.$key,
+			productKey: this.product.$key,
+			units: 1
+		};
+		this.cartItemService
+			.getObject( newCartItem.$key )
+			.subscribe( cartItem => {
+				newCartItem.units = cartItem.units + 1
+				this.cartItemService
+					.upsert( newCartItem, newCartItem.$key )
+					.subscribe( () => {
+						alert('Item added to cart. Total units: ' + newCartItem.units);
 					});
-			};
-		});
+			});
 	}
 
 }

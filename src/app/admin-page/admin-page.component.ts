@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { RouterService } from '../services/router.service';
-import { AuthGuard } from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
 import { NavigationItem } from '../models/navigationItem.model';
 
 @Component({
@@ -17,7 +17,7 @@ export class AdminPageComponent implements OnInit
 
 	constructor(private router: Router,	
 				private routerService: RouterService,
-				private authGuard: AuthGuard)
+				private authService: AuthService)
 	{
 		this.navigationList = this.routerService.requestRoutes([
 			'/admin/transaction/inventory',
@@ -32,7 +32,7 @@ export class AdminPageComponent implements OnInit
 
 	logout()
 	{
-		this.authGuard.logout();
+		this.authService.logout();
 		this.router.navigateByUrl('/home');
 	}
 

@@ -16,6 +16,16 @@ declare global {
 	{
 		percentOf( amount: number ): number;
 	}
+
+	interface FileReaderEventTarget extends EventTarget {
+		result:string
+	}
+
+	interface FileReaderEvent extends Event {
+		target: FileReaderEventTarget;
+		getMessage():string;
+	}
+	
 }
 
 Array.prototype.doesExist = function ( item ) 

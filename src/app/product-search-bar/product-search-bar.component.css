@@ -23,7 +23,7 @@
 .product-search-box {    
     flex-grow: 1;
     padding-left: 20px;
-    height: 45px;
+    height: 50px;
     border: none;
     border-radius: 3px;
     outline: none;
@@ -44,7 +44,7 @@
     top: 4px;
     right: 4px;
     min-width: 50px !important;
-    height: 39px;
+    height: 44px;
     background-color: black;
     border-radius: 5px;
 }

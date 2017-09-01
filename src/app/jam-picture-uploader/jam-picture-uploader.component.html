@@ -1,0 +1,47 @@
+<div class="jam-picture-uploader">
+	<header>
+		<div class="jam-picture-uploader-title-container">
+			<div class="jam-picture-uploader-title"> {{ title }} </div>
+		</div>
+	</header>
+	<main>
+		<input id="jam-picture-uploader-input"
+			type="file" value="upload" multiple
+			(change)="_previewSelectedFiles($event, formElement)" />
+		<button md-button disableRipple
+			type="button"
+			class="scroll-button no-animation compact"
+			(click)="scrollme('left')">
+			<md-icon> keyboard_arrow_left </md-icon>
+		</button>
+		<ul #pictureList id="picture-list"
+			class="jam-picture-uploader-picture-list plain horizontal scrollable floating"
+			(mousewheel)="scrollme('right')">
+			<li class="jam-picture-uploader-add-picture-button plain"
+				(click)="_showFileDialog()"
+				(mouseenter)="overAddButton = true"
+				(mouseleave)="overAddButton = false"
+				[style.transform]="overAddButton ? 'scale(0.95)' : 'scale(1)'">
+				<img class="jam-picture-uploader-picture"
+					[src]="addButtonPictureUrl"
+					[style.width]="pictureWidth"
+					[style.height]="pictureHeight" />
+			</li>
+			<li *ngFor="let pictureSource of pictureSourceList"
+				class="plain">
+				<img class="jam-picture-uploader-picture"
+					[src]="pictureSource"
+					[style.width]="pictureWidth"
+					[style.height]="pictureHeight" />
+			</li>
+		</ul>
+		<button md-button disableRipple
+			type="button"
+			class="scroll-button no-animation compact"
+			(click)="scrollme('right')"
+			(mouseenter)="overScrollRightButton = true"
+			(mouseleave)="overScrollRightButton = false">
+			<md-icon [style.transform]="overScrollRightButton ? 'scale(1.05)' : 'scale(1)'"> keyboard_arrow_right </md-icon>
+		</button>
+	</main>
+</div>

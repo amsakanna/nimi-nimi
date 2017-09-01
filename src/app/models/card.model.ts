@@ -1,23 +1,29 @@
+import { User } from "./user.model";
+import { Address } from "./address.model";
+
 export class Card
 {
 
 	$key: string;
-	userKey: string;
-	billingAddressKey: string;
+	user: User;
+	billingAddress: Address;
 	holderName: string;
 	number: string;
 	expiryDate: Date;
     cvv: number;
     
-    constructor(object?: { $key, userKey, billingAddressKey, holderName, number, expiryDate, cvv })
+    constructor( object?: any )
     {
-        this.$key = object ? object.$key : '';
-        this.userKey = object ? object.userKey : '';
-        this.billingAddressKey = object ? object.billingAddressKey : '';
-        this.holderName = object ? object.holderName : '';
-        this.number = object ? object.number : '';
-        this.expiryDate = object ? object.expiryDate : '';
-        this.cvv = object ? object.cvv : '';
+        object = object ? object : {};
+        this.$key = object.$key ? object.$key : '';
+        this.user = object.user ? object.user : object.userKey
+            ? new User({ $key: object.userKey }) : new User();
+        this.billingAddress = object.billingAddress ? object.billingAddress : object.billingAddressKey
+            ? new Address( { $key: object.billingAddressKey }) : new Address();
+        this.holderName = object.holderName ? object.holderName : '';
+        this.number = object.number ? object.number : '';
+        this.expiryDate = object.expiryDate ? object.expiryDate : new Date();
+        this.cvv = object.cvv ? object.cvv : '';
     }
 
 }

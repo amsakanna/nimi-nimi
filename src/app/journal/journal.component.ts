@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FILTER, SORT, STATUS } from '../app.enum';
 import { ActivatedRoute } from '@angular/router';
 import { JournalService } from '../services/all-data.service';
-import { AuthGuard } from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
 import { Journal } from '../models/journal.model';
 import { Observable } from 'rxjs';
 
@@ -91,7 +91,7 @@ export class JournalFormComponent implements OnInit
 
 	ngOnInit() {}
 	constructor(private journalService: JournalService,
-				private authGuard: AuthGuard,
+				private authService: AuthService,
 				private route: ActivatedRoute) 
 	{
 		

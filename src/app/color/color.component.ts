@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FILTER, SORT, STATUS } from '../app.enum';
 import { ActivatedRoute } from '@angular/router';
 import { ColorService } from '../services/all-data.service';
-import { AuthGuard } from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
 import { Color } from '../models/color.model';
 import { Observable } from 'rxjs';
 
@@ -96,7 +96,7 @@ export class ColorFormComponent implements OnInit
 
 	ngOnInit() {}
 	constructor(private colorService: ColorService,
-				private authGuard: AuthGuard,
+				private authService: AuthService,
 				private route: ActivatedRoute) 
 	{
 		
