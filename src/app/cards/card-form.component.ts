@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { CardService, AddressService } from '../services/all-data.service';
-import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
 import { Card } from '../models/card.model';
 import { ActivatedRoute } from '@angular/router';
@@ -27,14 +27,14 @@ export class CardFormComponent implements OnInit
 	ngOnInit() {}
 
 	constructor(private route: ActivatedRoute,
-				private authService: AuthService,				
+				private userService: UserService,				
 				private cardService: CardService,					
 				private addressService: AddressService)
 	{
 		this.returnUrl = '/user/cards';
 		this.card = new Card({
 			$key: this.route.snapshot.params['key'],
-			user: this.authService.user
+			user: this.userService.user
 		});
 		
 		this.generateFormElements();

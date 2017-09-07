@@ -10,16 +10,14 @@ import { Address } from '../models/address.model';
 })
 export class AddressComponent implements OnInit {
 
-	private item: Address;
-
+	private address: Address;
+	
+	ngOnInit() {}
 	constructor(private route: ActivatedRoute,
 				private addressService: AddressService)
 	{
 		var key = this.route.snapshot.params['key'];
-		this.addressService.getObject(key).subscribe( object => this.item = object );
+		this.addressService.getObject(key).subscribe( object => this.address = object );
 	}
-
-	ngOnInit() {
-	}
-
+	
 }

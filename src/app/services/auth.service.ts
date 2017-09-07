@@ -1,93 +1,69 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs/Rx';
+import { Router } from '@angular/router';
 import { AngularFireAuth, AuthProviders, AuthMethods, FirebaseAuthState } from 'angularfire2';
-import { UserService } from './user.service';
+import { EVENT } from "../app.enum";
+import { Auth } from '../models/auth.model';
 import { User } from '../models/user.model';
+import { Navigator } from "./navigator.service";
+import { AuthEvent } from "../models/event.model";
 
 @Injectable()
-export class AuthService implements CanActivate {
+export class AuthService
+{
 
-	user: User;
+	auth: Observable<Auth>;
+	authenticated: Observable<boolean>;
 
 	constructor(private router: Router,
-				private auth: AngularFireAuth,
-				private userService: UserService) {}
-
-	canActivate(activatedRouteSnapshot: ActivatedRouteSnapshot, 
-				routerStateSnapshot: RouterStateSnapshot): Observable<boolean>
+				private angularFireAuth: AngularFireAuth,
+				private navigator: Navigator)
 	{
 
-		this.resetUser();
-
-		return this.auth
-		.asObservable()
-		.map( authState => {
-			let authenticated = this.createUser( authState );
-			return { authenticated: authenticated, user: this.user };
-		})
-		.concatMap( auth => {
-			if( auth.authenticated ) {
-				return this.userService
-				.insertIfNew( auth.user, auth.user.email, 'email' )
-				.map( dataServiceObject => {
-					this.user = dataServiceObject.object;
-					return true;
+		this.auth = this.angularFireAuth
+			.asObservable()
+			.map( authState => {
+				return new Auth({
+					loggedIn: !! authState,
+					user: this.createUser( authState )
 				});
-			} else {
-				return Observable.of( false );
-			}
-		})
-		.do( authenticated => {
-			if( ! authenticated ) {
-				this.router.navigateByUrl( '/auth', { 
-					queryParams: { returnUrl: routerStateSnapshot.url }
-				});
-			}
-		});
-
-	}
-
-	createUser( authState: FirebaseAuthState ) : boolean
-	{
-		if( ! authState ) {
-			this.resetUser();
-			return false;
-		}
-
-		this.user = new User({
-			firstName: authState.auth.displayName,
-			email: authState.auth.email,
-			photo: authState.auth.photoURL,
-		});
-
-		return true;
+			});
+		
+		this.authenticated = this.angularFireAuth
+			.asObservable()
+			.map( authState => !! authState );
 		
 	}
 
-	resetUser() {
-		this.user = new User();
+	createUser( authState: FirebaseAuthState ) : User
+	{
+		return new User({
+			firstName: authState ? authState.auth.displayName : '',
+			email: authState ? authState.auth.email : '',
+			photo: authState ? authState.auth.photoURL : '',
+		});
 	}
 
 	login(provider: AuthProviders, returnUrl: string)
 	{
-		return this.auth
+		this.angularFireAuth
 		.login({
 			provider: provider,
 			method: AuthMethods.Popup
 		})
 		.then( authState => {
-			this.createUser( authState );
-			this.router.navigateByUrl( returnUrl );
+			this.navigator.event.next( new AuthEvent( { name: EVENT.LOG_IN, returnUrl: returnUrl } ) );
+		})
+		.catch( (error: any) => {
+			alert( error.code + '\n' + error.message );
 		});
 	}
 
-	logout() : Promise<any>
+	logout()
 	{
-		return this.auth.logout()
+		this.angularFireAuth.logout()
 		.then( () => {
-			this.resetUser();
-			this.router.navigateByUrl('/');
+			this.navigator.event.next( new AuthEvent( { name: EVENT.LOG_OUT } ) );
 		});
 	}
 

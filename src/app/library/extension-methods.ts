@@ -4,12 +4,12 @@ declare global {
 
 	interface Array<T> 
 	{
-		doesExist( item: T ): boolean;
+		contains( item: T ): boolean;
 	}
 
 	interface String 
 	{
-		doesExist( searchString: string, ignoreCase?: boolean ): boolean;
+		contains( searchString: string, ignoreCase?: boolean ): boolean;
 	}
 
 	interface Number 
@@ -28,12 +28,12 @@ declare global {
 	
 }
 
-Array.prototype.doesExist = function ( item ) 
+Array.prototype.contains = function ( item ) 
 {
 	return this.indexOf(item) >= 0;
 };
 
-String.prototype.doesExist = function ( searchString, ignoreCase? ) 
+String.prototype.contains = function ( searchString, ignoreCase? ) 
 {	
 	if(ignoreCase) {
 		return this.toLowerCase().indexOf( searchString.toLowerCase() ) >= 0;

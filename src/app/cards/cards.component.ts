@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FILTER, SORT, STATUS } from '../app.enum';
 import { CardService } from '../services/all-data.service';
 import { UserService } from '../services/user.service';
-import { AuthService } from '../services/auth.service';
 import { Card } from '../models/card.model';
 import { Observable } from 'rxjs';
 
@@ -19,10 +18,9 @@ export class CardsComponent implements OnInit
 	ngOnInit() {}
 
 	constructor(private cardService: CardService,
-				private userService: UserService,
-				private authService: AuthService)
+				private userService: UserService)
 	{
-		this.cardStream = this.cardService.getList(SORT.FOREIGN_KEY, FILTER.EQUAL_TO, this.authService.user.$key);
+		this.cardStream = this.cardService.getList(SORT.FOREIGN_KEY, FILTER.EQUAL_TO, this.userService.user.$key);
 	}
 
 }

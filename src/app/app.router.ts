@@ -29,9 +29,12 @@ import { OrdersComponent } from "./orders/orders.component";
 import { AuthComponent } from "./auth/auth.component";
 import { AuthService } from "./services/auth.service";
 import { UserService } from "./services/user.service";
+import { MetaService } from "./services/meta.service";
+import { AuthGuard, UserGuard, InterfaceDataGuard, MetaGuard } from "./services/guard.service";
 
-const APP_ROUTES: Routes = [
-    { path: '', component: HomePageComponent, children: [
+const appRoutes: Routes = [
+    { path: 'home', redirectTo: '', pathMatch: 'full' },
+    { path: '', component: HomePageComponent, canActivate: [ InterfaceDataGuard, MetaGuard ], children: [
         { path: '', redirectTo: 'products', pathMatch: 'full' },
         { path: 'auth', component: AuthComponent },
         { path: 'products', component: ProductsPageComponent, children: [
@@ -39,17 +42,19 @@ const APP_ROUTES: Routes = [
                 { path: '', component: ProductPageComponent }
             ]}
         ]},
-        { path: 'user', component: UserPageComponent, canActivate: [AuthService], children: [
+        { path: 'cart', canActivate: [ AuthGuard, UserGuard ], children: [
+            { path: '', component: CartPageComponent },
+            { path: 'checkout', component: CheckoutPageComponent }
+            // , { path: 'place-order', component: PlaceOrderComponent }
+        ]},
+        { path: 'user', component: UserPageComponent, canActivate: [ AuthGuard, UserGuard ], children: [
             { path: '', component: ProfileComponent},
-            { path: 'cart', children: [
-                { path: '', component: CartPageComponent },
-                { path: 'checkout', component: CheckoutPageComponent }
-            ]},
             { path: 'profile', redirectTo: '', pathMatch: 'full' },
             { path: 'addresses', component: AddressesComponent },
             { path: 'addresses/:key', children: [
                 { path: '', component: AddressComponent },
-                { path: 'edit', component: AddressFormComponent }
+                { path: 'edit', component: AddressFormComponent },
+                { path: ':key', component: AddressComponent }
             ]},
             { path: 'cards', component: CardsComponent },
             { path: 'cards/:key', children: [
@@ -104,4 +109,4 @@ const APP_ROUTES: Routes = [
     ]}
 ];
 
-export const AppRouter = RouterModule.forRoot(APP_ROUTES);
+export const AppRouter = RouterModule.forRoot(appRoutes);

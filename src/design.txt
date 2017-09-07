@@ -115,3 +115,12 @@ whirlpool
 white
 	- item-4468
 	- item-6797
+
+
+journal : assignment
+inventory : dns
+brand : aspect_ratio
+department : group_work
+product : card_giftcard
+size : content_cut
+color : format_color_fill

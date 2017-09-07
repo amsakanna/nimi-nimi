@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { WishListService } from '../services/all-data.service';
-import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
 import { WishList } from '../models/wish-list.model';
 import { ActivatedRoute } from '@angular/router';
@@ -27,14 +27,14 @@ export class WishListFormComponent implements OnInit
 	ngOnInit() {}
 
 	constructor(private route: ActivatedRoute,
-				private authService: AuthService,
+				private userService: UserService,
 				private wishListService: WishListService)
 	{
 		
 		this.returnUrl = '/user/wish-lists';
 		this.wishList = new WishList({
 			$key: this.route.snapshot.params['key'],
-			user: this.authService.user
+			user: this.userService.user
 		});
 		
 		this.generateFormElements();

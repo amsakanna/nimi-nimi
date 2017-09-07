@@ -1,0 +1,13 @@
+<div class="jam-double-menu">
+
+    <jam-menu class="jam-double-menu-parent"
+            [menu]="parentMenu"
+            (select)="_select( $event )">
+    </jam-menu>
+
+    <jam-menu  class="jam-double-menu-child"
+                [menu]="menu"
+                (select)="_select( $event )">
+    </jam-menu>
+    
+</div>

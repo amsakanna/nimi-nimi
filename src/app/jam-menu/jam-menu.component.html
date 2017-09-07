@@ -1,0 +1,9 @@
+<div class="jam-menu">
+	<a md-button disableRipple
+		*ngFor="let menuItem of menu"
+		(click)="_select(menuItem)"
+		class="jam-menu-link compact no-focus no-animation"
+		[style.color]="menuItem.selected ? '#444' : '#aaa'">
+		{{ menuItem.text }}
+	</a>
+</div>

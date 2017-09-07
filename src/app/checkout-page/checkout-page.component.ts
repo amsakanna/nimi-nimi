@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs";
 import { Router } from "@angular/router";
 import { FILTER, SORT } from '../app.enum';
-import { AuthService } from '../services/auth.service';
 import { AddressService, CardService } from '../services/all-data.service';
 import { UserService } from '../services/user.service';
 import { DefaultService } from '../services/default.service';
@@ -24,7 +23,6 @@ export class CheckoutPageComponent implements OnInit {
 
 	ngOnInit() {}
 	constructor(private router: Router,
-				private authService: AuthService,				
 				private userService: UserService,
 				private defaultService: DefaultService,
 				private addressService: AddressService,
@@ -32,7 +30,7 @@ export class CheckoutPageComponent implements OnInit {
 	{
 		this.defaultService
 			.subject( 'User' )
-			.getObject( this.authService.user.$key )
+			.getObject( this.userService.user.$key )
 			.subscribe( defaultData => {
 				this.addressService
 					.getObject( defaultData.Address )
@@ -41,8 +39,8 @@ export class CheckoutPageComponent implements OnInit {
 					.getObject( defaultData.Card )
 					.subscribe( card => this.checkoutCard = card );
 			});
-		this.addressStream = this.addressService.getList( SORT.FOREIGN_KEY, FILTER.EQUAL_TO, this.authService.user.$key );
-		this.cardStream = this.cardService.getList( SORT.FOREIGN_KEY, FILTER.EQUAL_TO, this.authService.user.$key );
+		this.addressStream = this.addressService.getList( SORT.FOREIGN_KEY, FILTER.EQUAL_TO, this.userService.user.$key );
+		this.cardStream = this.cardService.getList( SORT.FOREIGN_KEY, FILTER.EQUAL_TO, this.userService.user.$key );
 
 	}
 

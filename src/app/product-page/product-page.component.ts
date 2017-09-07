@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthService } from '../services/auth.service';
-import { UserService } from '../services/user.service';
 import { ProductService, PictureService, BrandService, CartItemService } from '../services/all-data.service';
+import { UserService } from '../services/user.service';
 import { FILTER, SORT } from '../app.enum';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../models/product.model';
@@ -23,8 +22,7 @@ export class ProductPageComponent implements OnInit {
 				private brandService: BrandService,
 				private pictureService: PictureService,
 				private cartItemService: CartItemService,
-				private userService: UserService,
-				private authService: AuthService)
+				private userService: UserService)
 	{
 		var key = this.route.snapshot.params['key'];
 		this.productService
@@ -43,8 +41,8 @@ export class ProductPageComponent implements OnInit {
 	addToCart()
 	{
 		var newCartItem = {
-			$key: this.authService.user.$key + this.product.$key,
-			userKey: this.authService.user.$key,
+			$key: this.userService.user.$key + this.product.$key,
+			userKey: this.userService.user.$key,
 			productKey: this.product.$key,
 			units: 1
 		};

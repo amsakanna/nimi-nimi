@@ -1,0 +1,7 @@
+.jam-double-menu-parent /deep/ .jam-menu-link {
+    font-size: 1em;
+}
+
+.jam-double-menu-child /deep/ .jam-menu-link {
+    font-size: 1.8em !important;
+}

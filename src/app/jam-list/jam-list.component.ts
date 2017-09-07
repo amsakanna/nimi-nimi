@@ -47,11 +47,11 @@ export class JamListComponent implements OnInit
 	@Output() selectedItemChange = new EventEmitter<any>();
 	@Output() select = new EventEmitter();
 
-	constructor(private router: Router) { }
+	constructor( private router: Router ) { }
 
 	ngOnInit() { }
 
-	_search(text) 
+	_search( text ) 
 	{
 		this.search.emit( { value: text } );
 	}
@@ -61,7 +61,7 @@ export class JamListComponent implements OnInit
 		this.newItem.emit();
 	}
 
-	_select(item: any, index: number)
+	_select( item: any, index: number )
 	{
 		this._selectedItem = item;
 		this._selectedIndex = index;

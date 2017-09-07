@@ -98,8 +98,8 @@ export class JournalPageComponent implements OnInit {
 		else {
 			this.accountsBackup.forEach(account => 
 			{				
-				var accountMatchesInBackup = account.name.doesExist(key, true);
-				var i = this.accounts.indexOf(account);
+				var accountMatchesInBackup = account.name.contains( key, true );
+				var i = this.accounts.indexOf( account );
 				var accountMatches = (i >= 0);
 				if(accountMatchesInBackup && ! accountMatches)
 					this.accounts.push(account);

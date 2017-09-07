@@ -31,7 +31,6 @@ export class JamFormComponent implements OnInit
 	ngOnInit() {}
 	ngOnChanges( changes: SimpleChanges )
 	{
-		console.log( 'change triggered', changes );
 		this._refresh();
 	}
 
@@ -80,13 +79,10 @@ export class JamFormComponent implements OnInit
 
 		});
 
-		console.log( 'itemUnderChange', itemUnderChange );
-
 		this.preProcessUpdate( itemUnderChange )
 			.subscribe( uploadStatus => 
 			uploadStatus.subscribe( url => 
 				url.subscribe( preProcessedItem => {
-					console.log( 'preProcessedItem', preProcessedItem );
 					this.dataService
 						.upsert( preProcessedItem, preProcessedItem['$key'] )
 						.subscribe( () => {

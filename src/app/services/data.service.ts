@@ -108,6 +108,11 @@ export abstract class DataService<T>
 		},
 		DefaultService: {
 			tableName: 'Default'
+		},
+		NavigationItemService: {
+			tableName: 'Interface/Navigation/NavigationItem',
+			foreignKeyName: '',
+			searchKeyName: 'link'
 		}
 	}
     
@@ -144,7 +149,6 @@ export abstract class DataService<T>
 
 	insert(object: any) : DataServiceObject
 	{
-		console.log('insert');
 		this.dataServiceObject = new DataServiceObject({operation: DATABASE_OPERATION.INSERT, object: object});
 		this.dataServiceObject.object.$key = this.table.push(this.dataServiceObject.objectWithoutKey).key;
 		return this.dataServiceObject;
@@ -152,7 +156,6 @@ export abstract class DataService<T>
 
 	delete(object: any) : firebase.Promise<any>
 	{
-		console.log('delete');
 		this.dataServiceObject = new DataServiceObject({operation: DATABASE_OPERATION.DELETE, object: object});
 		if( ! this.isValidKey(this.dataServiceObject.object.$key))
 			return null;
@@ -172,7 +175,6 @@ export abstract class DataService<T>
 
 	update(object: any) : DataServiceObject
 	{
-		console.log('update');
 		this.dataServiceObject = new DataServiceObject({operation: DATABASE_OPERATION.UPDATE, object: object});
 		if( ! this.isValidKey(this.dataServiceObject.object.$key) )
 			return null;
@@ -203,7 +205,6 @@ export abstract class DataService<T>
 			object: object
 		});
 
-		console.log( 'looking up', lookupColumn, 'for', lookupValue );
 		return this
 		.lookup( lookupValue, lookupColumn )
 		.map( data => {
@@ -225,12 +226,10 @@ export abstract class DataService<T>
 			object: object
 		});
 
-		console.log( 'looking up', lookupColumn, 'for', lookupValue );
 
 		return this
 		.lookup( lookupValue, lookupColumn )
 		.map( data => {
-			console.log( 'looked up data', data );
 			this.dataServiceObject.object = data;
 			if( ! data && this.dataServiceObject.status != STATUS.FAILURE )
 				this.insert( this.dataServiceObject.object );
@@ -257,7 +256,6 @@ export abstract class DataService<T>
 
 	getObject( key: string ): Observable<T> 
 	{
-		console.log( 'getObject', this.tableName + '/' + key )
 		const dataStream = this.db.object(this.tableName + '/' + key ).take( 1 );
 		return this.mapObjectToModel( dataStream );
 	}
@@ -336,9 +334,9 @@ export abstract class DataService<T>
 
 	private mapListToModel( dataStream : Observable<any[]> ) 
 	{
-		return dataStream.map( list => {			
-			return list.map( object => this.createModel(object) );
-		});
+		return dataStream.map( list =>
+			list.map( object => this.createModel( object ) )
+		);
 	}
 
 	private mapObjectToModel( dataStream : Observable<any> ) 

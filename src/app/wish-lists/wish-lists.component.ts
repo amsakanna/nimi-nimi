@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FILTER, SORT, STATUS } from '../app.enum';
-import { AuthService } from '../services/auth.service';
 import { WishListService } from '../services/all-data.service';
+import { UserService } from '../services/user.service';
 import { WishList } from '../models/wish-list.model';
 import { User } from '../models/user.model';
 import { Observable } from 'rxjs';
@@ -16,9 +16,9 @@ export class WishListsComponent implements OnInit
 	private wishListStream: Observable<WishList[]>;
 
 	constructor(private wishListService: WishListService,
-				private authService: AuthService)
+				private userService: UserService)
 	{
-		this.wishListStream = this.wishListService.getList(SORT.FOREIGN_KEY, FILTER.EQUAL_TO, this.authService.user.$key);
+		this.wishListStream = this.wishListService.getList(SORT.FOREIGN_KEY, FILTER.EQUAL_TO, this.userService.user.$key);
 	}
 
 	ngOnInit() {

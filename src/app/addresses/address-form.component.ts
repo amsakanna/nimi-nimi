@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { AddressService } from '../services/all-data.service';
-import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
 import { Address } from '../models/address.model';
 import { ActivatedRoute } from '@angular/router';
@@ -27,13 +27,13 @@ export class AddressFormComponent implements OnInit
 	ngOnInit() {}
 
 	constructor(private addressService: AddressService,
-				private authService: AuthService,
+				private userService: UserService,
 				private route: ActivatedRoute) 
 	{
 		this.returnUrl = '/user/addresses';
 		this.address = new Address({
 			$key: this.route.snapshot.params['key'],
-			user: this.authService.user
+			user: this.userService.user
 		});
 		
 		this.generateFormElements();

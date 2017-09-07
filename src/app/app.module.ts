@@ -11,9 +11,10 @@ import { Router } from '@angular/router';
 import 'hammerjs';
 import { AppRouter } from './app.router';
 import { AppComponent } from './app.component';
-import { RouterService } from './services/router.service';
+import { Navigator } from './services/navigator.service';
 import { LogService } from './services/log.service';
 import { AuthService } from './services/auth.service';
+import { AuthGuard, UserGuard, InterfaceDataGuard, MetaGuard } from "./services/guard.service";
 
 import {
 	AddressService,
@@ -30,11 +31,12 @@ import {
   IndexService,
   ColorService,
   SizeService,
-  CartItemService
+  CartItemService,
+  NavigationItemService
 } from './services/all-data.service';
 import { KeyValService } from './services/key-val.service';
 import { DefaultService } from './services/default.service';
-import { MetadataService } from './services/metadata.service';
+import { MetaService } from './services/meta.service';
 import { UserService } from './services/user.service';
 
 import { HomePageComponent } from './home-page/home-page.component';
@@ -75,6 +77,8 @@ import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 import { JamFormNewComponent } from './jam-form-new/jam-form-new.component';
 import { JamPictureUploaderComponent } from './jam-picture-uploader/jam-picture-uploader.component';
 import { JamPhotoUploaderComponent } from './jam-photo-uploader/jam-photo-uploader.component';
+import { JamMenuComponent } from './jam-menu/jam-menu.component';
+import { JamDoubleMenuComponent } from './jam-double-menu/jam-double-menu.component';
 
 export const firebaseAppConfig : FirebaseAppConfig = {
     apiKey: "AIzaSyBV4KfPwTrqbFXzf7Sm6YAXkjSY1jSVcEk",
@@ -120,7 +124,7 @@ export const firebaseAppConfig : FirebaseAppConfig = {
     AuthComponent,
     ProductSearchBarComponent,
     ColorComponent, ColorFormComponent, ColorListComponent, 
-    SizeComponent, SizeFormComponent, SizeListComponent, CheckoutPageComponent, JamFormNewComponent, JamPictureUploaderComponent, JamPhotoUploaderComponent
+    SizeComponent, SizeFormComponent, SizeListComponent, CheckoutPageComponent, JamFormNewComponent, JamPictureUploaderComponent, JamPhotoUploaderComponent, JamMenuComponent, JamDoubleMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -133,10 +137,11 @@ export const firebaseAppConfig : FirebaseAppConfig = {
     ColorPickerModule
   ],
   providers: [
-    RouterService,
-    MetadataService,
+    AuthGuard, UserGuard, InterfaceDataGuard, MetaGuard,
+    MetaService,
     LogService,
     AuthService,
+    Navigator,
     KeyValService,
 	  ProductService,
     BrandService,
@@ -154,7 +159,8 @@ export const firebaseAppConfig : FirebaseAppConfig = {
     ColorService,
     SizeService,
     CartItemService,
-    DefaultService
+    DefaultService,
+    NavigationItemService
   ],
   bootstrap: [AppComponent]
 })

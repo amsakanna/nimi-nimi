@@ -321,7 +321,6 @@ export class ProductFormComponent implements OnInit
 
 	save()
 	{
-		console.log( this.formElements );
 	}
 
 }

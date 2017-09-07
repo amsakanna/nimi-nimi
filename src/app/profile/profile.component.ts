@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FILTER, SORT, STATUS } from '../app.enum';
-import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
 import { Observable } from 'rxjs';
 
@@ -16,9 +16,9 @@ export class ProfileComponent implements OnInit
 
 	ngOnInit() {}
 
-	constructor(private authService: AuthService)
+	constructor(private userService: UserService)
 	{
-		this.user = this.authService.user;
+		this.user = this.userService.user;
 	}
 
 }

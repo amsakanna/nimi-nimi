@@ -49,3 +49,9 @@ export const enum DATABASE_OPERATION {
 	UPDATE,
 	SELECT
 }
+
+export const enum EVENT {
+	NONE,
+	LOG_IN,
+	LOG_OUT
+}

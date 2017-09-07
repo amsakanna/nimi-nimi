@@ -2,16 +2,22 @@
 
     <header>
 
-        <section class="home menu">
-            <a md-fab [routerLink]="['/']">
-                <md-icon> device_hub </md-icon>
+        <!-- <section class="menu">
+            <a md-button disableRipple
+                *ngFor="let menuItem of meta.menu"
+                [routerLink]="[menuItem.link]"
+                class="compact no-focus no-animation"
+                [style.color]="menuItem.selected ? 'black' : '#aaa'">
+                {{ menuItem.text }}
             </a>
-        </section>
+        </section> -->
 
-        <section class="user menu">
-            <a md-fab [routerLink]="['/user']">
-                <md-icon> account_circle </md-icon>
-            </a>
+        <section class="menu">
+            <jam-double-menu
+            [menu]="menu"
+            [parentMenu]="parentMenu"
+            (select)="select( $event )">
+            </jam-double-menu>
         </section>
 
     </header>
@@ -20,18 +26,5 @@
         <router-outlet>            
         </router-outlet>
     </main>
-
-    <footer>
-
-        <section class="placeholder">
-        </section>
-
-        <section class="cart menu">
-            <a md-fab [routerLink]="['/cart']">
-                <md-icon> shopping_cart </md-icon>
-            </a>
-        </section>
-        
-    </footer>
 
 </div>

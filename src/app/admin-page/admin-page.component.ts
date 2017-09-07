@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { RouterService } from '../services/router.service';
+import { Navigator } from '../services/navigator.service';
 import { AuthService } from '../services/auth.service';
-import { NavigationItem } from '../models/navigationItem.model';
+import { NavigationItem } from '../models/navigation-item.model';
 
 @Component({
 	selector: 'app-admin-page',
@@ -12,22 +12,14 @@ import { NavigationItem } from '../models/navigationItem.model';
 export class AdminPageComponent implements OnInit 
 {
 
-	navigationList: NavigationItem[];
+	navigationList: Array<NavigationItem>;
 	ngOnInit() {}
 
 	constructor(private router: Router,	
-				private routerService: RouterService,
+				private routerService: Navigator,
 				private authService: AuthService)
 	{
-		this.navigationList = this.routerService.requestRoutes([
-			'/admin/transaction/inventory',
-			'/admin/transaction/journal',
-			'/admin/dimension/brand',
-			'/admin/dimension/department',
-			'/admin/dimension/product',
-			'/admin/dimension/size',
-			'/admin/dimension/color'
-		]);
+		this.navigationList = new Array<NavigationItem>();
 	}
 
 	logout()

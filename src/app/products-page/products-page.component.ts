@@ -28,7 +28,7 @@ export class ProductsPageComponent implements OnInit {
 				private pictureService: PictureService,
 				private indexService: IndexService)
 	{
-		this.searchKeySub = this.route.queryParams.subscribe(params => 
+		this.searchKeySub = this.route.queryParams.subscribe( params => 
 		{
 
 			var keyword: string = params[ 'keyword' ] || '';

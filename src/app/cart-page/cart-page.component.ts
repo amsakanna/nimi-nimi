@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { FILTER, SORT } from '../app.enum';
-import { AuthService } from '../services/auth.service';
-import { UserService } from '../services/user.service';
 import { ProductService, CartItemService } from '../services/all-data.service';
+import { UserService } from '../services/user.service';
 import { Product } from '../models/product.model';
 import { CartItem } from '../models/cart-item.model';
 import { Cart } from '../models/cart.model';
@@ -25,11 +24,10 @@ export class CartPageComponent implements OnInit {
 	constructor(private productService: ProductService,
 				private cartItemService: CartItemService,
 				private userService: UserService,
-				private authService: AuthService,
 				private router: Router)
 	{
 		this.cart = new Cart();
-		this.cart.user = this.authService.user;		
+		this.cart.user = this.userService.user;		
 		this.cartItemService
 		.getList(SORT.FOREIGN_KEY, FILTER.EQUAL_TO, this.cart.user.$key)
 		.subscribe( cartItemList => {
