@@ -1,0 +1,8 @@
+.jam-grid {
+    display: flex;
+
+}
+
+.jam-grid-tile {
+    width: 100px;
+}

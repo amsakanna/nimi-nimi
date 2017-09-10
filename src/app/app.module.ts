@@ -32,7 +32,8 @@ import {
   ColorService,
   SizeService,
   CartItemService,
-  NavigationItemService
+  NavigationItemService,
+  TileSizeService
 } from './services/all-data.service';
 import { KeyValService } from './services/key-val.service';
 import { DefaultService } from './services/default.service';
@@ -79,6 +80,7 @@ import { JamPictureUploaderComponent } from './jam-picture-uploader/jam-picture-
 import { JamPhotoUploaderComponent } from './jam-photo-uploader/jam-photo-uploader.component';
 import { JamMenuComponent } from './jam-menu/jam-menu.component';
 import { JamDoubleMenuComponent } from './jam-double-menu/jam-double-menu.component';
+import { JamGridComponent } from './jam-grid/jam-grid.component';
 
 export const firebaseAppConfig : FirebaseAppConfig = {
     apiKey: "AIzaSyBV4KfPwTrqbFXzf7Sm6YAXkjSY1jSVcEk",
@@ -124,7 +126,7 @@ export const firebaseAppConfig : FirebaseAppConfig = {
     AuthComponent,
     ProductSearchBarComponent,
     ColorComponent, ColorFormComponent, ColorListComponent, 
-    SizeComponent, SizeFormComponent, SizeListComponent, CheckoutPageComponent, JamFormNewComponent, JamPictureUploaderComponent, JamPhotoUploaderComponent, JamMenuComponent, JamDoubleMenuComponent
+    SizeComponent, SizeFormComponent, SizeListComponent, CheckoutPageComponent, JamFormNewComponent, JamPictureUploaderComponent, JamPhotoUploaderComponent, JamMenuComponent, JamDoubleMenuComponent, JamGridComponent
   ],
   imports: [
     BrowserModule,
@@ -142,6 +144,7 @@ export const firebaseAppConfig : FirebaseAppConfig = {
     LogService,
     AuthService,
     Navigator,
+    TileSizeService,
     KeyValService,
 	  ProductService,
     BrandService,

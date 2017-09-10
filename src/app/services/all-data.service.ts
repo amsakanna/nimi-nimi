@@ -19,6 +19,9 @@ import { Color } from '../models/color.model';
 import { Size } from '../models/size.model';
 import { CartItem } from '../models/cart-item.model';
 import { NavigationItem } from '../models/navigation-item.model';
+import { TileSize } from '../models/tile-size.model';
+import { ReplaySubject } from "rxjs/Rx";
+import { SORT, FILTER } from "app/app.enum";
 
 @Injectable() export class IndexService extends DataService<Index> { constructor(db: AngularFireDatabase) { super(db); } protected createModel(json) : Index { return new Index(json); } }
 @Injectable() export class TagService extends DataService<Tag> { constructor(db: AngularFireDatabase) { super(db); } protected createModel(json) : Tag { return new Tag(json); } }
@@ -36,3 +39,4 @@ import { NavigationItem } from '../models/navigation-item.model';
 @Injectable() export class JournalService extends DataService<Journal> { constructor(db: AngularFireDatabase) { super(db); } protected createModel(json) : Journal { return new Journal(json); } }
 @Injectable() export class InventoryService extends DataService<Inventory> { constructor(db: AngularFireDatabase) { super(db); } protected createModel(json) : Inventory { return new Inventory(json); } }
 @Injectable() export class NavigationItemService extends DataService<NavigationItem> { constructor(db: AngularFireDatabase) { super(db); } protected createModel(json) : NavigationItem { return new NavigationItem(json); } }
+@Injectable() export class TileSizeService extends DataService<TileSize> { public list: Array<TileSize>; public loadStatus: ReplaySubject<boolean>; constructor(db: AngularFireDatabase) { super(db); this.loadStatus = new ReplaySubject<boolean>(); this.getList( SORT.NONE, FILTER.NONE ).subscribe( list => { this.list = list; this.loadStatus.next( true ); } ) } protected createModel(json) : TileSize { return new TileSize(json); } }

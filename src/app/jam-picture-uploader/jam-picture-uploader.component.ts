@@ -61,7 +61,7 @@ export class JamPictureUploaderComponent implements OnInit
 
 	}
 
-	scrollme(direction: string)
+	scrollme( direction: string )
 	{
 		document.getElementById('picture-list').scrollLeft += ( direction == 'left') ? -30 : 30;
 	}

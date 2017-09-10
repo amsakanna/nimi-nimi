@@ -113,6 +113,11 @@ export abstract class DataService<T>
 			tableName: 'Interface/Navigation/NavigationItem',
 			foreignKeyName: '',
 			searchKeyName: 'link'
+		},
+		TileSizeService: {
+			tableName: 'Interface/TileSize',
+			foreignKeyName: '',
+			searchKeyName: ''
 		}
 	}
     
@@ -256,14 +261,14 @@ export abstract class DataService<T>
 
 	getObject( key: string ): Observable<T> 
 	{
-		const dataStream = this.db.object(this.tableName + '/' + key ).take( 1 );
+		const dataStream = this.db.object(this.tableName + '/' + key )/*.take( 1 )*/;
 		return this.mapObjectToModel( dataStream );
 	}
 
 	getList( sortBy: SORT | string, filterBy: FILTER, filterValue?: string ) : Observable<T[]>
 	{
 		var query = this.prepareQuery( sortBy, filterBy, filterValue );
-		const dataStream = this.db.list( this.tableName, { query: query } ).take( 1 );
+		const dataStream = this.db.list( this.tableName, { query: query } )/*.take( 1 )*/;
 		return this.mapListToModel( dataStream );
 	}
 

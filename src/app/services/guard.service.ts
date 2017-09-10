@@ -4,8 +4,9 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
 import { AuthService } from './auth.service';
 import { UserService } from './user.service';
 import { Navigator } from './navigator.service';
-import { User } from '../models/user.model';
 import { MetaService } from "./meta.service";
+import { TileSizeService } from "./all-data.service";
+import { User } from '../models/user.model';
 
 
 @Injectable()
@@ -54,13 +55,16 @@ export class InterfaceDataGuard implements CanActivate
 {
 	
 	constructor(private router: Router,
-		private navigator: Navigator) {}
+				private navigator: Navigator,
+				private tileSizeService: TileSizeService) {}
 		
 	canActivate(activatedRouteSnapshot: ActivatedRouteSnapshot,
 				routerStateSnapshot: RouterStateSnapshot): Observable<boolean>
 	{
 		// Check if navigation data is loaded
-		return this.navigator.loadStatus.asObservable().take( 1 ).do( loaded => {
+		return this.navigator.loadStatus.asObservable().take( 1 )
+		.concatMap( navigationLoaded => this.tileSizeService.loadStatus.asObservable().take( 1 ) )
+		.do( loaded => {
 			console.log( 'nav loaded ?', loaded );
 		});
 	}

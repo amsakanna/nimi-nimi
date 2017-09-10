@@ -15,34 +15,41 @@
 		</nav>
 	</header>
 
-	<md-grid-list class="product-grid"
-		cols="10"
-		rowHeight="240px">
-		<md-grid-tile *ngFor="let product of productList; let i = index;">
+	<main id="product-grid-container" class="horizontal scrollable"
+		(mousewheel)="scrollme( $event )">
+		<md-grid-list class="product-grid"
+			[cols]="grid.cols"
+			rowHeight="220px"
+			[style.width]="grid.width + 'px'">
+			<md-grid-tile *ngFor="let tile of grid.tiles"
+				[rowspan]="tile.height"
+				[colspan]="tile.width">
 
-			<section class="product-box floating-box"
-				(click)="select(product)">
+				<section class="product-box floating-box"
+					(click)="select( tile.data )">
+					<!-- [style.backgroundColor]="'rgb(' + tile.color.r + ', ' + tile.color.g + ', ' + tile.color.b + ')'"> -->
 
-				<header>
-					<div class="title"> {{ product.name }} </div>
-				</header>
+					<header>
+						<div class="title"> {{ tile.data.name }} </div>
+					</header>
 
-				<main>
-					<div class="thumbnail-wrapper">
-						<img class="thumbnail" [src]="product.picture.thumbnail" [alt]="product.picture.name" /> 
-					</div>
-				</main>
+					<main>
+						<div class="thumbnail-wrapper">
+							<img class="thumbnail" [src]="tile.data.picture.frontView" [alt]="tile.data.picture.name" /> 
+						</div>
+					</main>
 
-				<footer>			
-					<div class="price"> ₹ {{ product.price ? product.price : 'N/A' }} </div>
-					<div class="buy">
-						<button md-button> ADD TO CART </button>
-					</div>
-				</footer>
+					<footer>			
+						<div class="price"> ₹ {{ tile.data.price ? tile.data.price : 'N/A' }} </div>
+						<div class="buy">
+							<button md-button> ADD TO CART </button>
+						</div>
+					</footer>
 
-			</section>
+				</section>
 
-		</md-grid-tile>
-	</md-grid-list>
+			</md-grid-tile>
+		</md-grid-list>
+	</main>
 	
 </div>

@@ -187,6 +187,7 @@ md-nav-list {
 }
 
 .scrollable {
+    overflow-x: hidden;
     overflow-y: auto;
     -ms-overflow-style: none;
     overflow: -moz-scrollbars-none;
@@ -194,6 +195,7 @@ md-nav-list {
 
 .horizontal.scrollable {
     overflow-x: auto;
+    overflow-y: hidden;
     -ms-overflow-style: none;
     overflow: -moz-scrollbars-none;
 }
