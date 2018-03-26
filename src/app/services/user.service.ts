@@ -19,6 +19,7 @@ export class UserService extends DataService<User>
         
         this.loadStatus = this.authService.auth
             .concatMap( auth => {
+                console.log('user service');
                 if( auth.loggedIn ) {
                     return this.insertIfNew( auth.user, auth.user.email, 'email' )
                     .map( dataServiceObject => {

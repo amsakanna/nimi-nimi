@@ -17,6 +17,7 @@
 
 	<main id="product-grid-container" class="horizontal scrollable"
 		(mousewheel)="scrollme( $event )">
+
 		<md-grid-list class="product-grid"
 			[cols]="grid.cols"
 			rowHeight="220px"
@@ -25,28 +26,27 @@
 				[rowspan]="tile.height"
 				[colspan]="tile.width">
 
-				<section class="product-box floating-box"
-					(click)="select( tile.data )">
-					<!-- [style.backgroundColor]="'rgb(' + tile.color.r + ', ' + tile.color.g + ', ' + tile.color.b + ')'"> -->
+				<div class="product-box-container">
+					<div class="product-box floating-box"
+						(click)="select( tile )">
+						<!-- [style.backgroundColor]="'rgb(' + tile.color.r + ', ' + tile.color.g + ', ' + tile.color.b + ')'"> -->
 
-					<header>
-						<div class="title"> {{ tile.data.name }} </div>
-					</header>
+						<main>
+							<div class="thumbnail-wrapper">
+								<img class="thumbnail" [src]="tile.data.picture.frontView" [alt]="tile.data.picture.name" /> 
+							</div>
+						</main>
 
-					<main>
-						<div class="thumbnail-wrapper">
-							<img class="thumbnail" [src]="tile.data.picture.frontView" [alt]="tile.data.picture.name" /> 
-						</div>
-					</main>
+						<footer>
+							<div class="title-container">
+								<div class="title"> {{ tile.data.name }} </div>		
+								<div class="price"> ₹ {{ tile.data.price ? tile.data.price : 'N/A' }} </div>
+							</div>
+							<!-- <button md-button class="buy compact"> + </button> -->
+						</footer>
 
-					<footer>			
-						<div class="price"> ₹ {{ tile.data.price ? tile.data.price : 'N/A' }} </div>
-						<div class="buy">
-							<button md-button> ADD TO CART </button>
-						</div>
-					</footer>
-
-				</section>
+					</div>
+				</div>
 
 			</md-grid-tile>
 		</md-grid-list>

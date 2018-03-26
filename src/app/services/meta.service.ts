@@ -14,6 +14,7 @@ export class MetaService
 	{
 		this.loadStatus = new ReplaySubject<boolean>();
 
+		// TODO: catch errors
 		this.db.object( 'Metadata' )
 		.subscribe( meta => {
 			g.meta = meta;

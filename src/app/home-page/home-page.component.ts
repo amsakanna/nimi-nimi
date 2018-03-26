@@ -5,7 +5,6 @@ import { FILTER, SORT } from '../app.enum';
 import { Navigator } from '../services/navigator.service';
 import { AuthService } from '../services/auth.service';
 import { g } from '../app.global';
-import { Menu } from '../models/menu.model';
 import { NavigationItem } from "../models/navigation-item.model";
 
 @Component({
@@ -28,9 +27,9 @@ export class HomePageComponent implements OnInit
 	{
 		this.meta = g.meta;
 
-		this.authService.auth.subscribe( auth =>
-			this.navigator.authNavigationItem.text = auth.loggedIn ? 'logout' : 'login'
-		);
+		// this.authService.auth.subscribe( auth =>
+		// 	this.navigator.authNavigationItem.text = auth.loggedIn ? 'logout' : 'login'
+		// );
 
 		this.navigator.navigationState.subscribe( ( { curr, parent, grandParent } ) => {
 			this.menu = parent.children;

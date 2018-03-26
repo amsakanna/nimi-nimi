@@ -57,7 +57,7 @@ export class ProductsPageComponent implements OnInit {
 						// get pictures for product
 						this.pictureService
 						.getObject( product.picture.$key )
-						.subscribe( picture => { product.picture = picture; console.log( product ); } );
+						.subscribe( picture => product.picture = picture );
 						// get tile size
 						var tileSizeKey = product.rating == 5 ? 'popularProduct' : 'product';
 						var tileSize = this.tileSizeService.list.find( item => item.$key == tileSizeKey );
@@ -131,9 +131,18 @@ export class ProductsPageComponent implements OnInit {
 		this.searchKeySub.unsubscribe();
 	}
 
-	select(product: Product)
+	select( tile: Tile )
 	{
-		this.router.navigateByUrl('/products/' + product.$key);
+		var type = tile.data.constructor.name;
+		switch( type ) {
+			case 'Product':
+				var product = tile.data;
+				this.router.navigateByUrl( '/products/' + product.$key );
+				break;
+		
+			default:
+				break;
+		}
 	}
 
 }

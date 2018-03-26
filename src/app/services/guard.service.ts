@@ -19,9 +19,10 @@ export class AuthGuard implements CanActivate
 	canActivate(activatedRouteSnapshot: ActivatedRouteSnapshot, 
 				routerStateSnapshot: RouterStateSnapshot): Observable<boolean>
 	{
+
 		// Get authentication
+		// If not authenticated, route to auth page
 		return this.authService.authenticated.take( 1 )
-		// if not authenticated, route to auth page.
 		.do( authenticated => {
 			console.log( 'auth guard let me in ?', authenticated );
 			if( ! authenticated ) {

@@ -63,60 +63,6 @@
 		- other settings
 
 
-
-search
-	- $key[]
-		- itemKey
-			- subject
-			- subjectKey
-
-
-		- item-0004
-			- subject: Product
-			- subjectKey: -Kduhwenszi+adf
-		- item-0008
-			- subject: User
-			- subjectKey: -K3uhwenszi+adf
-		- item-0015
-			- subject: Color
-			- subjectKey: -Kd34ewenszi+adf
-
--Kj7kDOcALXZzW4Vxm1T
-product-2
-
-
-search
-	- is
-		- item-0002
-	- top
-		- item-0004
-		- item-0008
-		- item-0015
-	- VBlue
-		- item-0256
-	- white
-		- item-0026
-		- item-0546
-		- item-0687
-	- bag
-		- item-0546
-		- item-0256
-	- whirlpool
-		- item-0468
-	- white
-		- item-0050
-
-white top
-whirlpool saree
-
-
-saree
-whirlpool
-white
-	- item-4468
-	- item-6797
-
-
 journal : assignment
 inventory : dns
 brand : aspect_ratio
@@ -124,3 +70,100 @@ department : group_work
 product : card_giftcard
 size : content_cut
 color : format_color_fill
+
+
+Men
+	Lungies
+Women
+    Sarees
+    Saree Blouses
+    Lehengas
+	Cholis
+    Kurtis
+    Salwars
+	Patiala Pants
+    Leggings
+    Dupattas
+	Skirts
+    Tops
+    Jeans
+    T Shirts
+    Shirts
+	Nighties
+	Inner Wears
+	Towels
+    
+
+Price Range
+Color
+Material
+Pattern
+Size
+Types
+Occasion
+Brand
+
+
+super admin
+	- can create admins
+	- can edit databases directly
+	- can create databases
+	- can manage databases
+	- can delete databases
+
+admin
+	- 
+
+
+
+
+jamstation
+	- jamadmin
+	- jamauth
+	- jamapps
+		- jamaccounts
+			- super admin
+				- can create database ( jamstation super admin )
+			- admin
+				- can create companies
+				- can create definitions
+			- user
+				- can add stock
+				- can view reports
+
+
+
+
+company
+	- purchase order
+		- 10 chudithar
+	- stock
+		+ 10
+	- journal
+		cash	product
+		-1000	+1000		
+	- invoice
+		item	2	500/-	1000/-
+		item2	1	100/-	0100/-
+							-------
+							1100/-
+							-------
+	- Profit report
+	- Asset report
+
+company2
+	- purchase order
+		- 10 chudithar
+	- stock
+		+ 10
+	- journal
+		cash	product
+		-1000	+1000		
+	- invoice
+		item	2	500/-	1000/-
+		item2	1	100/-	0100/-
+							-------
+							1100/-
+							-------
+	- Profit report
+	- Asset report

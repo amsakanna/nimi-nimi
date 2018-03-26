@@ -23,6 +23,7 @@ export class AuthService
 		this.auth = this.angularFireAuth
 			.asObservable()
 			.map( authState => {
+				console.log( 'auth', this.constructor.name );
 				return new Auth({
 					loggedIn: !! authState,
 					user: this.createUser( authState )

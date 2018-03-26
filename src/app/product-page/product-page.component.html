@@ -1,12 +1,4 @@
 <main class="container">
-	<!-- <md-grid-list class="picture-grid floating-box" cols="7" rowHeight="40px">
-		<md-grid-tile colspan="4" rowspan="10"><img class="picture" src="{{ product?.picture.frontView }}" alt="{{ product ? product.name +  ' - front view' : 'loading' }}"></md-grid-tile>
-		<md-grid-tile colspan="2" rowspan="6"><img class="picture" src="{{ product?.picture.frontView }}" alt="{{ product ? product.name +  ' - front view' : 'loading' }}"></md-grid-tile>
-		<md-grid-tile colspan="1" rowspan="6"><img class="picture" src="{{ product?.picture.frontView }}" alt="{{ product ? product.name +  ' - front view' : 'loading' }}"></md-grid-tile>
-		<md-grid-tile colspan="3" rowspan="4"><img class="picture" src="{{ product?.picture.frontView }}" alt="{{ product ? product.name +  ' - front view' : 'loading' }}"></md-grid-tile>
-		<md-grid-tile colspan="5" rowspan="2"><img class="picture" src="{{ product?.picture.frontView }}" alt="{{ product ? product.name +  ' - front view' : 'loading' }}"></md-grid-tile>
-		<md-grid-tile colspan="2" rowspan="2"><img class="picture" src="{{ product?.picture.frontView }}" alt="{{ product ? product.name +  ' - front view' : 'loading' }}"></md-grid-tile>
-	</md-grid-list> -->
 	<div class="product-box floating-box">
 		<div class="picture-preview-box">
 			 <img *ngIf="product?.picture" class="picture" [src]="product?.picture?.frontView" [alt]="product?.picture?.name"> 

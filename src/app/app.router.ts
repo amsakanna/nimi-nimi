@@ -37,10 +37,9 @@ const appRoutes: Routes = [
     { path: '', component: HomePageComponent, canActivate: [ InterfaceDataGuard, MetaGuard ], children: [
         { path: '', redirectTo: 'products', pathMatch: 'full' },
         { path: 'auth', component: AuthComponent },
-        { path: 'products', component: ProductsPageComponent, children: [
-            { path: ':key', children: [
-                { path: '', component: ProductPageComponent }
-            ]}
+        { path: 'products', component: ProductsPageComponent },
+        { path: 'products/:key', children: [
+            { path: '', component: ProductPageComponent }
         ]},
         { path: 'cart', canActivate: [ AuthGuard, UserGuard ], children: [
             { path: '', component: CartPageComponent },
